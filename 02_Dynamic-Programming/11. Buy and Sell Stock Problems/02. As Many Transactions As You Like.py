@@ -1,11 +1,10 @@
-# https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
-# https://www.youtube.com/watch?v=nGJmxkUJQGs
+from typing import List
 
 # --------------------------------------------------------------------------------------------
 # 1) TOP-DOWN DP (Memoization)
 # --------------------------------------------------------------------------------------------
 
-class Solution:
+class SolutionTopDown:
     def maxProfit(self, prices: List[int]) -> int:
         memo = {}
 
@@ -16,52 +15,74 @@ class Solution:
                 return memo[(i, can_sell)]
 
             if can_sell == 1:
-                profit = max(prices[i] + solve(i+1, 0), solve(i+1, 1))
+                profit = max(prices[i] + solve(i + 1, 0), solve(i + 1, 1))
             else:
-                profit = max(-prices[i] + solve(i+1, 1), solve(i+1, 0))
+                profit = max(-prices[i] + solve(i + 1, 1), solve(i + 1, 0))
 
             memo[(i, can_sell)] = profit
             return profit
 
         return solve(0, 0)
 
-# Time: O(2N)
-# Space: O(N)
-
 
 # --------------------------------------------------------------------------------------------
 # 2) BOTTOM-UP DP (Tabulation)
 # --------------------------------------------------------------------------------------------
 
-class Solution:
+class SolutionBottomUp:
     def maxProfit(self, prices: List[int]) -> int:
         n = len(prices)
-        dp = [[0]*2 for _ in range(n+1)]
+        dp = [[0] * 2 for _ in range(n + 1)]
         dp[0][0] = -2**31
 
-        for i in range(1, n+1):
+        for i in range(1, n + 1):
             for can_sell in range(2):
                 if can_sell == 1:
-                    dp[i][can_sell] = max(prices[i-1] + dp[i-1][0], dp[i-1][1])
+                    dp[i][can_sell] = max(
+                        prices[i - 1] + dp[i - 1][0],
+                        dp[i - 1][1]
+                    )
                 else:
-                    dp[i][can_sell] = max(-prices[i-1] + dp[i-1][1], dp[i-1][0])
+                    dp[i][can_sell] = max(
+                        -prices[i - 1] + dp[i - 1][1],
+                        dp[i - 1][0]
+                    )
 
         return dp[-1][1]
 
 
 # --------------------------------------------------------------------------------------------
 # 3) GREEDY (Optimized)
-#  Tiny PR change: Added type hints
 # --------------------------------------------------------------------------------------------
 
-from typing import List
-
-class Solution:
+class SolutionGreedy:
     def maxProfit(self, prices: List[int]) -> int:
         res = 0
-
         for i in range(len(prices) - 1):
-            if prices[i+1] > prices[i]:
-                res += prices[i+1] - prices[i]
-        
+            if prices[i + 1] > prices[i]:
+                res += prices[i + 1] - prices[i]
         return res
+
+
+# --------------------------------------------------------------------------------------------
+# DRIVER CODE
+# --------------------------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    prices_list = [
+        [7, 1, 5, 3, 6, 4],     # Expected: 7
+        [1, 2, 3, 4, 5],       # Expected: 4
+        [7, 6, 4, 3, 1],       # Expected: 0
+        [1],                   # Expected: 0
+    ]
+
+    sol1 = SolutionTopDown()
+    sol2 = SolutionBottomUp()
+    sol3 = SolutionGreedy()
+
+    for prices in prices_list:
+        print(f"Prices: {prices}")
+        print("Top-Down DP  :", sol1.maxProfit(prices))
+        print("Bottom-Up DP :", sol2.maxProfit(prices))
+        print("Greedy       :", sol3.maxProfit(prices))
+        print("-" * 40)
