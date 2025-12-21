@@ -34,22 +34,27 @@ x = (s - s1 + (p - p1) / (s - s1)) // 2
 class Solution:
     def repeatedNumber(self, arr):
         n = len(arr)
-        s = n * (n + 1) // 2
-        s1 = sum(arr)
+        s = n * (n + 1) // 2      # Sum of first n numbers
+        s1 = sum(arr)             # Sum of array elements
 
-        p = n * (n+1) * (2*n + 1) // 6
+        p = n * (n + 1) * (2*n + 1) // 6  # Sum of squares of first n numbers
 
-        # fining x^2 - y^2
         for i in arr:
-            p -= i ** 2
+            p -= i**2             # p now = sum_squares_expected - sum_squares_actual
 
-        # now current p = y^2 - x^2
-        diff = -p  # = p1 - p = x^2 - y^2
+        diff = -p                  # x^2 - y^2
 
-        x = (s1 - s + diff // (s1 - s)) // 2   # repeating number
-        y = s - s1 + x   # missing number
+        x = (s1 - s + diff // (s1 - s)) // 2  # repeated number
+        y = s - s1 + x                        # missing number
         
         return (x, y)
+
+# Example usage
+arr = [1, 2, 3, 4, 6, 6]
+sol = Solution()
+repeat, missing = sol.repeatedNumber(arr)
+print("Repeated Number:", repeat)
+print("Missing Number:", missing)
 
     # Time: O(n)
     # Space: O(1)

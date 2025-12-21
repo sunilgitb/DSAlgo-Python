@@ -1,25 +1,40 @@
 # https://leetcode.com/problems/longest-consecutive-sequence/
 
-''' 
-As we have to find the max consecutive length (ie. sorted array) so start from the smallest value (ie. the 
-element where num-1 not present) then keep counting greater consecutive elements.
-
-Instead of using 2 loops we basically traversed each element only once. So it is Linear Time. 
 '''
+Idea:
+- Put all elements into a set for O(1) lookup
+- Start counting only from numbers whose (num - 1) does NOT exist
+- Extend forward to count consecutive numbers
+'''
+
 class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
+    def longestConsecutive(self, nums):
+        if not nums:
+            return 0
+
         track = set(nums)
         res = 0
-        
+
         for num in nums:
+            # start only if it's the beginning of a sequence
             if (num - 1) not in track:
-                tmpRes = 1
-                while (num + 1) in track:
-                    tmpRes += 1
-                    num += 1
-                res = max(res, tmpRes)
-        
+                curr = num
+                length = 1
+
+                while (curr + 1) in track:
+                    curr += 1
+                    length += 1
+
+                res = max(res, length)
+
         return res
 
-# Time: O(N)
-# Space: O(N)
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    sol = Solution()
+
+    nums = [100, 4, 200, 1, 3, 2]
+
+    print("Array:", nums)
+    print("Longest Consecutive Sequence Length:", sol.longestConsecutive(nums))

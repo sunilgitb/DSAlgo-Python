@@ -17,21 +17,37 @@ if we got y previously in dictionary then increase the res by that count.
 '''
 class Solution:
     def solve(self, arr, k):
-        dic = {}
-        cpx = 0
+        freq = {}      # stores prefix_xor frequency
+        cpx = 0        # current prefix xor
         res = 0
 
-        for i in arr:
-            cpx = cpx ^ i
+        for num in arr:
+            cpx ^= num
 
+            # case 1: subarray from index 0
+            if cpx == k:
+                res += 1
+
+            # case 2: subarray from some middle index
             y = cpx ^ k
-            if y in dic: res += dic[y]
-            if cpx == k: res += 1
+            if y in freq:
+                res += freq[y]
 
-            if cpx in dic: dic[cpx] += 1
-            else: dic[cpx] = 1
-        
+            # store prefix xor
+            freq[cpx] = freq.get(cpx, 0) + 1
+
         return res
+
+
+# -------------------- DRIVER CODE --------------------
+if __name__ == "__main__":
+    sol = Solution()
+
+    arr = [4, 2, 2, 6, 4]
+    k = 6
+
+    print("Subarrays with XOR =", k)
+    print(sol.solve(arr, k))
 
 # Time: O(N)
 # Space: O(N)

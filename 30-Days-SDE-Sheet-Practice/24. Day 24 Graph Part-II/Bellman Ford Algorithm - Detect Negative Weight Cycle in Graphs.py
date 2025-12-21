@@ -2,27 +2,43 @@
 # https://youtu.be/75yC1vbS8S8
 
 # Method 1: Bellman Ford Algorithm
-class Solution:
-	def isNegativeWeightCycle(self, n, edges):
-        dist = [2**31] * n
+class SolutionBellmanFord:
+    def isNegativeWeightCycle(self, n, edges):
+        INF = 2**31
+        dist = [INF] * n
         dist[0] = 0
 
-        for i in range(n):
-            for j in range(len(edges)):
-                frm = edges[j][0]
-                to = edges[j][1]
-                weight = edges[j][2]
-                if dist[frm] != 2**31 and dist[frm] + weight < dist[to]:
-                    dist[to] = dist[frm] + weight
-        
-        for j in range(len(edges)):
-            frm = edges[j][0]
-            to = edges[j][1]
-            weight = edges[j][2]
-            if dist[frm] != 2**31 and dist[frm] + weight < dist[to]:
-                return 1  # True
-        
-        return 0  # False
+        # Relax edges n-1 times
+        for _ in range(n - 1):
+            for u, v, w in edges:
+                if dist[u] != INF and dist[u] + w < dist[v]:
+                    dist[v] = dist[u] + w
+
+        # One more relaxation to detect negative cycle
+        for u, v, w in edges:
+            if dist[u] != INF and dist[u] + w < dist[v]:
+                return 1  # Negative cycle exists
+
+        return 0
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    test_cases = [
+        # (n, edges, expected)
+        (3, [[0,1,-1],[1,2,-2],[2,0,-3]], 1),   # Negative cycle
+        (3, [[0,1,4],[1,2,3]], 0),              # No cycle
+        (4, [[0,1,1],[1,2,-1],[2,3,-1],[3,1,-1]], 1)
+    ]
+
+    solver = SolutionBellmanFord()
+
+    for i, (n, edges, expected) in enumerate(test_cases, 1):
+        print(f"Test Case {i}")
+        print("Output  :", solver.isNegativeWeightCycle(n, edges))
+        print("Expected:", expected)
+        print("-" * 40)
+
 
 		
 # Time: O(V * E)

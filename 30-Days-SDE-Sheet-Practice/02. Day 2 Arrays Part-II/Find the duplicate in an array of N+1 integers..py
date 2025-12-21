@@ -12,33 +12,45 @@ Then start a check pointer from 0 and another pointer from current slow's positi
 The value where both collide will be the duplicate element.
 '''
 
+from typing import List
+
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
-        # Use concept of 142. Linked List Cycle II (find the node where linked list has cycle)
-        
-        # start hopping from Node
         slow, fast = 0, 0
-        # Cycle detection
-        # Let slow jumper and fast jumper meet somewhere in the cycle 
+        
+        # Phase 1: Detect cycle
         while True:
-            # slow jumper hops 1 step, while fast jumper hops two steps forward.
             slow = nums[slow]
             fast = nums[nums[fast]]
-            
             if slow == fast:
                 break
         
-        # for locating start node of cycle
+        # Phase 2: Find entry point of cycle (duplicate)
         check = 0
         while True:
-            # Locate the start node of cycle (i.e., the duplicate number)
             slow = nums[slow]
             check = nums[check]
-            
-            if check == slow:
-                break
-        
-        return check
+            if slow == check:
+                return check
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    sol = Solution()
+
+    test_cases = [
+        [1, 3, 4, 2, 2],
+        [3, 1, 3, 4, 2],
+        [1, 1],
+        [1, 1, 2],
+        [2, 5, 9, 6, 9, 3, 8, 9, 7, 1]
+    ]
+
+    for i, nums in enumerate(test_cases, 1):
+        print(f"Test Case {i}:")
+        print("Array:", nums)
+        print("Duplicate Number:", sol.findDuplicate(nums))
+        print("-" * 35)
 
 # Time: O(n)
 # Space: O(1)

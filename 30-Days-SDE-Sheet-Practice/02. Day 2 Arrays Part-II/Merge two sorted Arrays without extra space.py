@@ -1,6 +1,8 @@
 # https://leetcode.com/problems/merge-sorted-array/
 
 # --------------------- Method 1 -----------------------------------
+from typing import List
+
 class Solution:
     def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
         while m > 0 and n > 0:
@@ -16,6 +18,17 @@ class Solution:
             n -= 1
                  
         return nums1
+
+# Hardcoded input
+nums1 = [1,2,3,0,0,0]
+m = 3
+nums2 = [2,5,6]
+n = 3
+
+sol = Solution()
+merged_array = sol.merge(nums1, m, nums2, n)
+print("Merged Array:", merged_array)
+
 
 # Time: O(N)
 # Space: O(1)

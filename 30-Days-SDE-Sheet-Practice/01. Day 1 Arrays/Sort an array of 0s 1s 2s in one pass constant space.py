@@ -7,6 +7,8 @@ Use 3 pointers named low, mid, and high to move 0s to the left and
 2s to the right and 1s in the middle of the array and hence the array will be sorted. 
 '''
 
+from typing import List
+
 class Solution:
     def sortColors(self, nums: List[int]) -> None:
         low = 0
@@ -14,19 +16,37 @@ class Solution:
         high = len(nums) - 1
         
         while mid <= high:
-            if nums[mid] == 0:   # need to keep this 0 at low's place
+            if nums[mid] == 0:
                 nums[low], nums[mid] = nums[mid], nums[low]
                 low += 1
                 mid += 1
-                
-            elif nums[mid] == 1: # 1 is at correct place 
+            elif nums[mid] == 1:
                 mid += 1
-            
-            elif nums[mid] == 2: # need to keep 2 this 2 at high's place
+            else:  # nums[mid] == 2
                 nums[mid], nums[high] = nums[high], nums[mid]
                 high -= 1
-        
-        return nums
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    sol = Solution()
+
+    test_cases = [
+        [2, 0, 2, 1, 1, 0],
+        [2, 0, 1],
+        [0],
+        [1],
+        [2, 2, 1, 1, 0, 0],
+        [0, 1, 2, 0, 1, 2]
+    ]
+
+    for idx, nums in enumerate(test_cases, 1):
+        print(f"Test Case {idx}:")
+        print("Before:", nums)
+        sol.sortColors(nums)
+        print("After: ", nums)
+        print("-" * 30)
+
 
 # Time: O(N)  # One Pass Solution
 # Space: O(1)

@@ -3,36 +3,48 @@
 # Minimum Spanning Tree (MST)
 
 import heapq
+from typing import List
+
 class Solution:
-    def minCostConnectPoints(self, points):
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
         n = len(points)
-        # for simplicity, marking the points with a node value from 0 to (n-1)
-        adjList = {i:[] for i in range(n)}  # key = curr node, value = (dist, other nodes)
+        adjList = {i: [] for i in range(n)}
+
         for i in range(n):
-            x1 = points[i][0]; y1 = points[i][1]
-            for j in range(i+1, n):
-                x2 = points[j][0]; y2 = points[j][1]
+            x1, y1 = points[i]
+            for j in range(i + 1, n):
+                x2, y2 = points[j]
                 dist = abs(x1 - x2) + abs(y1 - y2)
-                # as it is a undirected graph, we need to add both i and j to adjList
                 adjList[i].append((dist, j))
                 adjList[j].append((dist, i))
-        
-        # Prim's Algorithm - Minimum Spanning Tree (MST) 
-        # (In the Dijkstra's Algorithm if we introduce a visited data structure to 
-        # stop cycle in graph then it converts to Prim's Algorithm)
+
         visited = set()
         res = 0
-        minHeap = [(0, 0)]  # (dist, node)
-        while len(visited) < n: # until all nodes a visited
-            dist, node = heapq.heappop(minHeap)
-            if node in visited: continue
+        minHeap = [(0, 0)]  # (cost, node)
+
+        while len(visited) < n:
+            cost, node = heapq.heappop(minHeap)
+            if node in visited:
+                continue
             visited.add(node)
-            res += dist
-            for dn in adjList[node]:  # dn = (dist, node)
-                if dn[1] not in visited:
-                    heapq.heappush(minHeap, dn)
-        
+            res += cost
+
+            for edge in adjList[node]:
+                if edge[1] not in visited:
+                    heapq.heappush(minHeap, edge)
+
         return res
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    points = [[0,0],[2,2],[3,10],[5,2],[7,0]]
+    # Expected Output: 20
+
+    sol = Solution()
+    result = sol.minCostConnectPoints(points)
+    print("Minimum Cost to Connect All Points:", result)
+
 
 
 # V = number of umber of verices and E = numver of Edges in the graph.
