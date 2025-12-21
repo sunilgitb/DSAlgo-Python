@@ -14,29 +14,43 @@ Jobs = {(1,2,100),(2,1,19),(3,2,27),(4,1,25),(5,1,15)}
 Output:
 2 127
 '''
-
 class Solution:
-    def JobScheduling(self,jobs,n):
-        # Sort based on the profit in decending order
-        jobs.sort(key = lambda x:x[2])
+    def JobScheduling(self, jobs, n):
+        # Sort based on profit in descending order
+        jobs.sort(key=lambda x: x[2], reverse=True)
         
         maxDeadline = 0
         for job in jobs:
             maxDeadline = max(maxDeadline, job[1])
         
         jobDone = [False] * (maxDeadline + 1)
-        
         jobsCount = 0
         totalProfit = 0
+        
         for job in jobs:
             for i in range(job[1], 0, -1):
-                if jobDone[i] == False:
+                if not jobDone[i]:
                     jobsCount += 1
                     totalProfit += job[2]
-                    jobDone[i] == True
+                    jobDone[i] = True 
                     break
         
         return jobsCount, totalProfit
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    sol = Solution()
+
+    jobs = [(1,4,20),(2,1,10),(3,1,40),(4,1,30)]
+    n = 4
+    print(sol.JobScheduling(jobs,n))
+    # Expected Output: (2, 60)
+
+    jobs = [(1,2,100),(2,1,19),(3,2,27),(4,1,25),(5,1,15)]
+    n = 5
+    print(sol.JobScheduling(jobs,n))
+    # Expected Output: (2, 127)
 
 # Time: O(N log(N)) + O(N * M)    # where N = len(jobs); M = maxDeadline
 # Space: O(M)

@@ -3,22 +3,43 @@
 We can start a new meeting after its previous meeting ends. So I will 
 sort the meeting array based on ending time. So that meetings with low ending time comes fist
 '''
+# https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1#
+'''
+We can start a new meeting after the previous one ends.
+So we sort meetings by their end time (Greedy approach).
+'''
+
 class Solution:
-    #Function to find the maximum number of meetings that can be performed in a meeting room.
-    def maximumMeetings(self,n,start,end):
-        meeting = []
-        for i in range(len(start)):
-            meeting.append([i, start[i], end[i]])
-        meeting.sort(key = lambda x:x[2])
+    # Function to find the maximum number of meetings
+    def maximumMeetings(self, n, start, end):
+        # Pair start and end times
+        meetings = [[start[i], end[i]] for i in range(n)]
         
-        maxMeet = [0]
-        prevEnd = meeting[0][2]
-        for i in range(1, len(meeting)):
-            if meeting[i][1] > prevEnd:
-                prevEnd = meeting[i][2]
-                maxMeet.append(meeting[i][0])
+        # Sort by ending time
+        meetings.sort(key=lambda x: x[1])
         
-        return len(maxMeet)
+        count = 1
+        lastEnd = meetings[0][1]
+        
+        for i in range(1, n):
+            if meetings[i][0] > lastEnd:
+                count += 1
+                lastEnd = meetings[i][1]
+        
+        return count
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    sol = Solution()       
+
+    start = [1, 3, 0, 5, 8, 5]
+    end   = [2, 4, 6, 7, 9, 9]
+    n = len(start)
+
+    print(sol.maximumMeetings(n, start, end))
+    # Expected Output: 4
+
         
 
 

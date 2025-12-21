@@ -19,6 +19,10 @@ class Solution:
 # Space: O(1)
 '''
 
+# https://leetcode.com/problems/max-consecutive-ones/
+
+from typing import List
+
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
         res = 0
@@ -32,6 +36,28 @@ class Solution:
                 res = max(res, tmp)
         
         return res
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    sol = Solution()
+
+    nums = [1, 1, 0, 1, 1, 1]
+    print(sol.findMaxConsecutiveOnes(nums))
+    # Expected Output: 3
+
+    nums = [1, 0, 1, 1, 0, 1]
+    print(sol.findMaxConsecutiveOnes(nums))
+    # Expected Output: 2
+
+    nums = [0, 0, 0, 0]
+    print(sol.findMaxConsecutiveOnes(nums))
+    # Expected Output: 0
+
+    nums = [1, 1, 1, 1]
+    print(sol.findMaxConsecutiveOnes(nums))
+    # Expected Output: 4
+
 
 # Time: O(N)
 # Space: O(1)
