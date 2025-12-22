@@ -3,19 +3,44 @@
 Traverse through the string and check whether left part of the iterator palindrom or not.
 if palindrom call the function 
 '''
+# https://leetcode.com/problems/palindrome-partitioning/
+'''
+Traverse through the string and check whether the left substring is palindrome or not.
+If palindrome, recurse for the remaining string.
+'''
+
 class Solution:
-    def partition(self, s: str) -> List[List[str]]:
+    def partition(self, s):
         res = []
-        
+
         def solve(s, path):
-            if not s: 
+            if not s:
                 res.append(path)
+                return
+
             for i in range(len(s)):
+                # check if prefix is palindrome
                 if s[:i+1] == s[:i+1][::-1]:
                     solve(s[i+1:], path + [s[:i+1]])
-        
+
         solve(s, [])
         return res
+
+
+# -------- DRIVER CODE --------
+sol = Solution()
+
+print(sol.partition("aab"))
+# Expected Output: [['a', 'a', 'b'], ['aa', 'b']]
+
+print(sol.partition("a"))
+# Expected Output: [['a']]
+
+print(sol.partition("aba"))
+# Expected Output: [['a', 'b', 'a'], ['aba']]
+
+print(sol.partition("nitin"))
+# Expected Output: [['n', 'i', 't', 'i', 'n'], ['n', 'iti', 'n'], ['nitin']]
 
 ''' 
 Time Complexity: O( (2^n) *k*(n/2) )
