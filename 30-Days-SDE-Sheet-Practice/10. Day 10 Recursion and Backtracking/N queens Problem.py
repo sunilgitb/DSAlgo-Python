@@ -4,6 +4,8 @@ queen attack horizontally, vertically, is both positive diagonal and negetive di
 we travers row-wise and keep a track of the above parameters in a set and make sure no 2 queens 
 comes in each other direction.
 '''
+
+from typing import List
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         col = set()
@@ -39,3 +41,16 @@ class Solution:
 
 # Time Complexity: O( N^2 )
 # Space Complexity: O( N^2 )
+
+
+if __name__ == '__main__':
+    sol = Solution()
+    tests = [4, 1, 2, 3]
+
+    for n in tests:
+        res = sol.solveNQueens(n)
+        print(f"\nN = {n} -> {len(res)} solution(s)")
+        for idx, board in enumerate(res, 1):
+            print(f"Solution {idx}:")
+            print('\n'.join(board))
+            print()

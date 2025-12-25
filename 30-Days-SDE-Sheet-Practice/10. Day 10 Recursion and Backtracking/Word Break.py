@@ -1,6 +1,8 @@
 # https://leetcode.com/problems/word-break/
 # https://youtu.be/Sx9NNgInc3A
 
+from typing import List
+
 # Recursion
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
@@ -40,3 +42,18 @@ class Solution:
 
 # Time: O(N^2)
 # Space: O(N)
+
+
+if __name__ == '__main__':
+    sol = Solution()
+    tests = [
+        ("leetcode", ["leet", "code"], True),
+        ("applepenapple", ["apple", "pen"], True),
+        ("catsandog", ["cats", "dog", "sand", "and", "cat"], False),
+        ("", ["a"], True),
+    ]
+
+    for s, wordDict, expected in tests:
+        res = sol.wordBreak(s, wordDict)
+        print(f"\ns = {s!r}\nwordDict = {wordDict}\nResult: {res} (expected: {expected})")
+        print("PASS" if res == expected else "FAIL")

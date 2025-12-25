@@ -1,6 +1,8 @@
 # https://leetcode.com/problems/sudoku-solver/
 # https://youtu.be/uyetDh-DyDg
 
+from typing import List
+
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
         row = {i:set() for i in range(9)}
@@ -103,4 +105,52 @@ class Solution:
 Time complexity: O(9^(n*n)). For every unassigned index, there are 9 possible options so the time complexity is O(9^(n*n)). The time complexity remains the same but checking if a number is safe to use is much faster, O(1).
 Space Complexity: O(n*n). As in worst case there can be n*n "." so to update them in board we need to use this space.
 '''
+
+
+if __name__ == '__main__':
+    sol = Solution()
+
+    board = [
+        ["5","3",".",".","7",".",".",".","."],
+        ["6",".",".","1","9","5",".",".","."],
+        [".","9","8",".",".",".",".","6","."],
+        ["8",".",".",".","6",".",".",".","3"],
+        ["4",".",".","8",".","3",".",".","1"],
+        ["7",".",".",".","2",".",".",".","6"],
+        [".","6",".",".",".",".","2","8","."],
+        [".",".",".","4","1","9",".",".","5"],
+        [".",".",".",".","8",".",".","7","9"]
+    ]
+
+    def print_board(b):
+        for r in b:
+            print(' '.join(r))
+
+    print('\nInitial board:')
+    print_board(board)
+
+    sol.solveSudoku(board)
+
+    print('\nSolved board:')
+    print_board(board)
+
+    def is_solved(b):
+        digits = set(str(i) for i in range(1, 10))
+        # rows
+        for r in b:
+            if set(r) != digits: return False
+        # columns
+        for c in range(9):
+            if set(b[r][c] for r in range(9)) != digits: return False
+        # boxes
+        for br in range(3):
+            for bc in range(3):
+                s = set()
+                for rr in range(br*3, br*3+3):
+                    for cc in range(bc*3, bc*3+3):
+                        s.add(b[rr][cc])
+                if s != digits: return False
+        return True
+
+    print('\nValidation: ' + ('OK - valid solution' if is_solved(board) else 'Invalid or incomplete'))
 

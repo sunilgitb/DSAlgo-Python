@@ -2,6 +2,9 @@
 ''' 
 We keep a track of elements and check for all 4 directions
 '''
+
+from typing import List
+
 class Solution:
     def findPath(self, m, n):
         if m[0][0] == 0 or m[-1][-1] == 0: return []
@@ -39,3 +42,40 @@ class Solution:
 # Time: O(N*N)
 # Space: O(N*N)
          
+
+if __name__ == '__main__':
+    sol = Solution()
+
+    tests = [
+        (
+            [[1,0,0,0],
+             [1,1,0,1],
+             [1,1,0,0],
+             [0,1,1,1]],
+            4,
+            'Example 4x4'
+        ),
+        (
+            [[0,1],[1,0]],
+            2,
+            'Start blocked'
+        ),
+        (
+            [[1]],
+            1,
+            '1x1 grid'
+        ),
+        (
+            [[1,0],[1,1]],
+            2,
+            'Simple 2x2'
+        )
+    ]
+
+    for i, (m, n, desc) in enumerate(tests, 1):
+        paths = sol.findPath(m, n)
+        print(f"\nTest {i}: {desc} (n={n}) -> {len(paths)} path(s)")
+        for p in paths:
+            print(p)
+        if not paths:
+            print('No path found')
