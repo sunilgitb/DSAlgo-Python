@@ -1,18 +1,19 @@
 # https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
 
 class Solution:
-    def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+    def findTarget(self, root, k):
         arr = []
+        
         def inorder(root):
-            if not root: return
+            if not root:
+                return
             inorder(root.left)
             arr.append(root.val)
             inorder(root.right)
         
         inorder(root)
         
-        l = 0
-        r = len(arr)-1
+        l, r = 0, len(arr) - 1
         while l < r:
             twoSum = arr[l] + arr[r]
             if twoSum < k:
@@ -25,24 +26,32 @@ class Solution:
         return False
 
 
-class Solution:
-    def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
-        visited = set()
-        self.res = False
-        
-        def inorder(root):
-            if not root: return
-            inorder(root.left)
-            rem = k - root.val
-            if rem in visited: self.res = True
-            visited.add(root.val)
-            inorder(root.right)
-        
-        inorder(root)
-        return self.res
-
-
 # Time: O(N)
 # Space: O(N)
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
+# Construct BST
+#        5
+#       / \
+#      3   6
+#     / \   \
+#    2   4   7
+
+root = TreeNode(5)
+root.left = TreeNode(3)
+root.right = TreeNode(6)
+root.left.left = TreeNode(2)
+root.left.right = TreeNode(4)
+root.right.right = TreeNode(7)
+
+k = 9
+
+solution = Solution()
+print(solution.findTarget(root, k))
+# Expected Output: True   (2 + 7 = 9)

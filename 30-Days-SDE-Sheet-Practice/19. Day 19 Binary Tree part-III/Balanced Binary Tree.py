@@ -14,13 +14,15 @@ class Solution:
 # Space: O(1)
 '''
 
+
 # https://youtu.be/QfJsau0ItOY
 
 class Solution:
     def isBalanced(self, root):
         
         def dfs(root):
-            if not root: return True, 0  
+            if not root: 
+                return True, 0  
             
             lb, lh = dfs(root.left)      
             rb, rh = dfs(root.right)
@@ -34,3 +36,28 @@ class Solution:
     
 # Time: O(N)
 # Space: O(1)
+
+# Example usage
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+if __name__ == "__main__":
+    # Balanced tree:       1
+    #                     /   \
+    #                    2     3
+    root_bal = TreeNode(1, TreeNode(2), TreeNode(3))
+
+    # Unbalanced tree:    1
+    #                      \
+    #                       2
+    #                        \
+    #                         3
+    root_unbal = TreeNode(1, TreeNode(2, TreeNode(3)))
+
+    sol = Solution()
+    print("Balanced tree:", sol.isBalanced(root_bal))   # True
+    print("Unbalanced tree:", sol.isBalanced(root_unbal)) # False

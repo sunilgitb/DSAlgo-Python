@@ -1,55 +1,57 @@
 # https://leetcode.com/problems/binary-search-tree-iterator/
 
-'''
-Brute Force: 
-make a inorder traversal and store all nodes in an array then Time Complexity = O(N); Space = O(N)
-
-class BSTIterator:
-
-    def __init__(self, root):
-        self.btree = []
-        self.index = -1
-        self.inorder(root)
-
-    def next(self) -> int:
-        self.index += 1
-        return self.btree[self.index]
-
-    def hasNext(self) -> bool:
-        return self.index < len(self.btree) - 1
-    
-    def inorder(self, root):
-        if not root: return
-        self.inorder(root.left)
-        self.btree.append(root.val)
-        self.inorder(root.right)
-'''
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
-# We have to solve in Time = O(H) and Space = O(1) where H is the height of the current calling node
+# Optimal Approach
+# Time: O(1) amortized per operation
+# Space: O(H) where H = height of tree
 
 class BSTIterator:
 
     def __init__(self, root: TreeNode):
         self.stack = []
-        self.getAllLeft(root)
+        self._push_all_left(root)
 
     def next(self) -> int:
-        # Get next value in the iterator
         node = self.stack.pop()
-        # Append more nodes if there are any on the right
-        self.getAllLeft(node.right)
+        self._push_all_left(node.right)
         return node.val
-        
+
     def hasNext(self) -> bool:
-        # If the iterator is not empty, there is a NEXT value
-        return self.stack
-    
-    def getAllLeft(self, node:TreeNode) -> None:
-        # Add all nodes on the left to the iterator
+        return len(self.stack) > 0
+
+    def _push_all_left(self, node: TreeNode):
         while node:
             self.stack.append(node)
             node = node.left
- 
 
+# Construct BST
+#        7
+#       / \
+#      3   15
+#          / \
+#         9  20
 
+root = TreeNode(7)
+root.left = TreeNode(3)
+root.right = TreeNode(15)
+root.right.left = TreeNode(9)
+root.right.right = TreeNode(20)
+
+iterator = BSTIterator(root)
+
+print(iterator.next())     # Output: 3
+print(iterator.next())     # Output: 7
+print(iterator.hasNext())  # Output: True
+print(iterator.next())     # Output: 9
+print(iterator.hasNext())  # Output: True
+print(iterator.next())     # Output: 15
+print(iterator.hasNext())  # Output: True
+print(iterator.next())     # Output: 20
+print(iterator.hasNext())  # Output: False
