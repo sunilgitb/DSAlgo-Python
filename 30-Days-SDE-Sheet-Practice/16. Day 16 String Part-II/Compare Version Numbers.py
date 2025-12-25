@@ -29,7 +29,7 @@ class Solution:
 # Time: O(N^2)
 # Space: O(1)
 '''
-
+import collections
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
         v1 = collections.deque(version1.split("."))
@@ -49,4 +49,9 @@ class Solution:
 # Time: O(N)  ; as pop from deque is constant time
 # Space: O(N) ; for making v1 and v2
 
-
+# Example Usage
+sol = Solution()
+print(sol.compareVersion("1.01", "1.001"))  # Output: 0
+print(sol.compareVersion("1.0", "1.0.0"))   # Output: 0
+print(sol.compareVersion("0.1", "1.1"))     # Output: -1
+print(sol.compareVersion("1.0.1", "1"))     # Output: 1

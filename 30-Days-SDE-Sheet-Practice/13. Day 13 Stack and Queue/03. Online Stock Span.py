@@ -16,3 +16,13 @@ class StockSpanner:
 
 # Time: O(N)
 # Space: O(N)
+# Your StockSpanner object will be instantiated and called as such:
+# obj = StockSpanner()
+# param_1 = obj.next(price)
+# Example usage:
+stockSpanner = StockSpanner()
+print(stockSpanner.next(100)) # return 1
+print(stockSpanner.next(80))  # return 1
+print(stockSpanner.next(60))  # return 1
+print(stockSpanner.next(70))  # return 2
+print(stockSpanner.next(60))  # return 1

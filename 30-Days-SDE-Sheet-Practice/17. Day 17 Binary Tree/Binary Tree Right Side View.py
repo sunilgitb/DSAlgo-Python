@@ -1,4 +1,12 @@
 # https://leetcode.com/problems/binary-tree-right-side-view/
+import collections
+from typing import Optional, List
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
@@ -23,3 +31,12 @@ class Solution:
 
 # Time: O(N)
 # Space: O(N)
+
+# Example Usage
+sol = Solution()
+root = TreeNode(1)
+root.right = TreeNode(3)
+root.left = TreeNode(2)
+root.left.right = TreeNode(5)
+root.right.right = TreeNode(4)
+print(sol.rightSideView(root))  # Output: [1, 3, 4]

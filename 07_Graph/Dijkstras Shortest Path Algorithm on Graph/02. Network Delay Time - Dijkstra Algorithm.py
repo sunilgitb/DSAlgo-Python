@@ -3,6 +3,8 @@
 '''
 # Implement Dijktra's Shortest Path Algorithm
 '''
+from typing import List
+import heapq
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
         # create Adjacency List 
@@ -25,6 +27,13 @@ class Solution:
         
         # if we can visit all nodes then only return total time t
         return t if len(visited) == n else -1 
+
+# Driver code:
+times = [[2,1,1],[2,3,1],[3,4,1]]
+n = 4
+k = 2
+obj = Solution()
+print(obj.networkDelayTime(times, n, k))  # Output: 2
 
 # number of edges, e = len(times)
 # n = total no. of nodes

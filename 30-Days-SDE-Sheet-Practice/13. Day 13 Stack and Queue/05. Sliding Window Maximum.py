@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/sliding-window-maximum/
-
+from typing import List
+import collections
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         q = collections.deque()
@@ -21,6 +22,11 @@ class Solution:
 
 # Time: O(N)
 # Space: O(N)
+
+# Example usage:
+sol = Solution()
+print(sol.maxSlidingWindow([1,3,-1,-3,5,3,
+                           6,7], 3))  # Output: [3,3,5,5,6,7]
 
 ''' 
 The time complexity of deque.popleft() is O(1),

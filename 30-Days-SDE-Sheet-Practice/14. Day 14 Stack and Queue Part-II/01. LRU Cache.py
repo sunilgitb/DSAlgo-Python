@@ -4,7 +4,6 @@
 # https://youtu.be/akFRa58Svug
 # https://youtu.be/UudCSLREm08
 
-
 class ListNode:
     def __init__(self, key, value):
         self.key = key
@@ -58,7 +57,17 @@ class LRUCache:
             self.tail.next = node
             self.tail = node
 
-
+# Time Complexity: O(1) for both get and put operations
+# Space Complexity: O(N) for storing the cache in dictionary and linked list
+# Example Usage:
+lru = LRUCache(2)
+lru.put(1, 1)
+lru.put(2, 2)
+print(lru.get(1))    # returns 1
+lru.put(3, 3)   
+print(lru.get(2))    # returns -1 (not found)
+lru.put(4, 4)     
+print(lru.get(1))    # returns -1 (not found)
 
 
 
@@ -134,7 +143,17 @@ class LRUCache(object):
         if self.head:
             self.head.prev = None
 
-
+# Time Complexity: O(1) for both get and put operations
+# Space Complexity: O(N) for storing the cache in dictionary and linked list
+# Example Usage:
+lru = LRUCache(2)
+lru.put(1, 1)
+lru.put(2, 2)
+print(lru.get(1))    # returns 1
+lru.put(3, 3)   
+print(lru.get(2))    # returns -1 (not found)
+lru.put(4, 4)     
+print(lru.get(1))    # returns -1 (not found)
 
 '''
 # Using OrderedDict Dictionary  => Optimized but NOT for Interviews

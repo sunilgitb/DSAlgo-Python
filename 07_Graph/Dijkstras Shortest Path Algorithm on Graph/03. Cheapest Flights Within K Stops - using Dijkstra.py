@@ -2,6 +2,8 @@
 ''' 
 First Solve => 02. Network Delay Time - using Dijkstra Algorithm
 '''
+from typing import List
+import heapq
 class Solution:
     def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
         #Make graph
@@ -31,6 +33,16 @@ class Solution:
                 heapq.heappush(prior_queue, (cost + weight, steps + 1, neighb))
 
         return -1
+# Driver code
+
+n = 3
+flights = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0
+dst = 2
+k = 1
+sol = Solution()
+print(sol.findCheapestPrice(n, flights, src, dst, k))  # Output: 200
+
 
 # Time: O(n * len(flights) * log(n))
 # Space: O(n)

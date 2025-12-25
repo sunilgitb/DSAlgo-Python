@@ -26,6 +26,13 @@ class Solution:
         
 # Time Complexity: O(n2)
 # Auxiliary Space: O(N)
+
+# Example Usage:
+if __name__ == "__main__":
+    stack = [34, 3, 31, 98, 92, 23]
+    solution = Solution()
+    sorted_stack = solution.sorted(stack)
+    print("Sorted Stack:", sorted_stack)  # Output: Sorted Stack: [3, 23, 31, 34, 92, 98]
         
         
         

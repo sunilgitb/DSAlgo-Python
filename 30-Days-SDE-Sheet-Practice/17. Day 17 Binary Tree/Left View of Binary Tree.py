@@ -2,6 +2,12 @@
 
 import collections
 
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+
 def LeftView(root):
     final_ans = []
     q = collections.deque()
@@ -23,3 +29,19 @@ def LeftView(root):
 
 # Time: O(N)
 # Space: O(N)
+
+# Example Usage:
+# Constructing the following binary tree
+#         1
+#        / \
+#       2   3
+#      / \   \
+#     4   5   6
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+root.right.right = Node(6)
+print(LeftView(root))  # Output: [1, 2, 4]
+

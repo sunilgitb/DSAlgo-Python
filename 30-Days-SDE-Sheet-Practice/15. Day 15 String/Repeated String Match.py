@@ -51,3 +51,8 @@ class Solution:
 Time Complexity: O(N * M) 
 Auxiliary Space: O(1). 
 '''
+# Example Usage
+solution = Solution()
+a = "abcd"
+b = "cdabcdab"
+print(solution.repeatedStringMatch(a, b))  # Output: 3

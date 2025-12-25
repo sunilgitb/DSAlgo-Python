@@ -32,3 +32,11 @@ class Solution:
 
 # Time: O(N)
 # Space: o(N)
+
+# Example Usage
+sol = Solution()
+print(sol.romanToInt("III"))      # Output: 3
+print(sol.romanToInt("IV"))       # Output: 4
+print(sol.romanToInt("IX"))       # Output: 9
+print(sol.romanToInt("LVIII"))    # Output: 58
+print(sol.romanToInt("MCMXCIV"))  # Output: 1994

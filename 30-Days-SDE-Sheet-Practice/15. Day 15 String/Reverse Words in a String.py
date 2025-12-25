@@ -48,3 +48,8 @@ class Solution:
             
 # Time: O(N)
 # Space: O(1)
+
+# Example Usage
+sol = Solution()
+print(sol.reverseWords("  hello world  "))  # Output: "world hello"
+print(sol.reverseWords("a good   example"))  # Output: "example good a"

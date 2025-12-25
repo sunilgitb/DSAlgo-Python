@@ -2,6 +2,12 @@
 
 import collections
 
+class Node:
+    def __init__(self, val):
+        self.data = val
+        self.left = None
+        self.right = None
+
 class Solution:
     def bottomView(self, root):
         distDict = {}
@@ -14,8 +20,10 @@ class Solution:
             
             distDict[dist] = node.data
             
-            if node.left: q.append((node.left, dist-1))
-            if node.right: q.append((node.right, dist+1))
+            if node.left: 
+                q.append((node.left, dist-1))
+            if node.right: 
+                q.append((node.right, dist+1))
         
         keys = distDict.keys()
         mini = min(keys)
@@ -30,4 +38,20 @@ class Solution:
         
 # Time: O(N)
 # Space: O(N)
+
+# Example Usage:
+if __name__ == "__main__":
+    # Constructing the binary tree
+    root = Node(20)
+    root.left = Node(8)
+    root.right = Node(22)
+    root.left.left = Node(5)
+    root.left.right = Node(3)
+    root.right.right = Node(25)
+    root.left.right.left = Node(10)
+    root.left.right.right = Node(14)
+
+    solution = Solution()
+    print(solution.bottomView(root))  # Output: [5, 10, 3, 14, 25]
+
 

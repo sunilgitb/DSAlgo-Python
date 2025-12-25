@@ -1,5 +1,13 @@
 # Morris Traversal Inorder
 # https://leetcode.com/problems/binary-tree-inorder-traversal/
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
 class Solution:
     def inorderTraversal(self, root):
         res = []
@@ -25,6 +33,13 @@ class Solution:
     
 # Time: O(N)
 # Space: O(1)
+
+# Example Usage:
+root = TreeNode(1)
+root.right = TreeNode(2)
+root.right.left = TreeNode(3)
+sol = Solution()
+print(sol.inorderTraversal(root))  # Output: [1, 3, 2]
 
 
 # Morris Traversal Preorder
@@ -54,3 +69,9 @@ class Solution:
     
 # Time: O(N)
 # Space: O(1)
+# Example 2 Usage:
+root = TreeNode(1)
+root.right = TreeNode(2)
+root.right.left = TreeNode(3)
+sol = Solution()
+print(sol.preorderTraversal(root))  # Output: [1, 2, 3]
