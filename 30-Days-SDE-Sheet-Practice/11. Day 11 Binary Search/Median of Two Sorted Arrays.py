@@ -91,3 +91,22 @@ Input:
 Output:
 8.00000
 '''
+
+
+if __name__ == "__main__":
+    # ✅ Driver code with example tests
+    s = Solution()
+
+    tests = [
+        ([7,12,14,15], [1,2,3,4,9,11], 8.0),
+        ([1,3], [2], 2.0),
+        ([1,2], [3,4], 2.5),
+        ([], [1], 1.0),
+        ([], [], 0.0),
+        ([0,0], [0,0], 0.0),
+    ]
+
+    for i, (a, b, expected) in enumerate(tests, 1):
+        res = s.findMedianSortedArrays(a, b)
+        print(f"Test {i}: a={a}, b={b} -> median={res} (expected={expected})")
+

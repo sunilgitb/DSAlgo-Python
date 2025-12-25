@@ -1,37 +1,53 @@
-# https://www.codingninjas.com/codestudio/problems/aggressive-cows_1082559?leftPanelTab=1
+# https://www.codingninjas.com/codestudio/problems/aggressive-cows_1082559
 # https://youtu.be/YTTdLgyqOLY?t=2626
-'''
-Same binary search approach like 'Minimum Page Allocation Problem'. 
-In the isValid function we need to check if with the current distance 'mid'
-we can place all the cows in the stalls or not. If we can place all the cows then
-try to increase the mid(ie. increase the low). If we can not place all cows then
-that distsnce(ie. mid) we need to decrease the distance etween cows ie. dicrease the 
-mid.
-'''
-def aggressiveCows(stalls, k):
-	def isValid(mid):
-		count = 1  # count of cows
-		lastPosition = stalls[0]  # position where we recently placed the cow
-		for i in range(1, len(stalls)):
-			if stalls[i] - lastPosition >= mid: # checking if we can place cow in this i'th position
-				count += 1
-				if count == k: return True
-				lastPosition = stalls[i]
-		return False
-	
-	stalls.sort()  # as in isValid() function we need the distance in increasing order
-	ans = 0
-	low = 0
-	high = max(stalls)
-	while low <= high:
-		mid = low + (high - low) // 2
-		if isValid(mid):  # check if we can increase the distance or not
-			ans = max(ans, mid)
-			low = mid + 1
-		else:
-			high = mid - 1
-	
-	return ans
 
-# Time: n * log(max(stalls))
-# Space: O(1)
+'''
+Binary Search on Answer
+
+We try to maximize the minimum distance between cows.
+Use binary search on distance and check feasibility using greedy placement.
+'''
+
+def aggressiveCows(stalls, k):
+
+    def isValid(mid):
+        count = 1                  # first cow placed
+        lastPosition = stalls[0]   # position of last placed cow
+
+        for i in range(1, len(stalls)):
+            if stalls[i] - lastPosition >= mid:
+                count += 1
+                lastPosition = stalls[i]
+                if count == k:
+                    return True
+        return False
+
+    stalls.sort()
+    low = 0
+    high = max(stalls)
+    ans = 0
+
+    while low <= high:
+        mid = low + (high - low) // 2
+        if isValid(mid):
+            ans = mid
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return ans
+
+
+# -------- DRIVER CODE --------
+
+print(aggressiveCows([1, 2, 4, 8, 9], 3))
+# Expected Output: 3
+
+print(aggressiveCows([10, 1, 2, 7, 5], 3))
+# Expected Output: 4
+
+print(aggressiveCows([4, 2, 1, 3, 6], 2))
+# Expected Output: 5
+
+print(aggressiveCows([1, 2, 8, 4, 9], 3))
+# Expected Output: 3

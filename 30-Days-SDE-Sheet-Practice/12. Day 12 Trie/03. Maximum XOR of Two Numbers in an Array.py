@@ -12,6 +12,7 @@ So we do the following steps While traversing the num from 31'th bit position to
 If the current bit of num is 1 then we try to move the cur pointer towards the child with 0 key.
 And if the current bit of num is 0 then we try to move the cur pointer towards the child with 1 key.
 '''
+from typing import List
 
 class TrieNode:
     def __init__(self):
@@ -58,5 +59,19 @@ class Solution:
         
         return res
 
+
+# Example / driver code 🔧
+if __name__ == "__main__":
+    s = Solution()
+
+    nums = [3,10,5,25,2,8]
+    print("nums:", nums)
+    print("max XOR ->", s.findMaximumXOR(nums))  # 28
+
+    # Additional tests
+    assert s.findMaximumXOR([3,10,5,25,2,8]) == 28
+    assert s.findMaximumXOR([0,0]) == 0
+    assert s.findMaximumXOR([2,4]) == 6
+    print("Driver tests passed ✅")
 
 

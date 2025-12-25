@@ -40,6 +40,34 @@ class Trie:
 
 
 # Your Trie object will be instantiated and called as such:
+
+# Example / driver code 🔧
+if __name__ == "__main__":
+    # LeetCode-style example
+    trie = Trie()
+
+    trie.insert("apple")
+    print("search('apple') ->", trie.search("apple"))    # True
+    print("search('app') ->", trie.search("app"))        # False
+    print("startsWith('app') ->", trie.startsWith("app"))  # True
+
+    trie.insert("app")
+    print("After inserting 'app': search('app') ->", trie.search("app"))  # True
+
+    # Additional sanity checks
+    assert trie.search("apple") is True
+    assert trie.search("app") is True
+    assert trie.startsWith("ap") is True
+    assert trie.startsWith("b") is False
+
+    print("Driver tests passed ✅")
+    // output:
+    search('apple') -> True
+    search('app') -> False
+    startsWith('app') -> True
+    After inserting 'app': search('app') -> True
+
+    
 # obj = Trie()
 # obj.insert(word)
 # param_2 = obj.search(word)

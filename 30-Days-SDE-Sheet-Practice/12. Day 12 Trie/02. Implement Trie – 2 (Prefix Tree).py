@@ -37,7 +37,7 @@ class Trie:
             cur = cur.children[c]
         return cur.prefixOfWordCount
 
-    def erase(self, word):  # Dele te function
+    def erase(self, word):  # Delete function
         cur = self.root
         toBeDeleted = None
         for c in word:  # as it a delete function so word is present in trie so we don't need to check if key 'c' present in children hashmap or not. 
@@ -51,13 +51,35 @@ class Trie:
         if toBeDeleted:
             toBeDeleted = None
         cur.endOfWordCount -= 1
-        
-        
-    # It will also work if we don't delete the node only decrease the counts
-    def erase(self, word):  # Dele te function
-        cur = self.root
-        for c in word:  # as it a delete function so word is present in trie so we don't need to check if key 'c' present in children hashmap or not. 
+
+
+# Example / driver code 🔧
+if __name__ == "__main__":
+    trie = Trie()
+
+    trie.insert("apple")
+    trie.insert("apple")
+    trie.insert("app")
+
+    print("countWordsEqualTo('apple') ->", trie.countWordsEqualTo("apple"))  # 2
+    print("countWordsEqualTo('app') ->", trie.countWordsEqualTo("app"))      # 1
+    print("countWordsStartingWith('app') ->", trie.countWordsStartingWith("app"))  # 3
+
+    trie.erase("apple")
+    print("After erase('apple'): countWordsEqualTo('apple') ->", trie.countWordsEqualTo("apple"))  # 1
+
+    trie.erase("apple")
+    print("After erase('apple') again: countWordsEqualTo('apple') ->", trie.countWordsEqualTo("apple"))  # 0
+
+    # Sanity checks
+    assert trie.countWordsEqualTo("apple") == 0
+    assert trie.countWordsEqualTo("app") == 1
+    assert trie.countWordsStartingWith("app") == 1
+
+    print("Driver tests passed ✅")
             cur = cur.children[c]
             cur.prefixOfWordCount -= 1
                 
         cur.endOfWordCount -= 1
+    # output: Driver tests passed ✅
+# Example / driver code 🔧

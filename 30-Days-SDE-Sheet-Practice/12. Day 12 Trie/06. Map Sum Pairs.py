@@ -38,3 +38,29 @@ class MapSum:
 Time complexity: O(m) to insert key of length m as well it is O(m) to evaluate sum for prefix of length m. 
 Space complexity: O(T) where T it total length of all words.
 '''
+
+
+# Example / driver code 🔧
+if __name__ == "__main__":
+    ms = MapSum()
+
+    ms.insert("apple", 3)
+    print("sum('ap') ->", ms.sum("ap"))  # 3
+
+    ms.insert("app", 2)
+    print("sum('ap') ->", ms.sum("ap"))  # 5
+
+    ms.insert("apple", 2)  # override apple from 3 to 2
+    print("After override sum('ap') ->", ms.sum("ap"))  # 4
+
+    # Sanity checks
+    assert ms.sum("ap") == 4
+    assert ms.sum("apple") == 2
+    assert ms.sum("b") == 0
+
+    print("Driver tests passed ✅")
+    // Output:
+    // sum('ap') -> 3
+    // sum('ap') -> 5
+    // After override sum('ap') -> 4
+    // Driver tests passed ✅

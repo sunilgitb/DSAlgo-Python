@@ -1,77 +1,60 @@
-# https://practice.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
+# https://practice.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937
 # https://www.youtube.com/watch?v=2JSQIhPcHQg
 
-''' 
-A = [12,34,67,90];  M = 2
+'''
+Allocate Minimum Number of Pages (Binary Search on Answer)
 
-I will implement Binary Search with left pointer l and right pointer r.
-As I know max(A) must be given to a student so l = max(A); you can start from l = 0 also
-l = max(A) = 90
-r = sum(A) = 203
-
-90----------------------------------------------------------------146--------------------------------------------203
-l                                                                 mid                                             r
-mid = 146 isValid so ans = mid = 146; I will try to decrease mid => r = mid - 1 = 145 
-
-90-------------------------------------117------------------------145
-l                                      mid                         r
-mid = 117 isValid so ans = mid = 117; I will try to decrease mid => r = mid - 1 = 116
-
-90--------------103--------------------116
-l               mid                     r
-mid = 103 NOT isValid so I will try to increase mid => l = mid + 1 = 104
-
-                104-------110----------116
-                 l        mid           r
-mid = 110 NOT isValid so I will try to increase mid => l = mid + 1 = 111
-
-                          111----113---116
-                           l     mid    r
-mid = 113 isValid so ans = mid = 113; I will try to decrease mid => r = mid - 1 = 112
-
-                          111----112
-                          l=mid   r
-mid = 111 NOT isValid so I will try to increase mid => l = mid + 1 = 112
-
-                                 112
-                                l=mid=r
-mid = 112 NOT isValid so I will try to increase mid => l = mid + 1 = 113
-Now l = 113; r = 112    => l > r   => Break Loop 
-
+Each student must get contiguous books.
+We want to minimize the maximum pages assigned to any student.
 '''
 
 class Solution:
-    def findPages(self,A, N, M):
-        l = max(A); r = sum(A); ans = -1
-        
-        if len(A) < M: return -1  # Number of books can not be lesser than number of students as we have to give atleast 1 book to a student
+    def findPages(self, A, N, M):
 
-        def isValid(A, M, mid):
-            pageSum = 0           # sum of pages of A that can be allocated to one student
-            requiredStudents = 1  # Number of students required if mid is the max capacity of student
-            
+        # If books are fewer than students
+        if N < M:
+            return -1
+
+        l = max(A)     # minimum possible answer
+        r = sum(A)     # maximum possible answer
+        ans = -1
+
+        def isValid(mid):
+            pageSum = 0
+            students = 1
+
             for pages in A:
                 pageSum += pages
-                if pageSum > mid:          # sum of pages allocated to one student exceed max capacity of the student
-                    requiredStudents += 1  # We need one more student
-                    pageSum = pages        # start calculating sum of pages that can be allocated to next student
-            
-            if requiredStudents > M: return False
-            else: return True
-        
-        
+                if pageSum > mid:
+                    students += 1
+                    pageSum = pages
+                if students > M:
+                    return False
+            return True
+
         while l <= r:
             mid = l + (r - l) // 2
-            
-            if isValid(A, M, mid):
-                ans = mid         # Updating answer to current mid as current mid is the most optimized(least) ans till now
-                r = mid - 1       # I will try to decrease mid
+            if isValid(mid):
+                ans = mid
+                r = mid - 1
             else:
-                l = mid + 1       # current mid NOT isValid so I will try to increase mid
-        
-        
-        return ans                # Most Optimized ans is stored here
-        
-        
-# Time: O(log(n))
-# Space: O(1)
+                l = mid + 1
+
+        return ans
+
+
+# -------- DRIVER CODE --------
+
+sol = Solution()
+
+print(sol.findPages([12, 34, 67, 90], 4, 2))
+# Expected Output: 113
+
+print(sol.findPages([10, 20, 30, 40], 4, 2))
+# Expected Output: 60
+
+print(sol.findPages([5, 17, 100, 11], 4, 4))
+# Expected Output: 100
+
+print(sol.findPages([15, 10, 19, 10, 5], 5, 2))
+# Expected Output: 34

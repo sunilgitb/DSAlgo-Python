@@ -10,7 +10,7 @@ find the left side elements count.
 '''
 
 class Solution:
-	def findMedian(self, matrix):
+    def findMedian(self, matrix):
 
         def countSmallerThanEqualToMid(row, target):  # like last occurrence index of an element in sorted array 
             l = 0; r = len(row)-1
@@ -48,3 +48,19 @@ class Solution:
 
 # Time: log(2^32) * n * log(m) = 32 * n * log(m)
 # space: O(1)
+
+
+if __name__ == "__main__":
+    # ✅ Driver code with example test cases
+    s = Solution()
+
+    tests = [
+        ([[1, 3, 5], [2, 6, 9], [3, 6, 9]], 5),
+        ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 5),
+        ([[1]], 1),
+        ([[1, 1, 1], [1, 1, 1]], 1),
+    ]
+
+    for i, (matrix, expected) in enumerate(tests, 1):
+        result = s.findMedian(matrix)
+        print(f"Test {i}: matrix={matrix} -> median={result} (expected={expected})")

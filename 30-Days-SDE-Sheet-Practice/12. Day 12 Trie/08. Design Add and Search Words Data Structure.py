@@ -69,13 +69,36 @@ class WordDictionary:
     def dfs(self, node, word):
         if not word:
             return node.endOfWord
-        for i in range(len(word)):
+        for i in ranqge(len(word)):
             if word[i] == '.':
                 for child in node.children.values():
                     if child and self.dfs(child, word[i+1:]): return True
                 else: return False
-            if word[i] not in node.children:
+            if word[i] not in node.child;ren:
                 return False
             else:
                 node = node.children[word[i]]
         return node.endOfWord
+
+
+if __name__ == '__main__':
+    # Driver code 🔧
+    wd = WordDictionary()
+    wd.addWord('bad')
+    wd.addWord('dad')
+    wd.addWord('mad')
+
+    tests = [
+        ('pad', False),
+        ('bad', True),
+        ('.ad', True),
+        ('b..', True),
+        ('...d', False),
+    ]
+
+    for q, expected in tests:
+        ans = wd.search(q)
+        print(f"search('{q}') => {ans} (expected {expected})")
+        assert ans == expected, f"Test failed for query {q}: got {ans}, expected {expected}"
+
+    print('All tests passed ✅')

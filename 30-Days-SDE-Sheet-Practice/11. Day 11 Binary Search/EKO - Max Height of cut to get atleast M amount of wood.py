@@ -1,53 +1,50 @@
 # https://www.spoj.com/problems/EKO/
+# Problem: Wood Cutting (Binary Search on Answer)
 
-n = int(str[0])
-M = int(str[1])
-
-arr = map(int, input().split())
+'''
+We need to find the maximum height H such that
+cutting all trees taller than H gives at least M wood.
+'''
 
 def isValid(arr, M, mid):
-    amount = 0
-    for height in arr:
-        if height > mid:
-            amount += height - mid
-    return amount >= M
-
-low = 0
-high = max(arr)
-
-while low <= high:
-    mid = low + (high - low) // 2
-    if isValid(arr, M, mid):
-        low = mid + 1
-    else:
-        high = mid - 1
-
-print(low)
+    wood = 0
+    for h in arr:
+        if h > mid:
+            wood += h - mid
+    return wood >= M
 
 
-# Time: O(n * log(max(arr)))
-# Space: O(1)
+def maxSawHeight(arr, M):
+    low = 0
+    high = max(arr)
+    ans = 0
 
-
-
-
-def chopped_off(heights, t):
-    return sum(max(i-t, 0) for i in heights)
-
-
-def search_optimal_height(heights, threshold):
-    lo = min(heights) - threshold
-    hi = max(heights)
-    while lo <= hi:
-        mid = (hi + lo)//2
-        if chopped_off(heights, mid) >= threshold:
-            lo = mid+1
+    while low <= high:
+        mid = low + (high - low) // 2
+        if isValid(arr, M, mid):
+            ans = mid          # valid height, try higher
+            low = mid + 1
         else:
-            hi = mid - 1
-    return hi
+            high = mid - 1     # not enough wood, decrease height
+
+    return ans
 
 
-n, m = map(int, raw_input().split())
-heights = [int(i) for i in raw_input().split()]
-ans = search_optimal_height(heights, m)
-print(ans)
+# -------- DRIVER CODE --------
+
+trees = [20, 15, 10, 17]
+M = 7
+print(maxSawHeight(trees, M))
+# Expected Output: 15
+
+
+trees = [4, 42, 40, 26, 46]
+M = 20
+print(maxSawHeight(trees, M))
+# Expected Output: 36
+
+
+trees = [100, 200, 300, 400]
+M = 250
+print(maxSawHeight(trees, M))
+# Expected Output: 250

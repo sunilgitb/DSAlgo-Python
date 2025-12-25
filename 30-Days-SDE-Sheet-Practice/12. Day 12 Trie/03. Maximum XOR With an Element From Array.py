@@ -53,7 +53,8 @@ class Solution:
         
         queries.sort(key = lambda x:x[1])
         
-        n = 0; q = 0
+        n = 0; 
+        q = 0
         while q < len(queries):
             while n < len(nums) and nums[n] <= queries[q][1]:
                 self.addNum(nums[n])
@@ -62,3 +63,21 @@ class Solution:
             q += 1
         
         return res
+
+
+# Example / driver code 🔧
+if __name__ == "__main__":
+    sol = Solution()
+
+    nums = [0,1,2,3,4]
+    queries = [[3,1],[1,3],[5,6]]
+
+    print("nums:", nums)
+    print("queries:", queries)
+    print("maximizeXor ->", sol.maximizeXor(nums, [q[:] for q in queries]))  # [3,3,7]
+
+    # Sanity checks
+    assert sol.maximizeXor(nums, [q[:] for q in queries]) == [3,3,7]
+    assert sol.maximizeXor([5,2,4,6,6,3], [[12,4],[12,5]]) == [15,15]
+
+    print("Driver tests passed ✅")

@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/longest-word-in-dictionary/
+from typing import List
 
 class TrieNode:
     def __init__(self):
@@ -63,3 +64,22 @@ class Solution:
     
 # Time: O(n log(n))   # for sorting the words
 # Space: O(n)         # for making the set visited
+
+
+# Example / driver code 🔧
+if __name__ == "__main__":
+    sol = Solution()
+
+    words = ["w","wo","wor","worl","world"]
+    print("words:", words)
+    print("longestWord ->", sol.longestWord(words))  # "world"
+
+    words2 = ["a","banana","app","appl","ap","apply","apple"]
+    print("words2:", words2)
+    print("longestWord ->", sol.longestWord(words2)) # "apple"
+
+    # Sanity checks
+    assert sol.longestWord(["w","wo","wor","worl","world"]) == "world"
+    assert sol.longestWord(["a","banana","app","appl","ap","apply","apple"]) == "apple"
+
+    print("Driver tests passed ✅")
