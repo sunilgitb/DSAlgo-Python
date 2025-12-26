@@ -31,3 +31,10 @@ class Solution:
         
 # Time: O(N^2)
 # Space: O(N)
+# Example Usage:
+if __name__ == "__main__":
+	Jobs = [(1, 4, 20), (2, 1, 10), (3, 1, 40), (4, 1, 30)]
+	n = len(Jobs)
+	solution = Solution()
+	result = solution.JobScheduling(Jobs, n)
+	print(result)  # Output: (2, 60)

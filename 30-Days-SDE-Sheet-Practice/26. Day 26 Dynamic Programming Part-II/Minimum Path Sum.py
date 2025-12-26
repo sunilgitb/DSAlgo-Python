@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/minimum-path-sum/
 
+from typing import List
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
         r = len(grid)
@@ -18,7 +19,12 @@ class Solution:
         return grid[-1][-1]
     
         
-    
+# Example Usage:
+solution = Solution()
+grid = [[1,3,1],[1,5,1],[4,2,1]]
+print(solution.minPathSum(grid))  # Output: 7
+
+
 class Solution:
     def minPathSum(self, grid):
         # Bottom-Right to Top-Left Traversal

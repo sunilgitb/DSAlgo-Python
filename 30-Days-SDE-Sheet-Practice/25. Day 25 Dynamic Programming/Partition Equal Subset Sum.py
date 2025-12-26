@@ -1,11 +1,13 @@
 # https://www.youtube.com/watch?v=UmMh7xp07kY&list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go&index=9
 # https://leetcode.com/problems/partition-equal-subset-sum/
 
+from typing import List
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         s = sum(nums)
         equalSum = s // 2
-        if s % 2 != 0: return False
+        if s % 2 != 0: 
+            return False
         n = len(nums)
         dp = [[False] * (equalSum + 1) for i in range(n + 1)]
         # Change the first row => arr is empty => No subset is there for any sum > 0
@@ -24,5 +26,9 @@ class Solution:
                             
         return dp[-1][-1]
 
+# Example Usage:
+sol = Solution()
+print(sol.canPartition([1, 5, 11, 5]))  # Output: True
+print(sol.canPartition([1, 2, 3, 5]))   # Output: False
 
         

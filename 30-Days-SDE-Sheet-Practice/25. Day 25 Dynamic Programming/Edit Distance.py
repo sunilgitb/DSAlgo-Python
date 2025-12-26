@@ -21,6 +21,10 @@ class Solution:
     
 # Time Limit Exceeded
 # We need to use Memoization in this Solution to avoid repetative same calculation of sub-problems
+# Example Usage:
+sol = Solution()
+print(sol.minDistance("horse", "ros"))  # Output: 3
+
 
 
 
@@ -46,7 +50,9 @@ class Solution:
         return dfs(len(word1), len(word2))
 
 
-
+# Example Usage:
+sol = Solution()
+print(sol.minDistance("intention", "execution"))  # Output: 5
 # Tabular DP
 class Solution:
     def minDistance(self, w1: str, w2: str) -> int:
@@ -72,4 +78,7 @@ class Solution:
                                         )
         
         return dp[-1][-1]
-        
+
+# Example Usage:
+sol = Solution()
+print(sol.minDistance("kitten", "sitting"))  # Output: 3

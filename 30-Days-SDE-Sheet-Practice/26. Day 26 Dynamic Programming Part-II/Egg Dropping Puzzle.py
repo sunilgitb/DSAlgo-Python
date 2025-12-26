@@ -7,9 +7,12 @@ class Solution:
         memo = {}
         
         def solve(E, F):
-            if E == 1: return F
-            if F == 0 or F == 1: return F
-            if (E,F) in memo: return memo[(E,F)]
+            if E == 1: 
+                return F
+            if F == 0 or F == 1: 
+                return F
+            if (E,F) in memo: 
+                return memo[(E,F)]
             
             ans = 2**31
             for f in range(1, F):
@@ -19,6 +22,11 @@ class Solution:
             return memo[(E,F)]
         
         return solve(E, F)
+
+# Example Usage:
+sol = Solution()
+print(sol.eggDrop(2, 10))  # Output: 4
+
         
 
 

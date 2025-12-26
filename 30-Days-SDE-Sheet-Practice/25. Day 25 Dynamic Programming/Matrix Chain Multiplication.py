@@ -2,6 +2,7 @@
 # https://practice.geeksforgeeks.org/problems/matrix-chain-multiplication0303/1#
 
 import sys  
+
 class Solution:
     def matrixMultiplication(self, N, arr):
         # code here
@@ -20,5 +21,11 @@ class Solution:
             return dp[i][j]
         
         return solve(arr, 1, len(arr)-1)
+
+# Example usage:
+sol = Solution()
+N = 5
+arr = [40, 20, 30, 10, 30]
+print(sol.matrixMultiplication(N, arr))  # Output: 26000
 
     

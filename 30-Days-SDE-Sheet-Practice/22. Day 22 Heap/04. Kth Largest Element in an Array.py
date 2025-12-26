@@ -21,7 +21,9 @@ class Solution:
 
 # Time: O(N log(k))     ; O(N) for traversal and log(k) for pushing num to a heap of size k
 # Space: O(k)           ; as the minHeap is always of size k
-
+# Example Usage:
+sol = Solution()
+print(sol.findKthLargest([3,2,1,5,6,4], 2))  # Output: 5
 
 #------ Method 2 ----------  Using QUick Quick-Select (idea Quick Sort)
 class Solution:
@@ -39,3 +41,7 @@ class Solution:
 # Average Time Complexity: O(N)
 # Worst Case Time Complexity: O(N^2)
 # Space Complexity: O(N)
+# Example Usage:
+sol = Solution()
+print(sol.findKthLargest([3,2,1,5,6,4],
+    2))  # Output: 5

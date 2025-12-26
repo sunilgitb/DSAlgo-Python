@@ -38,3 +38,25 @@ class MedianFinder:
         
 # Time: O(log(N))
 # Space: O(N)
+# Your MedianFinder object will be instantiated and called as such:
+# Example Usage:
+
+# Example Usage:
+
+medianFinder = MedianFinder()
+
+medianFinder.addNum(1)
+print(medianFinder.findMedian())
+# Expected Output: 1.0
+
+medianFinder.addNum(2)
+print(medianFinder.findMedian())
+# Expected Output: 1.5
+
+medianFinder.addNum(3)
+print(medianFinder.findMedian())
+# Expected Output: 2.0
+
+medianFinder.addNum(4)
+print(medianFinder.findMedian())
+# Expected Output: 2.5

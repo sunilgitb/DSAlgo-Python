@@ -8,11 +8,14 @@ class Solution:
         dp = [[-1]*n for i in range(n)]
         
         def solve(s, i, j):
-            if i >= j: return 0
+            if i >= j: 
+                return 0
             
-            if s[i:j+1] == s[i:j+1][::-1] : return 0
+            if s[i:j+1] == s[i:j+1][::-1] : 
+                return 0
             
-            if dp[i][j] != -1: return dp[i][j]
+            if dp[i][j] != -1: 
+                return dp[i][j]
             
             ans = 2**31
             for k in range(i, j):
@@ -32,6 +35,11 @@ class Solution:
             return dp[i][j]
         
         return solve(string, 0, n-1)
+
+# Example usage:
+sol = Solution()
+print(sol.palindromicPartition("ababbbabbababa"))  # Output: 3
+print(sol.palindromicPartition("aaabba"))           # Output: 1
         
         
         

@@ -24,7 +24,8 @@ class Solution:
 
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        x = text1; y = text2
+        x = text1; 
+        y = text2
         dp = [[0]*(len(y)+1) for i in range(len(x)+1)]
         
         for i in range(1, len(x)+1):
@@ -35,3 +36,9 @@ class Solution:
                     dp[i][j] = max(dp[i-1][j], dp[i][j-1])
         
         return dp[-1][-1]
+
+# Example usage:
+sol = Solution()
+print(sol.longestCommonSubsequence("abcde", "ace"))  # Output: 3
+print(sol.longestCommonSubsequence("abc", "abc"))    # Output: 3
+print(sol.longestCommonSubsequence("abc", "def"))    # Output: 0

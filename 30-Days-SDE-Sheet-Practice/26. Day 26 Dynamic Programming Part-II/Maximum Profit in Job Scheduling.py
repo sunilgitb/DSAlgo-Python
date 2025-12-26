@@ -45,3 +45,10 @@ class Solution(object):
     
 # Time: O(N * log(N))
 # Space: O(N)
+# N = number of jobs
+# Sort the jobs based on end time.
+# For each job, use binary search to find the last non-overlapping job.
+# Use dynamic programming to keep track of maximum profit at each step.
+# Example Usage:
+sol = Solution()
+print(sol.jobScheduling([1,2,3,3], [3,4,5,6], [50,10,40,70]))  # Output: 120

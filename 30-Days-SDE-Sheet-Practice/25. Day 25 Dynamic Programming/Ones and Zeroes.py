@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/ones-and-zeroes/
 
 # Method 1: Memoization(Top Down)
+from typing import List
 class Solution:
     def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
         ZOCount = [(s.count('0'), s.count('1')) for s in strs]
@@ -27,6 +28,7 @@ Space: O(l * m * n) - memo hashmap
 
 
 # DP Tabulation (Bottom Up)
+from typing import List
 class Solution:
     def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
         dp = [[0]*(n+1) for i in range(m+1)]
@@ -45,3 +47,9 @@ class Solution:
 Time: O(l * m * n) - where l is length of strs
 Space: O(m * n) - dp table
 '''
+# Example Usage
+strs = ["10", "0001", "111001", "1", "0"]
+m = 5
+n = 3
+sol = Solution()
+print(sol.findMaxForm(strs, m, n))  # Output: 4   

@@ -1,7 +1,7 @@
 # https://leetcode.com/problems/top-k-frequent-elements/
 # https://youtu.be/YPTqKIgVk-k
 # Bucket Sort
-
+from typing import List
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         # nums = [1,1,1,2,2,3]; k = 2
@@ -27,3 +27,6 @@ class Solution:
     
 # Time: O(N)
 # SPace: O(N)
+# Example Usage:
+sol = Solution()
+print(sol.topKFrequent([1,1,1,2,2,3], 2))  # Output: [1, 2]

@@ -5,7 +5,9 @@ By default Min Heap is implemented by heapq library.
 In a Min-Heap the minimum element present at the root. In pop operation root node is removed.
 
 '''
-
+from typing import List
+# Method-1  Using heapify to create min heap of all elements first
+import heapq
 class KthLargest:
 
     def __init__(self, k: int, nums: List[int]):
@@ -29,7 +31,11 @@ class KthLargest:
 # Time: O(N log(N))     # as heap size is N so heappush takes log(N) time
 # Space: O(N)
     
-    
+# Example Usage:
+kthLargest = KthLargest(3, [4, 5, 8, 2])
+print(kthLargest.add(3))   # returns 4
+print(kthLargest.add(5))   # returns 5
+print(kthLargest.add(10))  # returns 5
     
 # Method-2  Using the given add function to add only k elements so that we can save space
 import heapq

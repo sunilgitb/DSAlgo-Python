@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/maximum-product-subarray/
 
+from typing import List
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         mp = nums[0]    # max product
@@ -22,3 +23,8 @@ class Solution:
 
 # Time: O(N)
 # Space: O(N)
+# Example Usage:
+sol = Solution()
+print(sol.maxProduct([2,3,-2,4]))  # Output: 6
+print(sol.maxProduct([-2,0,-1]))   # Output: 0
+print(sol.maxProduct([-2,3,-4]))   # Output: 24

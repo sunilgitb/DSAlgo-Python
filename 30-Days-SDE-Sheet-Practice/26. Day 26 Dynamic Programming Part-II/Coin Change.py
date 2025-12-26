@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/coin-change/
 
+from typing import List
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         row = len(coins); col = amount + 1
@@ -21,5 +22,11 @@ class Solution:
         
         res = dp[-1][-1]
         return res if res != 2**31 else -1
+# Example usage:
+solution = Solution()
+print(solution.coinChange([1, 2, 5], 11))  # Output: 3
+print(solution.coinChange([2], 3))         # Output: -1
+print(solution.coinChange([1], 0))         # Output: 0
+print(solution.coinChange([1], 1))         # Output: 1
 
         

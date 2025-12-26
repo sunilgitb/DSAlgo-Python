@@ -2,6 +2,7 @@
 # https://youtu.be/Sx9NNgInc3A
 
 # Recursion
+from typing import List
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         self.res = False
@@ -16,7 +17,14 @@ class Solution:
         solve(s)
         return self.res
 
-
+# Time: O(n^n) in worst case
+# Space: O(n) for recursion stack
+# Top-Down with Memoization
+# Example Usage:
+solution = Solution()
+s = "leetcode"
+wordDict = ["leet", "code"]
+print(solution.wordBreak(s, wordDict))  # Output: True
 
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:

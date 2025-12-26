@@ -69,6 +69,11 @@ class Solution:
             
 # Time Complexity = O(N log(N))
 # Space Complexity = O(N)  # as we took a 1D array
+# Example Usage:
+sol = Solution()
+print(sol.lengthOfLIS([10,9,2,5,3,7,101,18]))  # Output: 4
+print(sol.lengthOfLIS([0,1,0,3,2,3]))        # Output: 4
+print(sol.lengthOfLIS([7,7,7,7,7,7,7]))    # Output: 1
         
         
         
