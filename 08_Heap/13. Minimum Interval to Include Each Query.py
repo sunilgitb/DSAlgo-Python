@@ -23,3 +23,22 @@ class Solution:
     
     
 # Time: O(N log(N) + Qlog(Q))
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Test Case 1
+    intervals = [[1,4],[2,4],[3,6]]
+    queries = [2,3,4,5]
+    print("Minimum intervals:", sol.minInterval(intervals, queries))
+    # Expected Output: [3,3,3,4]
+    # Explanation:
+    # Query 2 → interval [2,4] or [1,4], smallest length = 3
+    # Query 3 → interval [3,6] or [2,4] or [1,4], smallest length = 3
+    # Query 4 → same as above, smallest length = 3
+    # Query 5 → interval [3,6], length = 4
+
+    # Test Case 2
+    intervals = [[2,3],[2,5],[1,8],[20,25]]
+    queries = [2,19,5,22]
+    print("Minimum intervals:", sol.minInterval(intervals, queries))
+    # Expected Output: [2,-1,4,6]

@@ -33,3 +33,35 @@ class Solution:
     
 # Time: O(m*n * log(m*n))
 # Space: O(m*n)
+if __name__ == "__main__":
+    sol = Solution()
+    
+    # Test Case 1
+    heightMap = [
+        [1,4,3,1,3,2],
+        [3,2,1,3,2,4],
+        [2,3,3,2,3,1]
+    ]
+    print("Trapped Water:", sol.trapRainWater(heightMap))
+    # Expected Output: 4
+
+    # Test Case 2
+    heightMap = [
+        [3,3,3,3,3],
+        [3,2,2,2,3],
+        [3,2,1,2,3],
+        [3,2,2,2,3],
+        [3,3,3,3,3]
+    ]
+    print("Trapped Water:", sol.trapRainWater(heightMap))
+    # Expected Output: 10
+
+    # Test Case 3
+    heightMap = [
+        [1,1,1,1],
+        [1,0,0,1],
+        [1,0,0,1],
+        [1,1,1,1]
+    ]
+    print("Trapped Water:", sol.trapRainWater(heightMap))
+    # Expected Output: 4

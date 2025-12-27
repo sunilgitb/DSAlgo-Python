@@ -1,10 +1,10 @@
 class BST:
-    def __init__(self,key):
+    def __init__(self, key):
         self.key = key
         self.lchild = None
         self.rchild = None
         
-    def insert(self,data):
+    def insert(self, data):
         if self.key is None:
             self.key = data
             return
@@ -15,105 +15,92 @@ class BST:
                 self.rchild.insert(data)
             else:
                 self.rchild = BST(data)
-            return
         elif self.key > data:
             if self.lchild:
                 self.lchild.insert(data)
             else:
                 self.lchild = BST(data)
-            return
 
-    def search(self,data):
+    def search(self, data):
         if self.key == data:
-            print("Node is Found")
-            return
-        if self.key < data:
+            return True
+        elif self.key < data:
             if self.rchild:
-                self.rchild.search(data)
+                return self.rchild.search(data)
             else:
-                print("Node is NOT found")
-            return
-        if self.key > data:
+                return False
+        else:  # self.key > data
             if self.lchild:
-                delf.lchild.search(data)
+                return self.lchild.search(data)
             else:
-                print("Node is NOT found")
+                return False
+    
     def preorder(self):
         print(self.key, end=", ")
         if self.lchild:
             self.lchild.preorder()
         if self.rchild:
             self.rchild.preorder()
-    
-    def inorder(self):
-        if self.lchild:
-            self.lchild.inorder()
-        print(self.key, end=", ")
-        if self.rchild:
-            self.rchild.inorder()
-    
-    def postorder(self):
-        if self.lchild:
-            self.lchild.postorder()
-        if self.rchild:
-            self.rchild.postorder()
-        print(self.key, end=", ")
 
-    def delete(self,data):
+    def delete(self, data):
         if self.key is None:
-            print("BST is empty")
-        if data<self.key:
-            self.lchild = self.lchild.delete()
-
-    def delete(self,data):
-        if self.key is None:
-            print("Tree is Empty!")   
-        elif data > self.key:
-            if self.rchild:
-                self.rchild  = self.rchild.delete(data)
-            else:
-                print("Node is Not Present ")
-        elif data < self.key:
+            print("Tree is Empty!")
+            return self
+            
+        if data < self.key:
             if self.lchild:
                 self.lchild = self.lchild.delete(data)
-            else:
-                print("Node is not present")
+        elif data > self.key:
+            if self.rchild:
+                self.rchild = self.rchild.delete(data)
         else:
-            if self.lchild is None:
-                temp = self.rchild
-                self = None
-                return temp
-            if self.rchild is None:
-                temp = self.lchild
-                self = None
-                return temp
-            node = self.rchild
-            while node.lchild:
-                node = node.lchild
-                self.key = node.key
-                self.rchild = self.rchild.delete(node.key)
-            return self
-    
-
-
-
-    
-      
-root = BST(10)
-ll = [1,2,33,23,12,33,12,456,66, 51]
-for i in ll:
-    root.insert(i)
-print("Preorder")
-root.preorder()
-'''
-print()
-print("Inorder")
-root.inorder()
-print()
-print("Postorder")
-root.postorder()
-'''
-print("----------------------")
-root.delete(51)
-root.preorder()
+            # Node found
+            if self.lchild is None and self.rchild is None:
+                return None
+            elif self.lchild is None:
+                return self.rchild
+            elif self.rchild is None:
+                return self.lchild
+            else:
+                # Node with two children
+                successor = self.rchild
+                while successor.lchild:
+                    successor = successor.lchild
+                self.key = successor.key
+                self.rchild = self.rchild.delete(successor.key)
         
+        return self
+
+
+# Example 1: Basic BST operations
+print("EXAMPLE 1: Basic BST Operations")
+print("-" * 40)
+root = BST(10)
+values = [5, 15, 3, 7, 12, 18]
+for i in values:
+    root.insert(i)
+
+print("Preorder traversal:")
+root.preorder()  # Output: 10, 5, 3, 7, 15, 12, 18,
+
+print("\n\nSearch for 7:", "Found" if root.search(7) else "Not Found")
+print("Search for 20:", "Found" if root.search(20) else "Not Found")
+
+# Example 2: Delete operations
+print("\n\nEXAMPLE 2: Delete Operations")
+print("-" * 40)
+root2 = BST(50)
+values2 = [30, 70, 20, 40, 60, 80]
+for i in values2:
+    root2.insert(i)
+
+print("Before deletion - Preorder:")
+root2.preorder()  # Output: 50, 30, 20, 40, 70, 60, 80,
+
+root2 = root2.delete(20)  # Delete leaf node
+print("\n\nAfter deleting 20 (leaf) - Preorder:")
+root2.preorder()  # Output: 50, 30, 40, 70, 60, 80,
+
+root2 = root2.delete(30)  # Delete node with one child
+print("\n\nAfter deleting 30 (node with one child) - Preorder:")
+root2.preorder()  # Output: 50, 40, 70, 60, 80,

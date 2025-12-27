@@ -8,7 +8,8 @@ Consider the example with reward1 = [4, 2, 1] and reward2 = [2, 5, 10]. The diff
 
 By following this approach, we can achieve the maximum total reward, which is the sum of these values: 4 + 2 + 10 = 16.
 '''
-
+from typing import List
+import heapq
 class Solution:
     def miceAndCheese(self, reward1: List[int], reward2: List[int], k: int) -> int:
         output = 0
@@ -32,3 +33,22 @@ class Solution:
             output += val
         
         return output
+
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Test Case 1
+    reward1 = [4, 2, 1]
+    reward2 = [2, 5, 10]
+    k = 2
+    print("Maximum reward:", sol.miceAndCheese(reward1, reward2, k))
+    # Expected Output: 16
+    # Explanation: Pick 4 and 2 from reward1 (indices 0,1) and remaining 10 from reward2.
+
+    # Test Case 2
+    reward1 = [1, 3, 3, 2]
+    reward2 = [2, 1, 4, 1]
+    k = 2
+    print("Maximum reward:", sol.miceAndCheese(reward1, reward2, k))
+    # Expected Output: 10
+    # Explanation: Pick 3 and 3 from reward1, remaining 2+2 from reward2.

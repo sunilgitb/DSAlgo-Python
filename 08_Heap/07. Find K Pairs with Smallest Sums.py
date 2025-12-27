@@ -1,39 +1,22 @@
-# https://leetcode.com/problems/find-k-pairs-with-smallest-sums/
+import heapq
+from typing import List
 
 class Solution:
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
-        # we use maxHeap so that we can pop largest number among k+1 numbers in maxHeap first
         maxHeap = []
 
-        """
-        instead of iterating over all the numbers of both array, we can iterate only
-        the first 'K' numbers from both array.
-
-        Since they are sorted in ascending order, the pairs with the minimum sum will
-        be just the first 'K' numbers from those two arrays.
-        """
         for i in range(0, min(k, len(nums1))):
             for j in range(0, min(k, len(nums2))):
                 x = nums1[i]
                 y = nums2[j]
-                
-                # sum of two number
                 total = x + y
-                
+
                 if len(maxHeap) < k:
                     heapq.heappush(maxHeap, [-total, x, y])
                 else:
-                    # if the sum of x and y is larger than the largest (among the k smallests)
-                    # sum, we can 'break' here. Since the arrays are sorted in the ascending order,
-                    # we will not be able to find a pair with smaller sum moving forward.
                     if total > -maxHeap[0][0]:
                         break
-                    
-                    # push new numbers to the heap
                     heapq.heappush(maxHeap, [-total, x, y])
-
-                    # pop the largest number among k+1 numbers in maxHeap, so that only
-                    # k smallest numbers are in maxHeap
                     heapq.heappop(maxHeap)
 
         result = []
@@ -43,3 +26,25 @@ class Solution:
 
         return result
 
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    sol = Solution()
+
+    nums1 = [1, 7, 11]
+    nums2 = [2, 4, 6]
+    k = 3
+    print("K smallest pairs:", sol.kSmallestPairs(nums1, nums2, k))
+    # Expected: [[1,2],[1,4],[1,6]] or in any order
+
+    nums1 = [1, 1, 2]
+    nums2 = [1, 2, 3]
+    k = 2
+    print("K smallest pairs:", sol.kSmallestPairs(nums1, nums2, k))
+    # Expected: [[1,1],[1,1]]
+
+    nums1 = [1, 2]
+    nums2 = [3]
+    k = 3
+    print("K smallest pairs:", sol.kSmallestPairs(nums1, nums2, k))
+    # Expected: [[1,3],[2,3]]

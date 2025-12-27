@@ -32,3 +32,26 @@ class Solution:
 
 # Time: O(len(s) * log n), where len(s) is the length of the input string and n is the number of distinct characters.
 # Space: O(len(s))
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Test Case 1
+    s = "aabbcc"
+    k = 3
+    print("Rearranged string:", sol.rearrangeString(s, k))
+    # Possible output: "abcabc"
+    # Explanation: No two same characters are within distance 3.
+
+    # Test Case 2
+    s = "aaabc"
+    k = 3
+    print("Rearranged string:", sol.rearrangeString(s, k))
+    # Expected output: "" (Not possible)
+    # Explanation: Cannot rearrange 'a' to satisfy distance 3.
+
+    # Test Case 3
+    s = "aaadbbcc"
+    k = 2
+    print("Rearranged string:", sol.rearrangeString(s, k))
+    # Possible output: "abacabcd"
+    # Explanation: Each same character is at least distance 2 apart.

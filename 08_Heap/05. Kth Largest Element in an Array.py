@@ -1,41 +1,37 @@
-# https://leetcode.com/problems/kth-largest-element-in-an-array/
-
-#------ Method 1 ----------  Using Min Heap Time: O(n log(k))
+# ---------- Method 1: Min Heap ----------
 import heapq
-class Solution:
+
+class SolutionHeap:
     def findKthLargest(self, nums, k):
-        self.minHeap = []     # as root of min heap is minimum and root is removed in pop operation
-        self.heapLength = 0   # for calculating length of heap in constant time else len() would take O(k) time
-        
-        def addToHeap(num):
-            heapq.heappush(self.minHeap, num)
-            self.heapLength += 1
-            if self.heapLength > k:  # always trying to maintain heap length k 
-                heapq.heappop(self.minHeap)
-                self.heapLength -= 1
-                
-        for num in nums:        
-            addToHeap(num)
-        
-        return self.minHeap[0]
+        minHeap = []
+        for num in nums:
+            heapq.heappush(minHeap, num)
+            if len(minHeap) > k:
+                heapq.heappop(minHeap)
+        return minHeap[0]
 
-# Time: O(N log(k))     ; O(N) for traversal and log(k) for pushing num to a heap of size k
-# Space: O(k)           ; as the minHeap is always of size k
-
-
-#------ Method 2 ----------  Using QUick Quick-Select (idea Quick Sort)
-class Solution:
+# ---------- Method 2: Quick Select ----------
+class SolutionQuick:
     def findKthLargest(self, nums, k):
         pivot = nums[0]
-        
         left = [num for num in nums if num < pivot]
         equal = [num for num in nums if num == pivot]
         right = [num for num in nums if num > pivot]
         
-        if k <= len(right): return self.findKthLargest(right, k)
-        elif len(right) < k <= len(right) + len(equal): return equal[0]
-        else: return self.findKthLargest(left, k - len(right) - len(equal))
+        if k <= len(right):
+            return self.findKthLargest(right, k)
+        elif len(right) < k <= len(right) + len(equal):
+            return equal[0]
+        else:
+            return self.findKthLargest(left, k - len(right) - len(equal))
 
-# Average Time Complexity: O(N)
-# Worst Case Time Complexity: O(N^2)
-# Space Complexity: O(N)
+
+# ---------------- DRIVER CODE ----------------
+nums = [3,2,1,5,6,4]
+k = 2
+
+sol1 = SolutionHeap()
+print("Method 1 (Heap) Output:", sol1.findKthLargest(nums, k))  # Output: 5
+
+sol2 = SolutionQuick()
+print("Method 2 (Quick Select) Output:", sol2.findKthLargest(nums, k))  # Output: 5

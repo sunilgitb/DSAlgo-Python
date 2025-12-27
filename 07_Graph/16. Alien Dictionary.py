@@ -2,7 +2,7 @@
 # https://www.youtube.com/watch?v=6kTZYvNNyps
 
 class Solution:
-    def findOrder(self,alien_dict, N, K):
+    def findOrder(self, alien_dict, N, K):
         
         adj = {char: set() for word in alien_dict for char in word}
     
@@ -16,7 +16,7 @@ class Solution:
                     adj[w1[j]].add(w2[j])
                     break
     
-        visited = {}  # {char: bool} False visited, True current path
+        visited = {}  # {char: bool} False = visited, True = current path
         res = []
     
         def dfs(char):
@@ -31,6 +31,7 @@ class Solution:
     
             visited[char] = False
             res.append(char)
+            return False
     
         for char in adj:
             if dfs(char):
@@ -38,5 +39,14 @@ class Solution:
     
         res.reverse()
         return "".join(res)
-    
-    
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    alien_dict = ["baa", "abcd", "abca", "cab", "cad"]
+    N = 5
+    K = 4
+
+    obj = Solution()
+    print(obj.findOrder(alien_dict, N, K))
+    # Output: bdac

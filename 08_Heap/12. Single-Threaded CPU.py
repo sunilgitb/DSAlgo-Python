@@ -27,3 +27,21 @@ class Solution:
     
 # Time: O(N)
 # Space: O(N)
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Test Case 1
+    tasks = [[1,2],[2,4],[3,2],[4,1]]
+    print("Order of processing:", sol.getOrder(tasks))
+    # Expected Output: [0,2,3,1]
+    # Explanation: 
+    # Time 1: Task 0 arrives, executed
+    # Time 3: Tasks 1 and 2 available, pick task 2 (shortest processing time)
+    # Time 5: Task 3 available, pick task 3
+    # Time 6: Pick remaining task 1
+
+    # Test Case 2
+    tasks = [[7,10],[7,12],[7,5],[7,4],[7,2]]
+    print("Order of processing:", sol.getOrder(tasks))
+    # Expected Output: [4,3,2,0,1]
+    # Explanation: All arrive at same time, process by shortest processing time and index

@@ -22,3 +22,26 @@ class Solution:
     
     
 # Time: O(len(tasks) * n)
+if __name__ == "__main__":
+    sol = Solution()
+    
+    # Test Case 1
+    tasks = ["A","A","A","B","B","B"]
+    n = 2
+    print("Minimum intervals:", sol.leastInterval(tasks, n))
+    # Expected Output: 8
+    # Explanation: One possible schedule is A -> B -> idle -> A -> B -> idle -> A -> B
+
+    # Test Case 2
+    tasks = ["A","A","A","B","B","B"]
+    n = 0
+    print("Minimum intervals:", sol.leastInterval(tasks, n))
+    # Expected Output: 6
+    # Explanation: No cooldown, so schedule as A B A B A B
+
+    # Test Case 3
+    tasks = ["A","A","A","B","B","B","C","C"]
+    n = 2
+    print("Minimum intervals:", sol.leastInterval(tasks, n))
+    # Expected Output: 8
+    # Explanation: Schedule example: A B C A B C A B
