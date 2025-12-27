@@ -21,4 +21,42 @@ class Solution:
                     dp[i][j] = dp[i-1][j]
         
         return dp[-1][-1]
-        
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+# Example 1
+S = [1, 2, 3]
+m = len(S)
+n = 4
+print(sol.count(S, m, n))  # Output: 4  (ways: [1,1,1,1], [1,1,2], [1,3], [2,2])
+
+# Example 2
+S = [2, 5, 3, 6]
+m = len(S)
+n = 10
+print(sol.count(S, m, n))  # Output: 5
+
+# Example 3
+S = [1, 2, 5]
+m = len(S)
+n = 5
+print(sol.count(S, m, n))  # Output: 4  (ways: [1,1,1,1,1], [1,1,1,2], [1,2,2], [5])
+
+# Example 4
+S = [1]
+m = len(S)
+n = 10
+print(sol.count(S, m, n))  # Output: 1  (only one way: ten 1's)
+
+# Example 5
+S = [7, 2, 5, 10]
+m = len(S)
+n = 15
+print(sol.count(S, m, n))  # Output: 7
+
+# Example 6 (no coins)
+S = []
+m = len(S)
+n = 10
+print(sol.count(S, m, n))  # Output: 0

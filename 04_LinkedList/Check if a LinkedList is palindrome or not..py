@@ -1,22 +1,21 @@
-# https://leetcode.com/problems/palindrome-linked-list/
+from typing import Optional
 
-'''
-Go to the middle node and reverse the right-side linkedlist.
-Then take 2 pointers one from start and another from middle and check
-equality of value.
-'''
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        if not head or not head.next: return True
+        if not head or not head.next:
+            return True
         
-        # Find Middle       
+        # Find middle       
         slow = head
         fast = head.next
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        # slow is just the previous node of middle as we need to reverse the Linkedlist also
         
         # Reverse LinkedList right-side of middle
         pre = slow
@@ -29,15 +28,51 @@ class Solution:
             pre.next = nex
             nex = cur.next
         
-        # start checking equality of values
-        left =  head
+        # Check equality of values
+        left = head
         right = slow.next
         while left and right:
-            if left.val != right.val: return False
+            if left.val != right.val:
+                return False
             left = left.next
             right = right.next
         
         return True
 
-# Time: O(N)
-# Space: O(1)
+def create_linked_list(arr):
+    if not arr:
+        return None
+    head = ListNode(arr[0])
+    current = head
+    for val in arr[1:]:
+        current.next = ListNode(val)
+        current = current.next
+    return head
+
+# Test cases
+solution = Solution()
+
+test_cases = [
+    [1, 2, 2, 1],      # True
+    [1, 2, 3, 2, 1],   # True
+    [1, 2, 3, 4, 5],   # False
+    [1, 2, 3, 3, 2, 1], # True
+    [1],               # True
+    [1, 2],            # False
+    [1, 1],            # True
+    [1, 2, 1],         # True
+    [],                # True (empty list)
+]
+
+print("Testing Palindrome Linked List:")
+print("=" * 60)
+
+for i, test_arr in enumerate(test_cases, 1):
+    head = create_linked_list(test_arr)
+    result = solution.isPalindrome(head)
+    expected = test_arr == test_arr[::-1] if test_arr else True
+    
+    print(f"Test {i}: {test_arr}")
+    print(f"Result: {result}, Expected: {expected}")
+    print(f"{'✓' if result == expected else '✗'}")
+    print("-" * 40)

@@ -49,21 +49,24 @@ class LinkedList:
     
     def printLinkedList(self, head):
         if not head: 
-            print("Empty LinkedList !")
+            print("Empty LinkedList!")
             return
         else:
             while head:
-                print(head.data)
+                print(head.data, end=" -> ")
                 head = head.next
+            print("None")
 
+# Test the code
 LL = LinkedList()
-a = [1,4,45,66,8,89,54,0,5,6,75,675,7,56, 70, 259]
+a = [1, 4, 45, 66, 8, 89, 54, 0, 5, 6, 75, 675, 7, 56, 70, 259]
 for i in a:
     LL.addNode(i)
 
-LL.head = LL.sortLinkedList(LL.head)
+print("Original list:")
 LL.printLinkedList(LL.head)
 
+LL.head = LL.sortLinkedList(LL.head)
 
-
-
+print("\nSorted list:")
+LL.printLinkedList(LL.head)

@@ -1,29 +1,61 @@
 # https://leetcode.com/problems/count-number-of-ways-to-place-houses/
 
-'''
-One side of street has no effect to the other. The number of way on one side is fibo sequence.
-return fibo * fibo in the end.
-'''
-class Solution:
-    def countHousePlacements(self, n):
-        a, b, mod = 1, 1, 10**9 + 7
-        for i in range(n):
-            a, b = b, (a + b) % mod
-        return b * b % mod
-'''
-Time O(n)
-Space O(1)
-'''
+from typing import List
 
-
+# Optimized Solution (O(n) time, O(1) space)
 class Solution:
     def countHousePlacements(self, n: int) -> int:
         MOD = 10**9 + 7
-        dp = [1, 1] 
-        for i in range(2, n + 2) :
-            dp.append(dp[i-1] + dp[i-2])
-        return (dp[n+1] ** 2) % MOD
-'''
-Time O(n)
-Space O(n)
-'''
+        a, b = 1, 1  # ways for 0 houses, 1 house
+        
+        for _ in range(n):
+            a, b = b, (a + b) % MOD
+        
+        # Total ways = (ways on one side) × (ways on the other side)
+        return (b * b) % MOD
+
+
+# DP Array Version (O(n) time, O(n) space)
+class SolutionDP:
+    def countHousePlacements(self, n: int) -> int:
+        MOD = 10**9 + 7
+        if n == 0:
+            return 1
+        
+        dp = [0] * (n + 2)
+        dp[0] = 1  # 0 houses
+        dp[1] = 1  # 1 house
+        
+        for i in range(2, n + 2):
+            dp[i] = (dp[i-1] + dp[i-2]) % MOD
+        
+        return (dp[n+1] * dp[n+1]) % MOD
+
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+# Example 1
+n = 1
+print(sol.countHousePlacements(n))  # Output: 4
+# Possibilities: [empty, house] × [empty, house] = 2 × 2 = 4
+
+# Example 2
+n = 2
+print(sol.countHousePlacements(n))  # Output: 9
+
+# Example 3
+n = 3
+print(sol.countHousePlacements(n))  # Output: 25
+
+# Example 4
+n = 4
+print(sol.countHousePlacements(n))  # Output: 64
+
+# Example 5
+n = 0
+print(sol.countHousePlacements(n))  # Output: 1 (both sides empty)
+
+# Example 6 (large n)
+n = 10
+print(sol.countHousePlacements(n))  # Output: 35721

@@ -5,16 +5,16 @@ dic = {}
 
 for i in Matrix[1:]:
     # distance = x + y + z
-    if len(dic) <= 3: dic[sum(i)] = i
+    if len(dic) <= 3: 
+        dic[sum(i)] = i
     else:
         maxDis = max(dic.keys())
         if sum(i) < maxDis:
             del dic[maxDis]
             dic[sum(i)] = i
 
+print("First 3 nearest points from [0,0,0]:")
 for i in range(3):
     m = min(dic.keys())
-    print(dic[m])
+    print(f"Point: {dic[m]} with distance {m}")
     del dic[m]
-
-

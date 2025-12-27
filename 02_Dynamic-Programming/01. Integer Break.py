@@ -1,10 +1,7 @@
-# https://leetcode.com/problems/integer-break/
-
-# Method 1 ------  Memoization  -------
-# https://youtu.be/in6QbUPMJ3I
 class Solution:
-    def integerBreak(self, n):
-        dp = {1 : 1}
+    # Method 1: Memoization
+    def integerBreak_memo(self, n: int) -> int:
+        dp = {1: 1}
         
         def dfs(num):
             if num in dp:
@@ -17,13 +14,11 @@ class Solution:
             return dp[num]
         
         return dfs(n)
-
-
-# Method 2 -------  Dynamic Programming -------
-class Solution(object):
-    def integerBreak(self, n):
-        dp = [None, 1]
-        for m in range (2, n + 1):
+    
+    # Method 2: Dynamic Programming
+    def integerBreak_dp(self, n: int) -> int:
+        dp = [0, 1]
+        for m in range(2, n + 1):
             j = m - 1
             i = 1
             max_product = 0
@@ -33,27 +28,32 @@ class Solution(object):
                 i += 1
             dp.append(max_product)
         return dp[n]
-# Time: O(n^2)
-# Space: O(n)
-
-# Method 3 ------ Mathematics -------
-'''
-From the hint:
-7 = 3 + 4 = 12
-8 = 3 + 3 + 2 = 18
-9 = 3 + 3 + 3 = 27
-10 = 3 + 3 + 4 = 36
-11 = 3 + 3 + 3 + 2 = 54
-12 = 3 + 3 + 3 + 3 = 81
-Three is a magic number.
-'''
-class Solution(object):
-    def integerBreak(self, n):
+    
+    # Method 3: Mathematical
+    def integerBreak_math(self, n: int) -> int:
         if n == 2 or n == 3:
             return n - 1
         if n % 3 == 0:
-            return 3**(n/3)
+            return 3 ** (n // 3)
         if n % 3 == 1:
-            return 3**(n/3 - 1)*4
+            return 3 ** (n // 3 - 1) * 4
         if n % 3 == 2:
-            return 3**(n/3)*2
+            return 3 ** (n // 3) * 2
+
+
+# Test cases
+solution = Solution()
+test_nums = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+print("Testing all three methods:")
+print("-" * 60)
+print("n\tMemo\tDP\tMath")
+print("-" * 60)
+
+for n in test_nums:
+    memo = solution.integerBreak_memo(n)
+    dp = solution.integerBreak_dp(n)
+    math = solution.integerBreak_math(n)
+    print(f"{n}\t{memo}\t{dp}\t{math}")
+    if not (memo == dp == math):
+        print(f"Warning: Results don't match for n={n}!")

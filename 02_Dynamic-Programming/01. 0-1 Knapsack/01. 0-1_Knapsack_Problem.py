@@ -6,8 +6,10 @@ class Solution:
     def knapSack(self,W, wt, val, n):
         dp = [[-1]*(W+1) for _ in range(n+1)]
         def dfs(n, W):
-            if W == 0 or n == 0: return 0
-            if dp[n][W] != -1: return dp[n][W]
+            if W == 0 or n == 0: 
+                return 0
+            if dp[n][W] != -1: 
+                return dp[n][W]
             
             if wt[n-1] <= W:
                 dp[n][W] = max(dfs(n-1, W), val[n-1] + dfs(n-1, W-wt[n-1]))
@@ -17,6 +19,25 @@ class Solution:
         
         return dfs(n, W)
     
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+W = 4
+wt = [1, 3, 4]
+val = [15, 20, 30]
+n = len(wt)
+
+print(sol.knapSack(W, wt, val, n))
+# Output: 35
+
+
+W = 50
+wt = [10, 20, 30]
+val = [60, 100, 120]
+n = len(wt)
+
+print(sol.knapSack(W, wt, val, n))
     
 # Dynamic Programming
 class Solution:

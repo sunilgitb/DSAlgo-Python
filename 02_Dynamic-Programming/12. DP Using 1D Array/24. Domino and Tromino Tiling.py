@@ -1,5 +1,3 @@
-# https://m.youtube.com/watch?v=8q0CZ748pz4
-
 class Solution:
     def numTilings(self, n: int) -> int:
         MOD = 10**9 + 7
@@ -32,50 +30,50 @@ class Solution:
         return solve(n, n)
 
 
-# Time: O(N)    # as abs(i-j) <= 1 so both going from n->1 togother, so technically only 1 variable changing
-# Space: O(N*N)
-
-
-
-
-##########################################
-
-
-
-# https://leetcode.com/problems/domino-and-tromino-tiling/
-# https://youtu.be/7cijrfUkQzc
-
-'''
-Purely based on observation and by intuition you can arrive at the follwing formula->
-f(n)=f(n-1)+f(n-2)+2*(f(n-3)+f(n-4)+......+f(n-n))      ------(1)
-
-if we remove 1 width  and 2 length tile vertically theres 1 way
-if we remove 1 horizontal 2 width and 1 length tile below will also be same width tile so only 1 way
-if we remove 3,by obervation we get 2 ways    
-
-similarly,
-f(n-1) = f(n-2) + f(n-3) + 2*(f(n-4) + ....)   
-f(n-2) = f(n-1) - f(n-3) - 2*(f(n-4) + f(n-5) + ....)   ------(2)
-putting value of f(n-2) to equation (1) we get,
-
-f(n) = 2*f(n-1) + f(n-3)
-
-                         __     and         __
-                                                                       |  __|          |__ |   
-similarly 2 for rest 
-'''
-
-
-class Solution:
+class Solution2:
     def numTilings(self, n: int) -> int:
         MOD = 10**9 + 7
         dp = [0, 1, 2, 5] + [1] * n
-        if n <= 3: return dp[n]
+        if n <= 3: 
+            return dp[n]
         
         for i in range(4, n+1):
-            dp[i] = ((2 * dp[i-1]) % MOD + dp[i-3])% MOD
+            dp[i] = ((2 * dp[i-1]) % MOD + dp[i-3]) % MOD
         
         return dp[n]
-      
-# Time: O(N)
-# Space: O(N)
+
+
+# Driver code
+if __name__ == "__main__":
+    # Test cases
+    test_cases = [1, 2, 3, 4, 5, 10, 30]
+    
+    print("Testing both solutions:")
+    print("-" * 50)
+    
+    for n in test_cases:
+        sol1 = Solution()
+        sol2 = Solution2()
+        
+        result1 = sol1.numTilings(n)
+        result2 = sol2.numTilings(n)
+        
+        print(f"n = {n:2d}:")
+        print(f"  Solution 1 (memoization): {result1}")
+        print(f"  Solution 2 (DP formula):  {result2}")
+        print(f"  Match: {'✓' if result1 == result2 else '✗'}")
+    
+    print("\n" + "=" * 50)
+    print("Explanation of the DP formula approach:")
+    print("f(n) = 2*f(n-1) + f(n-3)")
+    print("where f(0)=1, f(1)=1, f(2)=2, f(3)=5")
+    print("\nBase cases:")
+    print("f(1) = 1   (|)")
+    print("f(2) = 2   (||, =)")
+    print("f(3) = 5   (|||, |=, =|, ⌈⌉, ⌊⌋)")
+    
+    # Show first 10 values
+    print("\nFirst 10 values:")
+    sol = Solution2()
+    for i in range(1, 11):
+        print(f"f({i}) = {sol.numTilings(i)}")

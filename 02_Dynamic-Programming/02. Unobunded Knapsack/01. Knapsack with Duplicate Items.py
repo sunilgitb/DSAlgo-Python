@@ -17,3 +17,48 @@ class Solution:
                     dp[i][j] = dp[i-1][j]
         
         return dp[-1][-1]
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+# Example 1
+N = 4
+W = 8
+val = [1, 4, 5, 7]
+wt = [1, 3, 4, 5]
+print(sol.knapSack(N, W, val, wt))  # Output: 11
+
+# Example 2
+N = 3
+W = 4
+val = [1, 4, 5]
+wt = [1, 3, 4]
+print(sol.knapSack(N, W, val, wt))  # Output: 5
+
+# Example 3
+N = 5
+W = 10
+val = [6, 8, 9, 10, 12]
+wt = [2, 3, 4, 5, 6]
+print(sol.knapSack(N, W, val, wt))  # Output: 24
+
+# Example 4
+N = 2
+W = 3
+val = [1, 1]
+wt = [1, 2]
+print(sol.knapSack(N, W, val, wt))  # Output: 3
+
+# Example 5 (single item, can be used multiple times)
+N = 1
+W = 10
+val = [10]
+wt = [5]
+print(sol.knapSack(N, W, val, wt))  # Output: 20
+
+# Example 6 (classic unbounded knapsack)
+N = 4
+W = 7
+val = [10, 40, 30, 50]
+wt = [5, 4, 6, 3]
+print(sol.knapSack(N, W, val, wt))  # Output: 100

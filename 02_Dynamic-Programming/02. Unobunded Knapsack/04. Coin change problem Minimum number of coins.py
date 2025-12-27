@@ -2,39 +2,71 @@
 # https://leetcode.com/problems/coin-change/
 
 import sys
+from typing import List
+
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         # As we have infinite supply of coins so this question is a variation of Unbounded Knapsack
-        dp = [[sys.maxsize] * (amount + 1) for i in range(len(coins) + 1)] # placing max value as we want to find minimum
-        # in Python 3 as sys.maxsize is max value of integer
+        dp = [[sys.maxsize] * (amount + 1) for _ in range(len(coins) + 1)]  # placing max value as we want to find minimum
         
-        # Initializing 0th row = infinite = float("inf"); as for array coins of size zero it will take infinite coins to make amount j
+        # Initializing 0th row = infinite; can't make any amount > 0 with 0 coins
         for j in range(amount + 1):
             dp[0][j] = sys.maxsize
         
-        # Initializing 0th column from dp[1][0] to dp[len(coins)][0]  as 0
-        # as for array coins of size >= 1; to make amount 0 don't need to take any coin so dp[i][0] = 0 for 1 <= i <= len(coins)
-        for i in range(1, len(coins)+1):
+        # 0th column: amount = 0 can be made with 0 coins (for any number of coin types)
+        for i in range(1, len(coins) + 1):
             dp[i][0] = 0
         
-# *** IN THIS QUESTION WE HAVE TO INITIALIZE 1st ROW ALSO ***
-        # in 1st row check if amount j is multiple of coins[0] or not 
-        # if multiple put number of coins[0] required to make amount j in dp[1][j]
-        for j in range(1, amount + 1): 
-            if j % coins[0] == 0:         # multiple or not
-                dp[1][j] = j // coins[0]  # number of coins[0] required to make amount j
+        # *** Special handling for first coin (1st row) ***
+        # For the first coin, fill only if amount is multiple of coins[0]
+        for j in range(1, amount + 1):
+            if j % coins[0] == 0:
+                dp[1][j] = j // coins[0]
         
-        # change remaing dp
+        # Fill remaining dp table
         for i in range(2, len(coins) + 1):
             for j in range(1, amount + 1):
                 if coins[i - 1] <= j:
-                    dp[i][j] = min(1 + dp[i][j - coins[i-1]], dp[i-1][j])
+                    dp[i][j] = min(
+                        1 + dp[i][j - coins[i - 1]],  # take this coin
+                        dp[i - 1][j]                  # skip this coin
+                    )
                 else:
                     dp[i][j] = dp[i - 1][j]
         
-        ans = dp[-1][-1] 
+        ans = dp[-1][-1]
         return ans if ans != sys.maxsize else -1
-                
-                
-# Time Complexity = O((len(coins)+1) * (amount+1))
-# Space Complexity = O((len(coins)+1) * (amount+1))
+
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+# Example 1 (LeetCode)
+coins = [1, 2, 5]
+amount = 11
+print(sol.coinChange(coins, amount))  # Output: 3  (5 + 5 + 1)
+
+# Example 2 (LeetCode)
+coins = [2]
+amount = 3
+print(sol.coinChange(coins, amount))  # Output: -1
+
+# Example 3 (LeetCode)
+coins = [1]
+amount = 0
+print(sol.coinChange(coins, amount))  # Output: 0
+
+# Example 4
+coins = [1, 3, 4]
+amount = 6
+print(sol.coinChange(coins, amount))  # Output: 2  (3 + 3)
+
+# Example 5
+coins = [2, 5, 10, 1]
+amount = 27
+print(sol.coinChange(coins, amount))  # Output: 4  (10 + 10 + 5 + 2)
+
+# Example 6
+coins = [186, 419, 83, 408]
+amount = 6249
+print(sol.coinChange(coins, amount))  # Output: 20

@@ -1,88 +1,93 @@
 # https://leetcode.com/problems/longest-increasing-subsequence/
 # https://practice.geeksforgeeks.org/problems/longest-increasing-subsequence-1587115620/1
 
-# ----------- Method 1 ------------------------------------------------------------------
+from typing import List
+import bisect
 
-# https://www.youtube.com/watch?v=odrfUCS9sQk
-class Solution:
-    def lengthOfLIS(self, nums):
-        # taking a array of length len(nums)
-        # element of this array will be length of longest increasing subsequence upto that index of nums including nums[i]
-        dp = [0] * len(nums)
+# Method 1: Classic DP (O(n²) time, O(n) space)
+class SolutionDP:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+            
+        n = len(nums)
+        dp = [1] * n  # dp[i] = length of LIS ending at index i
         
-        for i in range(len(nums)):
-            temp = 0
+        for i in range(1, n):
             for j in range(i):
                 if nums[j] < nums[i]:
-                    temp = max(temp, dp[j])
-            dp[i] = temp + 1
+                    dp[i] = max(dp[i], dp[j] + 1)
         
-        res = 0
-        for i in range(len(nums)):
-            res = max(res, dp[i])
-            
-        return res
-# Time Complexity = O(N*N/2) = O(N*N)
-# Space Complexity = O(N)  # as we took a 1D array
+        return max(dp)
 
 
-
-# ----------- Method 2 ---------------------------------------------------------------------
-
-# Using Binary search in DP => time optimization => O(N logN)
-# https://www.youtube.com/watch?v=TocJOW6vx_I
-import bisect
+# Method 2: Binary Search + Patience Sorting (O(n log n) time, O(n) space)
 class Solution:
-    def lengthOfLIS(self, nums):
-        f = []
-        for i in range(len(nums)):
-            if not f or nums[i] > f[-1]:
-                f.append(nums[i])
-            else:
-                pos = bisect.bisect_left(f, nums[i])  # bisect_left function of bisect module is used to find left most value or first occurrence of target element(internally uses binary search). eg, arr = [1,2,2,2,3,4,5] here bisect.bisect_left(arr, 2) = 1 index 
-                f[pos] = nums[i]
-        return len(f)
-
-# Time Complexity = O(N log(N)) # N for traversal through nums and as bisect internally uses binary search so log(N)
-# Space Complexity = O(N)  # as we took a 1D array
-'''
-bisect is applied in sorted array
-
-bisect.bisect_left(array, target)  => first occurrence of target in array (left most index target)
-bisect.bisect_right(array, target) => Last occurrence of target in array (right most index target)
-
-Ex: 
-arr = [0, 0, 1, 1, 1, 1, 1, 5]
-bisect.bisect_left(arr, 1) = 2
-bisect.bisect_right(arr, 1) = 6
-'''
-
-
-# ----------- Method 3 ------------------------------------------------------------------
-
-class Solution:
-    def lengthOfLIS(self, nums):
-        arr = []
-        for i in range(len(nums)):
-            if not arr or nums[i] > arr[-1]:
-                arr.append(nums[i])
-            else:
-                index = self.binarySearchLeftMost(arr, nums[i])
-                arr[index] = nums[i]
-        return len(arr)
-        
-    def binarySearchLeftMost(self, arr, target):
-        l = 0; r = len(arr) - 1
-        while l <= r:
-            mid = (l+r) // 2
-            if arr[mid] < target:
-                l = mid + 1
-            else:
-                r = mid - 1
-        return l
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
             
-# Time Complexity = O(N log(N))
-# Space Complexity = O(N)  # as we took a 1D array
+        tails = []  # tails[i] = smallest tail of all increasing subsequences with length i+1
         
+        for num in nums:
+            if not tails or num > tails[-1]:
+                tails.append(num)
+            else:
+                # Find the first element in tails which is >= num
+                pos = bisect.bisect_left(tails, num)
+                tails[pos] = num
         
+        return len(tails)
+
+
+# Method 3: Binary Search (manual implementation, O(n log n) time, O(n) space)
+class SolutionManualBS:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+            
+        tails = []
         
+        for num in nums:
+            if not tails or num > tails[-1]:
+                tails.append(num)
+            else:
+                # Binary search to find leftmost position to replace
+                left, right = 0, len(tails) - 1
+                while left <= right:
+                    mid = (left + right) // 2
+                    if tails[mid] < num:
+                        left = mid + 1
+                    else:
+                        right = mid - 1
+                tails[left] = num
+        
+        return len(tails)
+
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+# Example 1
+nums = [10, 9, 2, 5, 3, 7, 101, 18]
+print(sol.lengthOfLIS(nums))  # Output: 4  ("2,3,7,101")
+
+# Example 2
+nums = [0, 1, 0, 3, 2, 3]
+print(sol.lengthOfLIS(nums))  # Output: 4  ("0,1,2,3")
+
+# Example 3
+nums = [7, 7, 7, 7, 7]
+print(sol.lengthOfLIS(nums))  # Output: 1
+
+# Example 4
+nums = [1]
+print(sol.lengthOfLIS(nums))  # Output: 1
+
+# Example 5
+nums = [1, 3, 6, 7, 9, 4, 10, 5, 6]
+print(sol.lengthOfLIS(nums))  # Output: 6  ("1,3,6,7,9,10")
+
+# Example 6 (empty array)
+nums = []
+print(sol.lengthOfLIS(nums))  # Output: 0

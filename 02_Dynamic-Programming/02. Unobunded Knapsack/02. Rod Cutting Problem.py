@@ -20,4 +20,37 @@ class Solution:
                     dp[i][j] = dp[i-1][j]
         
         return dp[-1][-1]
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+# Example 1
+price = [1, 5, 8, 9, 10, 17, 17, 20]
+n = len(price)
+print(sol.cutRod(price, n))  # Output: 22
+
+# Example 2
+price = [2, 5, 7, 8]
+n = len(price)
+print(sol.cutRod(price, n))  # Output: 10
+
+# Example 3
+price = [3, 5, 8, 9, 10, 17, 17, 20]
+n = len(price)
+print(sol.cutRod(price, n))  # Output: 24
+
+# Example 4
+price = [1, 2, 3]
+n = len(price)
+print(sol.cutRod(price, n))  # Output: 3
+
+# Example 5 (single piece)
+price = [5]
+n = len(price)
+print(sol.cutRod(price, n))  # Output: 5
+
+# Example 6 (optimal to cut into many small pieces)
+price = [1, 3, 4, 5]
+n = len(price)
+print(sol.cutRod(price, n))  # Output: 6
         

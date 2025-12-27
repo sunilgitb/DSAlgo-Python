@@ -1,17 +1,22 @@
-# https://leetcode.com/problems/candy/
-
 class Solution:
-    def candy(self, R):
-        n, ans = len(R), [1]*len(R)
-        
-        for i in range(n-1):
-            if R[i] < R[i+1]:
-                ans[i+1] = max(1 + ans[i], ans[i+1])
-                
+    def candy(self, ratings):
+        n = len(ratings)
+        candies = [1] * n  # everyone gets at least 1 candy
+
+        # Left to right: ensure right neighbor gets more if rating increases
+        for i in range(1, n):
+            if ratings[i] > ratings[i-1]:
+                candies[i] = candies[i-1] + 1
+
+        # Right to left: ensure left neighbor gets more if rating increases
         for i in range(n-2, -1, -1):
-            if R[i+1] < R[i]:
-                ans[i] = max(1 + ans[i+1], ans[i])
-        
-        return sum(ans)
-      
-      
+            if ratings[i] > ratings[i+1]:
+                candies[i] = max(candies[i], candies[i+1] + 1)
+
+        return sum(candies)
+
+# ------------------- Driver Code -------------------
+if __name__ == "__main__":
+    sol = Solution()
+    ratings = [1, 0, 2]
+    print(sol.candy(ratings))  # Output: 5

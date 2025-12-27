@@ -1,32 +1,25 @@
-# Python Object Oriented Programming by Joe Marini course example
-# Understanding multiple inheritance
+# Python Object Oriented Programming
+# Using Abstract Base Classes to implement interfaces
+
+from abc import ABC, abstractmethod
 
 
-class A:
-    def __init__(self):
-        super().__init__()
-        self.foo = "foo"
-        self.name = "Class A"
-
-
-class B:
-    def __init__(self):
-        super().__init__()
-        self.bar = "bar"
-        self.name = "Class B"
-
-
-class C(B, A):
+class GraphicShape(ABC):
     def __init__(self):
         super().__init__()
 
-    def showprops(self):
-        print(self.foo)
-        print(self.bar)
-        print(self.name)
+    @abstractmethod
+    def calcArea(self):
+        pass
 
 
-# create the class and call showname()
-c = C()
-print(C.__mro__)
-c.showprops()
+class Circle(GraphicShape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def calcArea(self):
+        return 3.14 * (self.radius ** 2)
+
+
+c = Circle(10)
+print(c.calcArea())

@@ -16,3 +16,20 @@ class Solution:
     
 # Time: O(2 * N)
 # Space: O(2 * N)
+sol = Solution()
+
+print(sol.maxProfit([1,2,3,0,2]))
+# Expected Output: 3
+# Explanation:
+# Buy on day 0 (price = 1)
+# Sell on day 2 (price = 3)
+# Cooldown day 3
+# Buy on day 3 (price = 0)
+# Sell on day 4 (price = 2)
+
+print(sol.maxProfit([1]))
+# Expected Output: 0
+
+print(sol.maxProfit([2,1,4]))
+# Expected Output: 3
+

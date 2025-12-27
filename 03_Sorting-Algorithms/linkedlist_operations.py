@@ -8,7 +8,7 @@ class LinkedList:
         self.head = None 
     
     # Print Node method
-    def  print_ll(self):
+    def print_ll(self):
         if self.head == None:
             print("LinkedList is Empty!")
         else:
@@ -16,6 +16,7 @@ class LinkedList:
             while tmp:
                 print(tmp.data, end=" --> ")
                 tmp = tmp.next
+            print("None")
     
     # Add Node at the beginning
     def add_begin(self, data):
@@ -88,7 +89,7 @@ class LinkedList:
                     break
                 tmp = tmp.next
             if tmp.next == None:
-                print("Npde is Not found!")
+                print("Node is Not found!")
             else:
                 tmp.next = tmp.next.next
 
@@ -116,16 +117,43 @@ class LinkedList:
                 print(f"The Node {x} is not found in the Linkedlist!")
             else:
                 tmp.next = tmp.next.next 
-            
 
+
+# Test the LinkedList implementation
 LL = LinkedList()
 
+print("Creating linked list:")
 LL.add_begin(50)
 LL.add_begin(40)
 LL.add_begin(30)
 LL.add_begin(20)
 LL.add_begin(10)
-
 LL.print_ll()
 
+print("\nAdding 60 at the end:")
+LL.add_after(60)
+LL.print_ll()
 
+print("\nAdding 25 after node 20:")
+LL.after_a_given_Node(20, 25)
+LL.print_ll()
+
+print("\nAdding 15 before node 20:")
+LL.add_before_node(20, 15)
+LL.print_ll()
+
+print("\nDeleting node with value 30:")
+LL.delete_node_byValue(30)
+LL.print_ll()
+
+print("\nDeleting the end node:")
+LL.delete_end_node()
+LL.print_ll()
+
+print("\nDeleting the node after 25:")
+LL.delete_next_node(25)
+LL.print_ll()
+
+print("\nTrying to delete non-existent node 99:")
+LL.delete_node_byValue(99)
+LL.print_ll()

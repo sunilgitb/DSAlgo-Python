@@ -1,18 +1,17 @@
-# https://practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence4749/1#
-
 class Solution:
-	def maxSumIS(self, arr, n):
-		dp = arr.copy()  # dp = [i for i in arr]
-		
-		for i in range(n):
-		    for j in range(i):
-		        if arr[i] > arr[j] and dp[i] < dp[j] + arr[i]:
-		            dp[i] = dp[j] + arr[i]
+    def maxSumIS(self, arr, n):
+        dp = arr.copy()  # dp[i] stores max sum of increasing subsequence ending at i
+        
+        for i in range(n):
+            for j in range(i):
+                if arr[i] > arr[j] and dp[i] < dp[j] + arr[i]:
+                    dp[i] = dp[j] + arr[i]
         
         return max(dp)
-		
-		
-# Time: O(n^2)
-# Space: O(n)
-		
-		
+
+# ------------------- Driver Code -------------------
+if __name__ == "__main__":
+    sol = Solution()
+    arr = [1, 101, 2, 3, 100, 4, 5]
+    n = len(arr)
+    print(sol.maxSumIS(arr, n))  # Output: 106

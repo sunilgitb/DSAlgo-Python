@@ -4,31 +4,37 @@
 
 class Solution:
     def minDifference(self, arr):
-        total_sum = sum(arr)
         n = len(arr)
-        target = total_sum // 2  # We only need to consider subset sums up to total_sum/2
+        total_sum = sum(arr)
         memo = {}
 
-        # Recursive function with memoization
         def solve(i, s1):
             if i == n:
-                return abs(total_sum - 2 * s1)  # Calculate min difference
+                return abs(total_sum - 2 * s1)
+
             if (i, s1) in memo:
                 return memo[(i, s1)]
-            
-            # Option 1: Include arr[i] in subset s1 (if within limits)
-            include = solve(i + 1, s1 + arr[i]) if s1 + arr[i] <= target else float("inf")
-            
-            # Option 2: Exclude arr[i] from subset s1
+
+            # Include current element
+            include = solve(i + 1, s1 + arr[i])
+            # Exclude current element
             exclude = solve(i + 1, s1)
 
-            # Store result in memo table
             memo[(i, s1)] = min(include, exclude)
             return memo[(i, s1)]
 
         return solve(0, 0)
 
 
+# Time Complexity: O(n * totalSum)
+# Space Complexity: O(n * totalSum)
+
+
+# -------- Example Usage --------
+sol = Solution()
+arr = [1, 6, 11, 5]
+print(sol.minDifference(arr))
+# Expected Output: 1
 
 
 class Solution:

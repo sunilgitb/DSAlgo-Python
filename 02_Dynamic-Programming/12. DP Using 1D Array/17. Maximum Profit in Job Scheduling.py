@@ -1,31 +1,40 @@
-# https://leetcode.com/problems/maximum-profit-in-job-scheduling/
-
 class Solution:
-    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:
-        sep = sorted(zip(startTime, endTime, profit), key = lambda x:x[1])
-        endDP = [0]
-        profitDP = [0]
-        for s,e,p in sep:
-            # right most element whose endTime <= current start time. 
-            i = self.bisect_right(endDP, s) - 1 
-            curProfit = profitDP[i] + p
-            if curProfit > profitDP[-1]:
-                profitDP.append(curProfit)
-                endDP.append(e)
+    def checkRecord(self, n: int) -> int:
+        memo = {}
+        mod = 10**9 + 7
         
-        return profitDP[-1]
+        def solve(i, a, l):
+            if a > 1 or l >= 3: 
+                return 0
+
+            if i == n:
+                return 1
+
+            key = (i, a, l)
+
+            if key in memo:
+                return memo[key]
+
+            # Three possibilities: P, A, L
+            ans = (
+                solve(i+1, a, 0) +      # P: present
+                solve(i+1, a+1, 0) +    # A: absent
+                solve(i+1, a, l+1)      # L: late
+            ) % mod
+
+            memo[key] = ans
+            return ans
+        
+        return solve(0, 0, 0)
+
+# ------------------- Driver Code -------------------
+if __name__ == "__main__":
+    solution = Solution()
     
-    def bisect_right(self, arr, target): 
-        l, r = 0, len(arr)-1
-        while l <= r:
-            mid = l + (r-l)//2
-            if arr[mid] <= target:
-                l = mid + 1
-            else:
-                r = mid - 1
-        return l
+    n1 = 2
+    print(f"n = {n1} -> Total valid attendance records: {solution.checkRecord(n1)}")  
+    # Expected: 8 ("PP", "AP", "PA", "LP", "PL", "AL", "LA", "LL")
     
-    
-    
-# Time: O(N * log(N))
-# Space: O(N)
+    n2 = 3
+    print(f"n = {n2} -> Total valid attendance records: {solution.checkRecord(n2)}")  
+    # Expected: 19

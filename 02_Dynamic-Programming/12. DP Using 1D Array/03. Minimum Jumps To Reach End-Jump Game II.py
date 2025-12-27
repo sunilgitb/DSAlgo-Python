@@ -2,21 +2,36 @@
 
 # ----------------------  Dynamic Programming Approach => TLE  ---------------------------------
 # https://youtu.be/cETfFsSTGJI
+# O(N) Greedy Solution
+
 class Solution:
     def jump(self, nums):
-        n = len(nums)
-        dp = [0]*n
+        l = r = 0
+        jumps = 0
         
-        for i in range(1, n):
-            for j in range(i):
-                if j + nums[j] >= i:          # check if we can directly reach i from j
-                    if dp[i] == 0:            # previously no one has reached i 
-                        dp[i] = dp[j] + 1     # update
-                    else:
-                        if dp[j] + 1 < dp[i]: # update only if current jumps is lesser
-                            dp[i] = dp[j] + 1
+        while r < len(nums) - 1:
+            farthest = 0
+            for i in range(l, r + 1):
+                farthest = max(farthest, i + nums[i])
+            
+            l = r + 1
+            r = farthest
+            jumps += 1
         
-        return dp[-1]
+        return jumps
+
+sol = Solution()
+
+print(sol.jump([2, 3, 1, 1, 4]))
+# Output: 2
+# Explanation: 0 -> 1 -> 4
+
+print(sol.jump([2, 3, 0, 1, 4]))
+# Output: 2
+
+print(sol.jump([1, 1, 1, 1]))
+# Output: 3
+
     
 # Time: O(n^2)
 # Space: O(n)

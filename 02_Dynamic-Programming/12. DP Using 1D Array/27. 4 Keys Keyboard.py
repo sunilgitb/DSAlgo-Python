@@ -1,17 +1,42 @@
-# https://www.lintcode.com/problem/867
+from collections import defaultdict
 
 class Solution:
-    def max_a(self, n: int) -> int:
-        dp = [i for i in range(n+1)]
-        for i in range(4, n+1):
-            count = 2
-            prev = i-3
-            while prev > 0:
-                dp[i] = max(dp[i], count*dp[prev])
-                prev -= 1
-                count += 1
-        return dp[n]
+    def findSubstringInWraproundString(self, p: str) -> int:
+        if not p:
+            return 0
+        
+        dp = defaultdict(int)
+        streak = 0
+        
+        for i in range(len(p)):
+            if i > 0 and (ord(p[i]) - ord(p[i-1]) == 1 or (p[i-1] == 'z' and p[i] == 'a')):
+                streak += 1
+            else:
+                streak = 1
+            
+            dp[p[i]] = max(dp[p[i]], streak)
+        
+        return sum(dp.values())
 
 
-# Time: O(N^2)
-# Space: O(N)
+# Test cases
+test_cases = [
+    "a",          # Expected: 1
+    "cac",        # Expected: 2  
+    "zab",        # Expected: 6
+    "abc",        # Expected: 6
+    "abcd",       # Expected: 10
+    "zabx",       # Expected: 7
+    "",           # Expected: 0
+    "aaaa",       # Expected: 4
+    "abcdefghijklmnopqrstuvwxyz",  # Expected: 351
+    "zabcdefghijklmnopqrstuvwxy",  # Expected: 351
+]
+
+solution = Solution()
+
+print("Test Results:")
+print("-" * 60)
+for test in test_cases:
+    result = solution.findSubstringInWraproundString(test)
+    print(f"p = '{test}' : {result}")

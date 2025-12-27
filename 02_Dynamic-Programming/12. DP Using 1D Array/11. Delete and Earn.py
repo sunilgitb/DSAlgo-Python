@@ -1,28 +1,44 @@
-# https://leetcode.com/problems/delete-and-earn/
+from typing import List
 
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
-        # This question is SAME as House Robber 1
-        # just we need to make an array with total sum of that number
+        # This problem is SAME as House Robber I
+        # We first convert nums into a value array where
+        # value[i] = total points gained by deleting number i
         
-        # nums = [2,2,3,3,3,4]
+        if not nums:
+            return 0
         
-        arr = [0] * (max(nums)+1)
+        max_num = max(nums)
+        arr = [0] * (max_num + 1)
+        
         for num in nums:
             arr[num] += num
+        # Example: nums = [2,2,3,3,3,4]
         # arr = [0, 0, 4, 9, 4]
         
-        # now apply house robber 1 on this problem
-        
+        # Apply House Robber on arr
         n = len(arr)
-        if n < 3: return max(arr)
         
-        for i in range(3, n):
-            if i - 3 >= 0: arr[i] += max(arr[i-2], arr[i-3])
-            else: arr[i] += arr[i-2]
-                
-        return max(arr[-1], arr[-2])
+        if n == 1:
+            return arr[0]
+        if n == 2:
+            return max(arr[0], arr[1])
+        
+        dp = [0] * n
+        dp[0] = arr[0]
+        dp[1] = max(arr[0], arr[1])
+        
+        for i in range(2, n):
+            dp[i] = max(dp[i-1], arr[i] + dp[i-2])
+        
+        return dp[-1]
+
+
+# ---------------- Example Usage ----------------
+if __name__ == "__main__":
+    sol = Solution()
     
-    
-# Time: O(max(nums))
-# Space: O(max(nums))
+    nums = [2, 2, 3, 3, 3, 4]
+    print(sol.deleteAndEarn(nums))
+    # Output: 9

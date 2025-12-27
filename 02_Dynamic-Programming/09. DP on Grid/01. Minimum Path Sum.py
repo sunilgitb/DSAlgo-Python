@@ -1,59 +1,82 @@
 # https://leetcode.com/problems/minimum-path-sum/
 
-# --------------------- Method 1 ------------------------------------------------------------------------------
+from typing import List
 
-# https://www.youtube.com/watch?v=BzTIOsC0xWM
-# Traversing from bottom-right most to top-left most corner
-class Solution:
+# Method 1: Bottom-Up DP (bottom-right to top-left)
+class SolutionBottomUpReverse:
     def minPathSum(self, grid: List[List[int]]) -> int:
-        r = len(grid); c = len(grid[0])
+        if not grid or not grid[0]:
+            return 0
+            
+        rows, cols = len(grid), len(grid[0])
         
-        # in (c-1)th coloumn only 1 path available. ie, straight down. So bottom to up path along right most column is continuous sum of elements
-        for i in range(r-2, -1, -1):
-            grid[i][c-1] += grid[i+1][c-1]
+        # Fill rightmost column (only downward moves possible)
+        for i in range(rows - 2, -1, -1):
+            grid[i][cols - 1] += grid[i + 1][cols - 1]
         
-        # in (r-1)th row only 1 path is available => straight right. so right to left path along bottom most row is contigeuos sum of elements
-        for j in range(c-2, -1, -1):
-            grid[r-1][j] += grid[r-1][j+1]
+        # Fill bottom row (only right moves possible)
+        for j in range(cols - 2, -1, -1):
+            grid[rows - 1][j] += grid[rows - 1][j + 1]
         
-        # from (r-2, c-2) to (0, 0) path => in any cell add minimum value of down or right cell 
-        for i in range(r-2, -1, -1):
-            for j in range(c-2, -1, -1):
-                grid[i][j] += min(grid[i+1][j], grid[i][j+1])
+        # Fill rest of the grid
+        for i in range(rows - 2, -1, -1):
+            for j in range(cols - 2, -1, -1):
+                grid[i][j] += min(grid[i + 1][j], grid[i][j + 1])
         
         return grid[0][0]
-    
 
 
-# --------------------- Method 2 ------------------------------------------------------------------------------
-
-# Traversing from top-left most to bottom-right most corner
+# Method 2: Bottom-Up DP (top-left to bottom-right) - Most common & readable
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
+        if not grid or not grid[0]:
+            return 0
+            
+        rows, cols = len(grid), len(grid[0])
         
-        # get dimensions
-        n = len(grid) # no of cells in each col
-        m = len(grid[0]) # no of cells in each row
+        # Fill first row (only right moves)
+        for j in range(1, cols):
+            grid[0][j] += grid[0][j - 1]
         
-        # populate first row using m for no of cells in row
-        for i in range(1,m):
-            grid[0][i] = grid[0][i] + grid[0][i-1]
+        # Fill first column (only down moves)
+        for i in range(1, rows):
+            grid[i][0] += grid[i - 1][0]
         
-        # populate first col using n for no of cells in col
-        for j in range(1,n):
-            grid[j][0] = grid[j-1][0] + grid[j][0]
+        # Fill rest of the grid
+        for i in range(1, rows):
+            for j in range(1, cols):
+                grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
         
-        # populate the rest
-        for i in range(1,n):
-            for j in range(1,m):
-				# get min seen so far plus curr cell value
-                grid[i][j] = min(grid[i-1][j],grid[i][j-1]) + grid[i][j]
-        
-        # return last cell
         return grid[-1][-1]
 
 
+# ---------------- Example Usage ----------------
+sol = Solution()
 
+# Example 1
+grid = [
+    [1, 3, 1],
+    [1, 5, 1],
+    [4, 2, 1]
+]
+print(sol.minPathSum(grid))  # Output: 7 (path: 1→3→1→1→1)
 
-# Time: O(m*n)
-# Space: O(1)
+# Example 2
+grid = [[1,2,3],[4,5,6]]
+print(sol.minPathSum(grid))  # Output: 12 (1→2→3→6 or 1→4→5→6)
+
+# Example 3
+grid = [[1,2],[1,1]]
+print(sol.minPathSum(grid))  # Output: 3 (1→1→1)
+
+# Example 4
+grid = [[1]]
+print(sol.minPathSum(grid))  # Output: 1
+
+# Example 5
+grid = [[1,3,1,2],[1,5,1,3],[4,2,1,1]]
+print(sol.minPathSum(grid))  # Output: 8
+
+# Example 6
+grid = [[0,2,2,6,4,1,6],[0,4,0,5,0,0,4],[5,5,5,1,0,5,6]]
+print(sol.minPathSum(grid))  # Output: 18

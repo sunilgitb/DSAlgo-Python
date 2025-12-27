@@ -1,43 +1,79 @@
 # https://www.youtube.com/watch?v=SqA0o-DGmEw&list=PL_z_8CaSLPWekqhdCPmFohncHwz8TY2Go&index=40
 # https://leetcode.com/problems/scramble-string/
 
+from typing import Dict
+
 class Solution:
     def isScramble(self, s1: str, s2: str) -> bool:
-        mp = {} # hash map to store calculated values of solve(a, b) substrings for future use or can take dp matrix to store
-        def solve(a, b):
-            if len(a) != len(b): return False # if length is not equal then can not be compared with each-other or not scrambled
+        mp: Dict[str, bool] = {}  # Memoization map: key = a + "-" + b
+        
+        def solve(a: str, b: str) -> bool:
+            if len(a) != len(b):
+                return False
             
-            if a == b: return True  # equal substrungs are already scrambled
-            if len(a) <= 1 or len(b) <= 1: return False  # if length == 0 => can not be scrambled; if length == 1 then both should a == b which is checked earlier 
+            if a == b:
+                return True
             
-            # Check for the condition of anagram
-            if sorted(a) != sorted(b): return False
+            if len(a) <= 1:
+                return False  # len==0 impossible (checked earlier), len==1 checked by equality
             
-            key = a + "-" + b  # key to store value of solve(a, b) in hashmap
+            # Early exit if not anagrams
+            if sorted(a) != sorted(b):
+                return False
             
-            if key in mp: return mp[key] # if key present in hashmap ie. previously solve(a, b) was calculated so don't need to calculate again return from here
-            
-            flag = False
+            key = a + "-" + b
+            if key in mp:
+                return mp[key]
             
             n = len(a)
+            flag = False
             
             for i in range(1, n):
+                # No swap case
+                no_swap = solve(a[:i], b[:i]) and solve(a[i:], b[i:])
                 
-                noswap = solve(a[:i], b[:i]) and solve(a[i:], b[i:])   # checking left half of a with left half of b AND right half of a with right half of b
+                # Swap case
+                swap = solve(a[:i], b[n-i:]) and solve(a[i:], b[:n-i])
                 
-                swap = solve(a[:i], b[n-i:]) and solve(a[i:], b[:n-i]) # checking left half of a with right half of b AND right half of a with left half of b
-                
-                if noswap or swap:  # if any one of conditions == True
+                if no_swap or swap:
                     flag = True
                     break
-                
-            mp[key] = flag  # storing value of solve(a, b) in hashmap
-            return mp[key]  # returning value of solve(a, b)
+            
+            mp[key] = flag
+            return flag
         
         return solve(s1, s2)
-    
-'''
-Time Complexity: O(N^2), where N is the length of the given strings.
-Auxiliary Space: O(N^2), As we need to store O(N^2) string in our mp map.
 
-'''               
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+# Example 1
+s1 = "great"
+s2 = "rgeat"
+print(sol.isScramble(s1, s2))  # Output: True
+
+# Example 2
+s1 = "abcde"
+s2 = "caebd"
+print(sol.isScramble(s1, s2))  # Output: False
+
+# Example 3
+s1 = "a"
+s2 = "a"
+print(sol.isScramble(s1, s2))  # Output: True
+
+# Example 4
+s1 = "ab"
+s2 = "ba"
+print(sol.isScramble(s1, s2))  # Output: True (swap)
+
+# Example 5
+s1 = "great"
+s2 = "grate"
+print(sol.isScramble(s1, s2))  # Output: False (not scramble)
+
+# Example 6 (longer example)
+s1 = "abcdefghijklmn"
+s2 = "efghijklmndcab"
+print(sol.isScramble(s1, s2))  # Output: True or False (depending on scramble)

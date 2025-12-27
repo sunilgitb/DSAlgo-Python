@@ -10,29 +10,51 @@ s1 = (target + sum(nums)) // 2
 Now we have to find number of possible subsets s1 in nums
 '''
 
+from typing import List
+
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        if abs(target) > sum(nums): return 0  # nums = [10], target = -100
-        s1 = (target + sum(nums)) // 2
-        # 2 * s1 = (target + sum(nums))  => as (target + sum(nums)) is a multiple of 2 so it must be an even number
-        if (target + sum(nums)) % 2 != 0: return 0
-        dp = [[0]*(s1+1) for i in range(len(nums) + 1)]
-        # 1st row of dp = 0; as in 1st row size of nums = [] so no subset s1 is possile for sum(s1) > 0
-        for j in range(s1 + 1):
-            dp[0][j] = 0
-        # 1st column of dp = 1; as in 1st column sum(s1) = 0; so empty nums is possibel so 1 possible subset s1 everytime
-        for i in range(len(nums)+1):
-            dp[i][0] = 1
-        # change values of remaining dp starting from (1, 0) to (len(nums), s1)
-        for i in range(1, len(nums) + 1):
+        total = sum(nums)
+
+        # Impossible cases
+        if abs(target) > total:
+            return 0
+        if (total + target) % 2 != 0:
+            return 0
+
+        s1 = (total + target) // 2
+        n = len(nums)
+
+        dp = [[0] * (s1 + 1) for _ in range(n + 1)]
+
+        # Base case: sum = 0 → 1 way (empty subset)
+        dp[0][0] = 1
+
+        for i in range(1, n + 1):
             for j in range(s1 + 1):
                 if nums[i - 1] <= j:
-                    dp[i][j] = dp[i - 1][j - nums[i - 1]] + dp[i - 1][j]
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i - 1]]
                 else:
                     dp[i][j] = dp[i - 1][j]
-        
-        return dp[-1][-1] # dp[len(nums)][s1]
-    
+
+        return dp[n][s1]
+
+
+# Time Complexity: O(n * s1)
+# Space Complexity: O(n * s1)
+
+
+# -------- Example Usage --------
+sol = Solution()
+
+print(sol.findTargetSumWays([1,1,1,1,1], 3))
+# Expected Output: 5
+
+print(sol.findTargetSumWays([1], 1))
+# Expected Output: 1
+
+print(sol.findTargetSumWays([0,0,0,0,0], 0))
+# Expected Output: 32
 
 
 

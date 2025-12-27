@@ -12,3 +12,12 @@ class Solution:
     
 # Time: O(n)
 # Space: O(n)
+sol = Solution()
+
+print(sol.climbStairs(2))  # Output: 2
+# Explanation: (1+1), (2)
+
+print(sol.climbStairs(3))  # Output: 3
+# Explanation: (1+1+1), (1+2), (2+1)
+
+print(sol.climbStairs(5))  # Output: 8
