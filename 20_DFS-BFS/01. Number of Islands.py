@@ -53,3 +53,26 @@ class Solution:
 # Time: O(n + e)
 # Space: O(n) + o(n)  
 # Auxiliary Space: O(n)
+
+if __name__ == "__main__":
+    solution = Solution()
+    
+    grid1 = [
+        ["1","1","0","0","0"],
+        ["1","1","0","0","0"],
+        ["0","0","1","0","0"],
+        ["0","0","0","1","1"]
+    ]
+    print(solution.numIslands(grid1))  # Output: 3
+
+    grid2 = [
+        ["1","0","1","1","0","1","1"]
+    ]
+    print(solution.numIslands(grid2))  # Output: 3
+
+    grid3 = [
+        ["1","1","1"],
+        ["0","1","0"],
+        ["1","1","1"]
+    ]
+    print(solution.numIslands(grid3))  # Output: 1

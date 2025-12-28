@@ -37,3 +37,23 @@ class Solution:
 
 # Time: O(N^2)
 # Space: O(N^2)
+if __name__ == "__main__":
+    solution = Solution()
+    
+    heights1 = [
+        [1,2,2,3,5],
+        [3,2,3,4,4],
+        [2,4,5,3,1],
+        [6,7,1,4,5],
+        [5,1,1,2,4]
+    ]
+    print(solution.pacificAtlantic(heights1))
+    # Expected output: [[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]
+
+    heights2 = [
+        [2,1],
+        [1,2]
+    ]
+    print(solution.pacificAtlantic(heights2))
+    # Expected output: [[0,0],[0,1],[1,0],[1,1]]
+

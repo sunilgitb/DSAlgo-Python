@@ -13,9 +13,14 @@ If a sequence of words is sorted, then each adjacent word of the sequence must a
 
 '''
 
+# https://leetcode.com/problems/verifying-an-alien-dictionary/
+
+from typing import List
+
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
-        ind = {c:i for i,c in enumerate(order)}
+        ind = {c: i for i, c in enumerate(order)}
+        
         def checkOrder(w1, w2):
             for s1, s2 in zip(w1, w2):
                 if ind[s1] != ind[s2]:
@@ -24,7 +29,14 @@ class Solution:
         
         return all(checkOrder(w1, w2) for w1, w2 in zip(words, words[1:]))
 
-                
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.isAlienSorted(["hello","leetcode"], "hlabcdefgijkmnopqrstuvwxyz"))  # True
+print(solution.isAlienSorted(["word","world","row"], "worldabcefghijkmnpqstuvxyz")) # False
+print(solution.isAlienSorted(["apple","app"], "abcdefghijklmnopqrstuvwxyz"))       # False
+
         
 '''
 ✦ Time Complexity : O(N),   where N is the total number of characters in words.

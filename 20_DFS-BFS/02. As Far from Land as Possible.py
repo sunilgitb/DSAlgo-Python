@@ -36,3 +36,33 @@ class Solution:
         return res
 
         
+if __name__ == "__main__":
+    solution = Solution()
+    
+    grid1 = [
+        [1,0,1],
+        [0,0,0],
+        [1,0,1]
+    ]
+    print(solution.maxDistance(grid1))  # Output: 2
+
+    grid2 = [
+        [1,0,0],
+        [0,0,0],
+        [0,0,0]
+    ]
+    print(solution.maxDistance(grid2))  # Output: 4
+
+    grid3 = [
+        [0,0,0],
+        [0,0,0],
+        [0,0,0]
+    ]
+    print(solution.maxDistance(grid3))  # Output: -1
+
+    grid4 = [
+        [1,1,1],
+        [1,1,1],
+        [1,1,1]
+    ]
+    print(solution.maxDistance(grid4))  # Output: -1

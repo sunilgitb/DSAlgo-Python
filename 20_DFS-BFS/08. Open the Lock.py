@@ -31,3 +31,17 @@ class Solution:
         return -1
                     
             
+if __name__ == "__main__":
+    solution = Solution()
+    
+    deadends = ["0201","0101","0102","1212","2002"]
+    target = "0202"
+    print(solution.openLock(deadends, target))  # Output: 6
+
+    deadends = ["8888"]
+    target = "0009"
+    print(solution.openLock(deadends, target))  # Output: 1
+
+    deadends = ["8887","8889","8878","8898","8788","8988","7888","9888"]
+    target = "8888"
+    print(solution.openLock(deadends, target))  # Output: -1

@@ -19,17 +19,28 @@ So '&' of all number in [left, right] is (left << count)
 '''
 
 
+# https://leetcode.com/problems/bitwise-and-of-numbers-range/
+# https://youtu.be/-qrpJykY2gE
+
 class Solution:
     def rangeBitwiseAnd(self, left: int, right: int) -> int:
         count = 0
-        
         while left != right:
-            left = left >> 1
-            right = right >> 1
+            left >>= 1
+            right >>= 1
             count += 1
-        
         return left << count
-                
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.rangeBitwiseAnd(5, 7))    # 4
+print(solution.rangeBitwiseAnd(12, 15))  # 12
+print(solution.rangeBitwiseAnd(0, 1))    # 0
+print(solution.rangeBitwiseAnd(10, 11))  # 10
+print(solution.rangeBitwiseAnd(1, 1))    # 1
+
          
 # Time: O(1)
 # Space: O(1)

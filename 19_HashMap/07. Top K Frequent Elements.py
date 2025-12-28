@@ -1,6 +1,9 @@
 # https://leetcode.com/problems/top-k-frequent-elements/
 # https://youtu.be/YPTqKIgVk-k
 
+from typing import List
+import collections
+
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         # Bucket Sort
@@ -23,7 +26,16 @@ class Solution:
                 res += cnt_num[cnt]
             if len(res) >= k: break
         
-        return res
+        return res[:k]  # ensure only k elements
+
+# ================= DRIVER CODE =================
+if __name__ == "__main__":
+    sol = Solution()
+    
+    print(sol.topKFrequent([1,1,1,2,2,3], 2))  # [1,2]
+    print(sol.topKFrequent([1], 1))            # [1]
+    print(sol.topKFrequent([4,4,4,6,6,7,7,7,7], 2)) # [7,4]
+
     
     
 # Time: O(N)

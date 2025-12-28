@@ -18,19 +18,38 @@ In summary, the code uses bitmasking to represent chosen numbers and recursively
 incrementing the count whenever a valid permutation is found.
 '''
 
+
+from typing import List
+from functools import cache
+
 class Solution:
     def specialPerm(self, nums: List[int]) -> int:
         n = len(nums)
+        MOD = 10**9 + 7
+
         @cache
-        def dfs(indx, prev, mask):
-            if mask >= (1<<n)-1: return 1
+        def dfs(prev, mask):
+            if mask == (1 << n) - 1:
+                return 1
             ans = 0
             for i in range(n):
-                if not (mask & (1<<i)) and (prev % nums[i] == 0 or nums[i] % prev == 0):
-                    ans += dfs(indx+1, nums[i], mask | (1<<i))
-            return ans % (10**9 + 7)
-        
-        return dfs(0, -1, 0)
+                if not (mask & (1 << i)) and (prev % nums[i] == 0 or nums[i] % prev == 0):
+                    ans += dfs(nums[i], mask | (1 << i))
+            return ans % MOD
+
+        # Start with a dummy previous element (-1) that satisfies condition with any number
+        return dfs(-1, 0)
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+nums1 = [2,3,6]
+print(solution.specialPerm(nums1))  # Example output: 4
+
+nums2 = [1,4,3]
+print(solution.specialPerm(nums2))  # Example output depends on condition
+
 
 # Time complexity: O(2 ^ n * n * n * n)
 # Space complexity: O(2 ^ n * n * n)

@@ -33,3 +33,17 @@ class Solution:
 
 # Time: O(N)
 # Space: O(N)
+if __name__ == "__main__":
+    solution = Solution()
+    
+    A = [1, 2, 1, 3, 4, 3]
+    B = 3
+    print(solution.dNums(A, B))  
+    # Output: [2, 3, 3, 2]
+    # Explanation: Windows of size 3 are [1,2,1], [2,1,3], [1,3,4], [3,4,3]
+
+    A = [4, 1, 1, 2, 2, 3, 3]
+    B = 2
+    print(solution.dNums(A, B))  
+    # Output: [2, 1, 2, 1, 2, 1]
+    # Explanation: Windows of size 2 are [4,1], [1,1], [1,2], [2,2], [2,3], [3,3]

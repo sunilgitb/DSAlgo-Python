@@ -7,91 +7,93 @@ of two numbers is the largest number that divides both of them.
 # https://www.geeksforgeeks.org/euclidean-algorithms-basic-and-extended/
 
 # --------------------------------------------------------------------------------------------------
+"""
+GCD (Greatest Common Divisor) / HCF (Highest Common Factor)
+The largest number that divides both numbers.
+"""
 
-def gcd(a, b):
-  # Find minimum of a and b
-  result = min(a, b)
-   
-  while result:
-    if a % result == 0 and b % result == 0:
-      break
-    result -= 1
-   
-  # Return the gcd of a and b
-  return result
- 
+# ---------------------------------------------------------------------
+# 1️⃣ Brute Force Approach
+# ---------------------------------------------------------------------
+def gcd_bruteforce(a, b):
+    result = min(a, b)
+    while result > 0:
+        if a % result == 0 and b % result == 0:
+            return result
+        result -= 1
+
+
 # Driver Code
-a = 98
-b = 56
- 
-print(f"GCD of {a} and {b} is {gcd(a, b)}")
+a, b = 98, 56
+print("Brute Force GCD:", gcd_bruteforce(a, b))
+# Output: 14
 
 
-# --------------------------------------------------------------------------------------------------
-
-# Recursive function to return gcd of a and b
-def gcd(a,b):
-     
-    # Everything divides 0
-    if (a == 0):
+# ---------------------------------------------------------------------
+# 2️⃣ Euclidean Algorithm (Recursive – Subtraction)
+# ---------------------------------------------------------------------
+def gcd_subtraction(a, b):
+    if a == 0:
         return b
-    if (b == 0):
+    if b == 0:
         return a
-    # base case
-    if (a == b):
+    if a == b:
         return a
- 
-    # a is greater
-    if (a > b):
-        return gcd(a-b, b)
-    return gcd(a, b-a)
-
-# Time Complexity: O(max(a,b))
-# Auxiliary Space: O(max(a,b))
-
-# ------------------------------------------------------------------------------------------------
+    if a > b:
+        return gcd_subtraction(a - b, b)
+    return gcd_subtraction(a, b - a)
 
 
-# Dynamic Programming Approach (Top Down Using Memoization)
-# Taking the matrix as globally
-dp = [[-1 for i in range(1001)] for j in range(1001)]
- 
-def gcd(a,b):
-     
-    # Everything divides 0
-    if (a == 0):
+# Driver Code
+print("Euclidean (Subtraction) GCD:", gcd_subtraction(a, b))
+# Output: 14
+
+# Time Complexity: O(max(a, b))
+# Space Complexity: O(max(a, b))
+
+
+# ---------------------------------------------------------------------
+# 3️⃣ Dynamic Programming (Memoization)
+# ---------------------------------------------------------------------
+MAX = 1000
+dp = [[-1 for _ in range(MAX + 1)] for _ in range(MAX + 1)]
+
+def gcd_dp(a, b):
+    if a == 0:
         return b
-    if (b == 0):
+    if b == 0:
         return a
- 
-    # base case
-    if (a == b):
+    if a == b:
         return a
-     
-    if(dp[a][b] != -1):
+    if dp[a][b] != -1:
         return dp[a][b]
-         
-    # a is greater
-    if (a > b):
-        dp[a][b] = gcd(a-b, b)
+    if a > b:
+        dp[a][b] = gcd_dp(a - b, b)
     else:
-        dp[a][b] = gcd(a, b-a)
-         
+        dp[a][b] = gcd_dp(a, b - a)
     return dp[a][b]
 
-# Time Complexity: O(max(a,b))
-# Auxiliary Space: O(1)
 
-# ------------------------------------------------------------------------------------------------
+# Driver Code
+print("DP (Memoization) GCD:", gcd_dp(a, b))
+# Output: 14
+
+# Time Complexity: O(max(a, b))
+# Space Complexity: O(max(a, b))
 
 
-# Use Modulo Operator in Euclidean Algorithm
-def gcd(a,b):
-     
-    # Everything divides 0
-    if (b == 0):
-         return a
-    return gcd(b, a%b)
+# ---------------------------------------------------------------------
+# 4️⃣ Optimized Euclidean Algorithm (Modulo) ⭐ BEST
+# ---------------------------------------------------------------------
+def gcd_modulo(a, b):
+    if b == 0:
+        return a
+    return gcd_modulo(b, a % b)
 
-# Time Complexity: O(log(max(a,b))
-# Auxiliary Space: O(log(max(a,b))
+
+# Driver Code
+print("Euclidean (Modulo) GCD:", gcd_modulo(a, b))
+# Output: 14
+
+# Time Complexity: O(log(max(a, b)))
+# Space Complexity: O(log(max(a, b)))

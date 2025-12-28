@@ -19,3 +19,12 @@ class Solution:
             if slopDict: res = max(res, max(slopDict.values()))
         
         return res
+
+if __name__ == "__main__":
+    sol = Solution()
+    
+    points = [[1,1],[2,2],[3,3]]
+    print(sol.maxPoints(points))  # Output: 3
+
+    points = [[1,1],[3,2],[5,3],[4,1],[2,3],[1,4]]
+    print(sol.maxPoints(points))  # Output: 4

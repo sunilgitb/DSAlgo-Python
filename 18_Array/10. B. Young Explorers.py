@@ -1,17 +1,19 @@
-# https://codeforces.com/problemset/problem/1355/B
+def solve():
+    arr = [1, 2, 3, 4, 1, 2]   # sample array
+    n = len(arr)
 
-t = int(input())
-for _ in range(t):
-      n = int(input())
-      arr = list(map(int, input().split()))
-      
-      arr.sort()
-      cur_size = 0
-      total_size = 0
-      for i in arr:
-            cur_size += 1
-            if cur_size == i:
-                  total_size += 1
-                  cur_size = 0
+    arr.sort()
+    cur_size = 0
+    total_size = 0
 
-      print(total_size)
+    for x in arr:
+        cur_size += 1
+        if cur_size == x:
+            total_size += 1
+            cur_size = 0
+
+    print(total_size)
+
+
+# Driver code
+solve()

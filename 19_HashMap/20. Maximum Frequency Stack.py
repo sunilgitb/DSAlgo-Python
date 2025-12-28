@@ -48,6 +48,20 @@ class FreqStack:
             self.maxCnt -= 1
         return res
     
+if __name__ == "__main__":
+    freqStack = FreqStack()
     
+    freqStack.push(5)
+    freqStack.push(7)
+    freqStack.push(5)
+    freqStack.push(7)
+    freqStack.push(4)
+    freqStack.push(5)
+    
+    print(freqStack.pop())  # 5
+    print(freqStack.pop())  # 7
+    print(freqStack.pop())  # 5
+    print(freqStack.pop())  # 4
+
 # Time: O(1)
 # Space: O(N)

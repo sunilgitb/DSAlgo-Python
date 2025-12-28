@@ -1,55 +1,65 @@
 # https://leetcode.com/problems/single-number-ii/
-# Explanation: https://spcdn.pages.dev/single-number-ii.pdf
+
+from typing import List
 
 class Solution:
-    def singleNumber(self, nums):
+    # Bit manipulation: count each bit modulo 3
+    def singleNumber(self, nums: List[int]) -> int:
         res = 0
-        negCount = 0
         for i in range(32):
             s = 0
             for num in nums:
-                if num < 0: 
-                    negCount += 1
-                if (abs(num) >> i) & 1:
+                if (num >> i) & 1:
                     s += 1
-                    s %= 3
+            s %= 3
             res |= (s << i)
+        # handle negative numbers
+        if res >= 2**31:
+            res -= 2**32
+        return res
 
-        return -res if negCount%3 else res
-
-
-
-
-        
-
-class Solution:
-    # Optimal best approach
-    def singleNumber(self, nums):
-        ones = 0; twos = 0
+    # Optimal best approach using ones and twos masks
+    def singleNumberOptimal(self, nums: List[int]) -> int:
+        ones = 0
+        twos = 0
         for num in nums:
             ones = (ones ^ num) & (~twos)
             twos = (twos ^ num) & (~ones)
         return ones
-        # Time: O(N)
-        # Space: O(1)
-    
-    
-    def singleNumber1(self, nums):
+
+    # Sorting approach
+    def singleNumberSort(self, nums: List[int]) -> int:
         nums.sort()
-        if nums[0] != nums[1]: return nums[0]
-        if nums[-1] != nums[-2]: return nums[-1]
+        n = len(nums)
+        if nums[0] != nums[1]:
+            return nums[0]
+        if nums[-1] != nums[-2]:
+            return nums[-1]
         i = 1
-        while i < len(nums):
+        while i < n:
             if nums[i] != nums[i-1]:
                 return nums[i-1]
             i += 3
-        # Time Complexity = O(N log(N)) 
-        # as nums[i] < 2**31 so in worst case Time = O(N log(2**31)) = O(31 * N)
-        # This approach is faster than O(32N) because in normal senario it uses less time than 32N
-        # Space: O(1) ; as sorting the given array not taking any extra array   
-            
-            
-    def singleNumber2(self, nums):
-        return (3*sum(set(nums)) - sum(nums)) // 2
-        # Time: O(N) ; as sum() function internally uses loop
-        # Space: O(N); for making the set of nums
+        return -1  # fallback (should not occur)
+
+    # Set-sum formula approach
+    def singleNumberSet(self, nums: List[int]) -> int:
+        return (3 * sum(set(nums)) - sum(nums)) // 2
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+nums_list = [
+    [2,2,3,2], 
+    [0,1,0,1,0,1,99], 
+    [-2,-2,1,-2], 
+    [30000,500,100,30000,100,30000,100]
+]
+
+for nums in nums_list:
+    print("Bitwise count:", solution.singleNumber(nums))
+    print("Optimal ones/twos:", solution.singleNumberOptimal(nums))
+    print("Sorting approach:", solution.singleNumberSort(nums))
+    print("Set-sum formula:", solution.singleNumberSet(nums))
+    print("-----")

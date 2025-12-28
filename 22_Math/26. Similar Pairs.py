@@ -10,16 +10,18 @@ of even and odd number. The only way to make their pair similar is to check they
 the result accordingly.   
 '''
 
-
 def solve(n, arr):
-
     even = odd = 0
     for a in arr:
-        if a % 2 == 0: even += 1
-        else: odd += 1
+        if a % 2 == 0: 
+            even += 1
+        else: 
+            odd += 1
 
-    if even % 2 != odd % 2: return "NO"
-    elif even % 2 == 0: return "YES"
+    if even % 2 != odd % 2: 
+        return "NO"
+    elif even % 2 == 0: 
+        return "YES"
     else:
         arr.sort()
         for i in range(1, n):
@@ -28,11 +30,13 @@ def solve(n, arr):
         return "NO"
 
 
+# Example test cases
+test_cases = [
+    [4, [1, 3, 5, 7]],       # NO
+    [4, [1, 2, 3, 4]],       # YES
+    [3, [2, 3, 4]],          # YES
+    [5, [1, 2, 3, 5, 7]]     # NO
+]
 
-
-if __name__ == "__main__":
-    t = int(input())
-    for _ in range(0, t):
-        n = int(input())
-        arr = list(map(int, input().split(" ")))
-        print(solve(n, arr))
+for n, arr in test_cases:
+    print(solve(n, arr))

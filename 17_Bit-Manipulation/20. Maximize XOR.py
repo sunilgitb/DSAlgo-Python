@@ -9,16 +9,25 @@ Step 4:- continue till num become zero(0)
 '''
 
 
+
 class Solution:
-	def maximize_xor_count(self, n):
-		res = 0
-		i = 1
-		while n:
-		    if n&1 == 0:
-		        res += (2**i)//2
-		    i += 1
+    def maximize_xor_count(self, n):
+        res = 0
+        i = 1
+        while n:
+            if n & 1 == 0:
+                res += (2**i) // 2
+            i += 1
             n = n >> 1
         return res
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.maximize_xor_count(5))   # Example: n = 5, output should be 2
+print(solution.maximize_xor_count(10))  # Example: n = 10, output depends on unset bits
+print(solution.maximize_xor_count(0))   # Edge case: n = 0, output = 0
+
 
 # Time: O(32)
 # Space: O(1)

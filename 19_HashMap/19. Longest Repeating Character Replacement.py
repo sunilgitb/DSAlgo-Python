@@ -25,7 +25,18 @@ class Solution:
                 l += 1
         
         return res
+
+if __name__ == "__main__":
+    sol = Solution()
     
+    s = "ABAB"
+    k = 2
+    print(sol.characterReplacement(s, k))  # Output: 4
+
+    s = "AABABBA"
+    k = 1
+    print(sol.characterReplacement(s, k))  # Output: 4
+
     
     
 # Time: O(N)

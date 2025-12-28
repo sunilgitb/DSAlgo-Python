@@ -1,34 +1,27 @@
-# https://www.spoj.com/problems/ONP/
-'''
-Input:
-3
-(a+(b*c))
-((a+b)*(z+x))
-((a+t)*((b+(a+c))^(c+d)))
+# https://leetcode.com/problems/longest-substring-without-repeating-characters/
 
-Output:
-abc*+
-ab+zx+*
-at+bac++cd+^*
-'''
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        track = set()
+        l = 0
+        res = 0
+        
+        for r in range(len(s)):
+            while s[r] in track:
+                track.remove(s[l])
+                l += 1
+                
+            track.add(s[r])
+            res = max(res, r - l + 1)
+        
+        return res
 
-n = int(input(""))  # number of input string
-for i in range(n):
-    s = input('')   # input Algebraic Expression with Brackets
-    stack = []
-    for i in s:
-        if i == ')':
-            tmp = ""
-            while stack:
-                t = stack.pop()
-                if t == "(":
-                    break 
-                elif t in "+-*/^":
-                    tmp += t 
-                else:
-                    tmp = t + tmp
-            stack.append(tmp)
-        else:
-            stack.append(i)
-    print("".join(stack))
-    
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.lengthOfLongestSubstring("abcabcbb"))  # 3
+print(solution.lengthOfLongestSubstring("bbbbb"))     # 1
+print(solution.lengthOfLongestSubstring("pwwkew"))    # 3
+print(solution.lengthOfLongestSubstring(""))           # 0
+print(solution.lengthOfLongestSubstring("dvdf"))       # 3

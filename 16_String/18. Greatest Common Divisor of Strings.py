@@ -15,6 +15,12 @@ class Solution:
                 return str1[:i]
         
         return ""
-    
-    
-# Time: O(N^2)  # as time to take a substring is O(N)
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.gcdOfStrings("ABCABC", "ABC"))     # "ABC"
+print(solution.gcdOfStrings("ABABAB", "ABAB"))    # "AB"
+print(solution.gcdOfStrings("LEET", "CODE"))      # ""
+print(solution.gcdOfStrings("AAAAAA", "AAA"))     # "A"

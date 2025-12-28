@@ -1,24 +1,44 @@
 # https://leetcode.com/problems/array-nesting/description/
 
 
+# https://leetcode.com/problems/array-nesting/
+
+from typing import List
+
 class Solution:
     def arrayNesting(self, nums: List[int]) -> int:
-        res = 1
-        visited_indeces = set()
+        res = 0
+        visited = set()
 
         for i in range(len(nums)):
-            visited_num = set()
-            tmp = 0
-            cur = nums[i]
-            while cur not in visited_num:
-                tmp += 1
-                visited_num.add(cur)
-                if cur in visited_indeces: break
-                visited_indeces.add(cur)
+            if i in visited:
+                continue
+
+            count = 0
+            cur = i
+            while cur not in visited:
+                visited.add(cur)
                 cur = nums[cur]
-            res = max(res, tmp)
-        
+                count += 1
+
+            res = max(res, count)
+
         return res
+
+
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    solution = Solution()
+
+    nums = [5, 4, 0, 3, 1, 6, 2]
+    print(solution.arrayNesting(nums))   # Output: 4
+
+    nums = [0, 1, 2]
+    print(solution.arrayNesting(nums))   # Output: 1
+
+    nums = [1, 0]
+    print(solution.arrayNesting(nums))   # Output: 2
+
 
 
 # Time: O(N)

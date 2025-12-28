@@ -1,34 +1,38 @@
 # https://leetcode.com/problems/minimum-window-substring/
 
+from typing import List
+
 class Solution:
-    def minWindow(self, s: str, t: str) -> str:
-        tcnt = collections.Counter(t)
-        scnt = collections.Counter()
-        stMatch = collections.Counter()
-        res = ""
-        l = 0
-        res = ""
-        maxLen = len(s)
+    def partitionLabels(self, s: str) -> List[int]:
+        # Store the last occurrence of each character
+        lastIndex = {ch: i for i, ch in enumerate(s)}
+        res = []
+        left = -1
+        right = 0
         
-        for r in range(len(s)):
-            if s[r] in tcnt:
-                scnt[s[r]] += 1
-                if scnt[s[r]] >= tcnt[s[r]]:
-                    stMatch[s[r]] = tcnt[s[r]]
-            # print(stMatch)
-            while stMatch == tcnt and l <= r:
-                if r-l+1 <= maxLen:
-                    maxLen = r-l+1
-                    res = s[l:r+1]
-                if s[l] in tcnt: 
-                    scnt[s[l]] -= 1
-                    if scnt[s[l]] < tcnt[s[l]]:
-                        stMatch[s[l]] = scnt[s[l]]
-                l += 1
-            # print(l,r,scnt)
-        return res
-        
-                
+        for i, ch in enumerate(s):
+            # Extend the right boundary of current partition
+            right = max(right, lastIndex[ch])
             
-# Time: O(N)
-# Space: O(N)
+            # If we reach the end of the current partition
+            if i == right:
+                res.append(right - left)
+                left = i  # move left to the end of this partition
+                
+        return res
+
+
+if __name__ == "__main__":
+    solution = Solution()
+    
+    # Test Case 1
+    s = "ababcbacadefegdehijhklij"
+    print(solution.partitionLabels(s))  # Output: [9, 7, 8]
+
+    # Test Case 2
+    s = "eccbbbbdec"
+    print(solution.partitionLabels(s))  # Output: [10]
+
+    # Test Case 3
+    s = "caedbdedda"
+    print(solution.partitionLabels(s))  # Output: [1, 9]

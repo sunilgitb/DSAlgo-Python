@@ -4,39 +4,44 @@
 
 # Function to find the largest possible
 # subset having Bitwise AND positive
-def largestSubset(a, N):
-	# Stores the number of set bits
-	# at each bit position
-	bit = [0 for i in range(32)]
+# https://www.geeksforgeeks.org/find-the-size-of-largest-subset-with-positive-bitwise-and/
 
-	# Traverse the given array arr[]
-	for i in range(N):
-		# Current bit position
-		x = 31
+from typing import List
 
-		# Loop till array element
-		# becomes zero
-		while(a[i] > 0):
-			# If the last bit is set
-			if (a[i] & 1 == 1):
+class Solution:
+    def largestSubset(self, arr: List[int]) -> int:
+        # Stores the number of set bits at each bit position (0-31)
+        bit = [0] * 32
 
-				# Increment frequency
-				bit[x] += 1
+        # Traverse the array
+        for num in arr:
+            x = 31  # Start from the most significant bit
+            n = num
+            while n > 0:
+                if n & 1:  # Last bit is set
+                    bit[x] += 1
+                n = n >> 1
+                x -= 1
 
-			# Divide array element by 2
-			a[i] = a[i] >> 1
+        # Size of largest subset with positive AND
+        return max(bit)
 
-			# Decrease the bit position
-			x -= 1
 
-	# Size of the largest possible subset
-	print(max(bit))
+# -------- Driver Code --------
+solution = Solution()
 
-# Driver Code
-if __name__ == '__main__':
-	arr = [7, 13, 8, 2, 3]
-	N = len(arr)
-	largestSubset(arr, N)
+arr_list = [
+    [7, 13, 8, 2, 3],    # Example from GFG
+    [1, 2, 4, 8, 16],    # Powers of 2
+    [3, 3, 3, 3],        # All same
+    [5, 7, 15, 3, 1]     # Mixed numbers
+]
+
+for arr in arr_list:
+    print("Array:", arr)
+    print("Largest subset size with positive AND:", solution.largestSubset(arr))
+    print("-----")
+
 
 	# This code is contributed by ipg016107.
 

@@ -10,43 +10,40 @@ and +1s multiplying to make +1. What's remaining is zeroes if left any. Convert
 all of them as +1s for ease using that much of moves. The total of all these moves
 is the final answer.
 ''' 
-
-
 def solve(n, arr):
+    moves = 0
+    negatives = 0
+    zeroes = 0
 
-    moves = negatives = zeroes = 0
-    for i in xrange(0, n):
+    for i in range(n):
         if arr[i] > 0:
-            # making them 1
-            moves += (arr[i] - 1)
+            # convert positive to 1
+            moves += arr[i] - 1
         elif arr[i] < 0:
-            # making them -1
-            moves += (-1 - arr[i])
+            # convert negative to -1
+            moves += -1 - arr[i]
             negatives += 1
         else:
+            # count zeros
             zeroes += 1
 
-    # if odd number of negatives are there
+    # if odd number of negatives, adjust
     if negatives % 2 == 1:
-
-        # if we can spare a 0, make it -1, which needs 1 moves
         if zeroes > 0:
+            # use a zero to balance negative count
             moves += 1
             zeroes -= 1
-        # if not, make one of the -1 as +1, which needs 2 moves
         else:
+            # flip one -1 to 1 using 2 moves
             moves += 2
             negatives -= 1
 
-    # make all zeroes as 1s
-    if zeroes > 0:
-        moves += zeroes
+    # convert remaining zeros to 1
+    moves += zeroes
 
     return moves
 
-
-if __name__ == "__main__":
-
-    n = int(raw_input())
-    arr = map(int, raw_input().split(" "))
-    print solve(n, arr)
+# ---------------- Example Usage ----------------
+n = 5
+arr = [-2, 4, 0, -3, 1]
+print("Minimum moves to make product 1:", solve(n, arr))

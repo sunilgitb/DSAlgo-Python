@@ -3,19 +3,31 @@
 Traverse through the string and check whether left part of the iterator palindrom or not.
 if palindrom call the function 
 '''
+from typing import List
+
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
         res = []
         
         def solve(s, path):
-            if not s: 
+            if not s:
                 res.append(path)
+                return
             for i in range(len(s)):
-                if s[:i+1] == s[:i+1][::-1]:
+                if s[:i+1] == s[:i+1][::-1]:  # check palindrome
                     solve(s[i+1:], path + [s[:i+1]])
         
         solve(s, [])
         return res
+
+# ----------------- Driver Code -----------------
+test_cases = ["aab", "a", "racecar"]
+
+solver = Solution()
+for s in test_cases:
+    print(f"Input: {s}")
+    print(f"Palindrome partitions: {solver.partition(s)}\n")
+
 
 ''' 
 Time Complexity: O( (2^n) *k*(n/2) )

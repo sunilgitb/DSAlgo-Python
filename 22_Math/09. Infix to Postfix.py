@@ -17,7 +17,7 @@ class Solution:
                 stack.append(c)
             elif c == ")":
                 op = stack.pop()
-                while stack and op != "(":
+                while op != "(":
                     res += op
                     op = stack.pop()
             else:
@@ -29,4 +29,24 @@ class Solution:
             res += stack.pop()
             
         return res
-    
+
+
+# ------------------------------------------
+# Example Usage
+# ------------------------------------------
+expressions = [
+    "a+b*(c^d-e)^(f+g*h)-i",
+    "(a+b)*(c+d)",
+    "a+b*c"
+]
+
+sol = Solution()
+for exp in expressions:
+    print(sol.InfixtoPostfix(exp))
+
+"""
+Expected Output:
+abcd^e-fgh*+^*+i-
+ab+cd+*
+abc*+
+"""

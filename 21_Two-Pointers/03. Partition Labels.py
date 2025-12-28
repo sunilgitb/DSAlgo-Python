@@ -17,6 +17,17 @@ class Solution:
         
         return res
     
+if __name__ == "__main__":
+    solution = Solution()
     
+    s = "ababcbacadefegdehijhklij"
+    print(solution.partitionLabels(s))  # Output: [9, 7, 8]
+
+    s = "eccbbbbdec"
+    print(solution.partitionLabels(s))  # Output: [10]
+
+    s = "caedbdedda"
+    print(solution.partitionLabels(s))  # Output: [1, 9]
+
 # Time: O(N)
 # Space: O(N)

@@ -1,17 +1,30 @@
 # https://leetcode.com/problems/greatest-common-divisor-of-strings/
 
+# Approach 1: Using string concatenation + GCD of lengths
 class Solution:
-    def gcdOfStrings(self, str1, str2):
-        if str1 + str2 != str2 + str1: 
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        if str1 + str2 != str2 + str1:
             return ""
-        len1, len2 = len(str1), len(str2)
         
         def gcd(a, b):
-            if b == 0: return a
-            return gcd(b, a%b)
+            if b == 0:
+                return a
+            return gcd(b, a % b)
         
-        i = gcd(len1, len2)
-        return str1[:i]
+        length_gcd = gcd(len(str1), len(str2))
+        return str1[:length_gcd]
+
+# ----------------- Driver Code -----------------
+test_cases = [
+    ("ABCABC", "ABC"),   # Output: "ABC"
+    ("ABABAB", "ABAB"),  # Output: "AB"
+    ("LEET", "CODE"),    # Output: ""
+]
+
+solver = Solution()
+for str1, str2 in test_cases:
+    print(f"str1='{str1}', str2='{str2}' -> GCD='{solver.gcdOfStrings(str1, str2)}'")
+
 
 # Time: O(N) 
 # GCD calculation takes O(log(N)) time. But the string iteration and equals checking takes O(N+M) time where, N and M are the length of str1 and str2.

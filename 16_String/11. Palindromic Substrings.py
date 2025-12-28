@@ -12,11 +12,17 @@ class Solution:
         
         res = 0
         for i in range(len(s)):
-            res += getPalCounts(i, i)    # for palindromes of odd length
-            res += getPalCounts(i, i+1)  # for palindromes of even length
+            res += getPalCounts(i, i)    # odd length palindromes
+            res += getPalCounts(i, i+1)  # even length palindromes
         
         return res
-    
-    
-# Time: O(N^2)
-# Space: O(1)
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.countSubstrings("abc"))   # 3
+print(solution.countSubstrings("aaa"))   # 6
+print(solution.countSubstrings("aba"))   # 4
+print(solution.countSubstrings("abba"))  # 6
+print(solution.countSubstrings(""))      # 0

@@ -20,3 +20,20 @@ class Solution:
         return res if res != 2**31 else -1
 
 # Time: O(N^2)
+if __name__ == "__main__":
+    solution = Solution()
+    
+    mat = [
+        [1, 2, 3, 4, 5],
+        [2, 4, 5, 8, 10],
+        [3, 5, 7, 9, 11],
+        [1, 3, 5, 7, 9]
+    ]
+    print(solution.smallest_common_element(mat))  # Output: 5
+
+    mat = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+    print(solution.smallest_common_element(mat))  # Output: -1

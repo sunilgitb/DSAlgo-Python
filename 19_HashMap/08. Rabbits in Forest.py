@@ -1,19 +1,26 @@
 # https://leetcode.com/problems/rabbits-in-forest/
 
 
+from typing import List
+from math import ceil
+import collections
+
 class Solution:
-    def numRabbits(self, answers):
-        cnt = collections.Counter()
-        for i in answers:
-            cnt[i] += 1
-        
+    def numRabbits(self, answers: List[int]) -> int:
+        cnt = collections.Counter(answers)
         res = 0
         for i in cnt:
             c = cnt[i]
-            res += ceil(c/(i+1)) * (i+1)
-        
+            res += ceil(c / (i + 1)) * (i + 1)
         return res
+
+# ================= DRIVER CODE =================
+if __name__ == "__main__":
+    sol = Solution()
     
+    print(sol.numRabbits([1, 1, 2]))  # Output: 5
+    print(sol.numRabbits([10, 10, 10]))  # Output: 11
+    print(sol.numRabbits([0, 0, 1, 1, 1]))  # Output: 6
 
 
 

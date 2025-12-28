@@ -1,13 +1,103 @@
 # https://leetcode.com/problems/longest-common-prefix/
-# https://youtu.be/0sWShKIJoo4
+# Longest Common Prefix
+# Problem: Write a function to find the longest common prefix string amongst an array of strings.
+# If there is no common prefix, return an empty string "".
+
+from typing import List
+
 
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
-        res = ""
-        for i in range(len(strs[0])):
-            for st in strs:
-                if i == len(st) or strs[0][i] != st[i]:
-                    return res
-            res += strs[0][i]
+        """
+        Optimal O(S) time where S is total characters across all strings
+        - Use shortest string as reference (no prefix can be longer than it)
+        - For each character position, check if ALL strings have same character
+        - Stop when mismatch found or end of any string reached
         
-        return res
+        Time Complexity: O(S) where S = sum of lengths of all strings
+        Space Complexity: O(1)
+        """
+        if not strs:
+            return ""
+        
+        # Use first string as reference
+        prefix = strs[0]
+        
+        for i in range(1, len(strs)):
+            # While current string doesn't match prefix, shorten prefix
+            while not strs[i].startswith(prefix):
+                prefix = prefix[:-1]
+                if not prefix:
+                    return ""
+        
+        return prefix
+
+
+# Alternative: Character-by-character approach (your version, also correct)
+class SolutionCharByChar:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        if not strs:
+            return ""
+        
+        result = ""
+        ref = strs[0]
+        
+        # Check each character position
+        for i in range(len(ref)):
+            char = ref[i]
+            # Check if ALL strings have same character at position i
+            for s in strs:
+                if i >= len(s) or s[i] != char:
+                    return result
+            result += char
+        
+        return result
+
+
+# Driver Code with comprehensive test cases
+def run_tests():
+    test_cases = [
+        # Example 1
+        (["flower", "flow", "flight"], "fl"),
+        
+        # Example 2
+        (["dog", "racecar", "car"], ""),
+        
+        # All identical
+        (["abc", "abc", "abc"], "abc"),
+        
+        # Single string
+        (["a"], "a"),
+        
+        # Empty strings
+        (["", "abc"], ""),
+        
+        # Empty array
+        ([], ""),
+        
+        # One empty string
+        (["", ""], ""),
+        
+        # Longer common prefix
+        (["interspecies", "interstellar", "interstate"], "inters"),
+    ]
+    
+    print("Testing Longest Common Prefix\n" + "="*50)
+    
+    sol1 = Solution()
+    sol2 = SolutionCharByChar()
+    
+    for idx, (strs, expected) in enumerate(test_cases, 1):
+        result1 = sol1.longestCommonPrefix(strs[:])
+        result2 = sol2.longestCommonPrefix(strs[:])
+        status = "✓ PASS" if result1 == expected else "✗ FAIL"
+        print(f"Test {idx:2d}: {status}")
+        print(f"   Input:  {strs}")
+        print(f"   Method1: {result1}")
+        print(f"   Method2: {result2}")
+        print(f"   Expected: {expected}")
+        print("-" * 50)
+
+
+if __name__ == "__main__":
+    run_tests()

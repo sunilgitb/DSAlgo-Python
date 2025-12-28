@@ -1,52 +1,51 @@
-# https://www.geeksforgeeks.org/consecutive-sequenced-numbers-in-a-string/
-''' 
-Given a string that contains only numeric digits, we need to check 
- whether that strings contains numbers in consecutive sequential manner
- in increasing order. 
-Note: Negative numbers are not considered part of this problem.
- So we consider that input only contains positive integer.
+def is_consecutive_sequence(s: str) -> bool:
+    """
+    Check if the string is formed by consecutive increasing integers.
+    
+    Time: O(n²) in worst case (due to string concatenation)
+    Space: O(n)
+    """
+    n = len(s)
+    if n == 0:
+        return False
+    
+    # Try starting lengths from 1 to n//2 + 1
+    for start_len in range(1, n // 2 + 2):
+        start = s[:start_len]
+        
+        # Skip if leading zero (except for single 0)
+        if len(start) > 1 and start[0] == '0':
+            continue
+        
+        num = int(start)
+        generated = ""
+        
+        while len(generated) < n:
+            generated += str(num)
+            num += 1
+            
+            # Early stop if already too long
+            if len(generated) > n:
+                break
+        
+        if generated == s:
+            return True
+    
+    return False
 
-Input :  str = "1234"
-Output : Yes 
-Explanation : 
-There are 1, 2, 3, 4 which are 
-consecutive and in increasing order.
-And the starting number is 1
 
-Input :  str = "91012"
-Output : No
-Explanation : 
-There are no such sequence in the
-string. 
+# Test cases
+test_cases = [
+    ("1234", True),       # 1,2,3,4
+    ("91012", False),
+    ("99100", True),      # 99,100
+    ("010203", False),    # leading zeros invalid
+    ("910911", True),     # 910,911
+    ("1", True),
+    ("", False),
+    ("123456789101112", True),  # 1 to 12
+]
 
-Input :  str = "99100"
-Output : Yes 
-         99
-Explanation : The consecutive sequential 
-numbers are 99, 100
-
-Input :  str = "010203"
-Output : NO 
-Explanation : 
-Although at first glance there seems to
-be 01, 02, 03. But those wouldn't be 
-considered a number. 01 is not 1  it's 0, 1 
-'''
-
-string = "910911" 
-
-n = len(string)
-flag = False
-for i in range(n//2):
-    start = string[:i+1]
-    num = int(start)
-    tmp = ""
-    while len(tmp) < n:
-        tmp += str(num)
-        num += 1
-    if tmp == string: 
-        flag = True
-        break
-
-print(flag)
-
+for s, expected in test_cases:
+    result = is_consecutive_sequence(s)
+    print(f"String: {s:15} → {result} (Expected: {expected})")

@@ -1,35 +1,11 @@
 # https://leetcode.com/problems/reverse-words-in-a-string/
 
-''' 
 class Solution:
     def reverseWords(self, s: str) -> str:
-        arr = []
-        i = len(s) - 1
-        while i >= 0:
-            if s[i] != ' ':
-                tmp = ''
-                while i >= 0 and s[i] != ' ':
-                    tmp += s[i]
-                    i -= 1
-                arr.append(tmp[::-1])
-            i -= 1
-        
-        res = ''
-        for i in range(len(arr)):
-            if i == len(arr)-1:
-                res += arr[i]
-            else:
-                res += arr[i] + ' '
-        
-        return res
-# Time: O(N)
-# Space: O(N)
-'''
-
-class Solution:
-    def reverseWords(self, s: str) -> str:
-        i = 0; j = i; n = len(s)
+        i = 0
+        n = len(s)
         res = ""
+        
         while i < n:
             if s[i] == " ":
                 i += 1
@@ -45,6 +21,12 @@ class Solution:
                 i = j
         
         return res
-            
-# Time: O(N)
-# Space: O(1)
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.reverseWords("the sky is blue"))        # "blue is sky the"
+print(solution.reverseWords("  hello world  "))       # "world hello"
+print(solution.reverseWords("a good   example"))      # "example good a"
+print(solution.reverseWords("  Bob    Loves  Alice "))# "Alice Loves Bob"

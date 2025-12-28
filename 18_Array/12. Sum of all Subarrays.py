@@ -16,18 +16,16 @@ Output: 50
 
 def SubArraySum(arr, n):
     result = 0
- 
-    # computing sum of subarray
-    # using formula
-    for i in range(0, n):
-        result += (arr[i] * (i+1) * (n-i))
- 
-    # return all subarray sum
+
+    for i in range(n):
+        result += arr[i] * (i + 1) * (n - i)
+
     return result
- 
+
  
 # Driver code
 arr = [1, 2, 3]
-n = len(arr)
-print("Sum of SubArray : ",
-      SubArraySum(arr, n))
+print(SubArraySum(arr, len(arr)))  # 20
+
+arr = [1, 2, 3, 4]
+print(SubArraySum(arr, len(arr)))  # 50

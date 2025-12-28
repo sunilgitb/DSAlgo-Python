@@ -14,3 +14,20 @@ class Solution:
             cnt[s] += 1
         return res
         
+if __name__ == "__main__":
+    solution = Solution()
+    
+    arr = [1, 1, 1]
+    n = len(arr)
+    s = 2
+    print(solution.subArraySum(arr, n, s))  # Output: 2 ([1,1] twice)
+    
+    arr = [1, 2, 3, 4, 5]
+    n = len(arr)
+    s = 5
+    print(solution.subArraySum(arr, n, s))  # Output: 2 ([2,3] and [5])
+    
+    arr = [3, 4, 7, 2, -3, 1, 4, 2]
+    n = len(arr)
+    s = 7
+    print(solution.subArraySum(arr, n, s))  # Output: 4 ([3,4],[7],[2,-3,1,4,2],[1,4,2])

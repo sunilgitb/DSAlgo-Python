@@ -8,34 +8,24 @@ possible product.
 
 ''' 
 
-
 def solve(a, b, x, y, n):
-
-    min1 = calc_min_moves(a, b, x, y, n) # prefer a over b to be reduced first
-    min2 = calc_min_moves(b, a, y, x, n) # prefer b over a to be reduced first
-
+    min1 = calc_min_moves(a, b, x, y, n)  # reduce a first
+    min2 = calc_min_moves(b, a, y, x, n)  # reduce b first
     return min(min1, min2)
 
-
 def calc_min_moves(a, b, x, y, n):
-
     moves_a = min(n, a - x)
     moves_b = min(n - moves_a, b - y)
-
     reduced_a = a - moves_a
     reduced_b = b - moves_b
-
     return reduced_a * reduced_b
 
+# ---------------- Example Usage ----------------
+test_cases = [
+    (10, 10, 8, 5, 3),  # a, b, x, y, n
+    (12, 8, 8, 7, 4),
+    (123, 456, 100, 400, 50)
+]
 
-if __name__ == "__main__":
-
-    t = int(input())
-
-    results = []
-    for _ in range(t):
-        a, b, x, y, n = map(int, input().split(" "))
-        results.append(solve(a, b, x, y, n))
-
-    for result in results:
-        print(result)
+for a, b, x, y, n in test_cases:
+    print(f"Minimum product for ({a}, {b}, {x}, {y}, {n}): {solve(a, b, x, y, n)}")

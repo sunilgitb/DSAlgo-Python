@@ -21,3 +21,21 @@ class Solution:
             seenRem[n] = len(res)
         
         return res
+# Driver code
+if __name__ == "__main__":
+    sol = Solution()
+    
+    test_cases = [
+        (1, 2),     # 0.5
+        (2, 1),     # 2
+        (2, 3),     # 0.(6)
+        (4, 333),   # 0.(012)
+        (-50, 8),   # -6.25
+        (7, -12),   # -0.58(3)
+        (-1, -2147483648)  # 0.0000000004656612873077392578125
+    ]
+    
+    for numerator, denominator in test_cases:
+        result = sol.fractionToDecimal(numerator, denominator)
+        print(f"{numerator}/{denominator} = {result}")
+

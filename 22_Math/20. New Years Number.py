@@ -4,14 +4,18 @@ B. New Year's Number
 '''
  
 
-t  = int(input())
+# Function to check New Year's Number
+def is_new_year_number(n):
+    if n < 2020:
+        return "NO"
+    else:
+        if n % 2020 <= n // 2020:
+            return "YES"
+        else:
+            return "NO"
 
-for _ in range(t):
-      n = int(input())
-      if n < 2020:
-            print('NO')
-      else:
-            if n % 2020 <= n / 2020:
-                  print('YES')
-            else:
-                  print('NO')
+# ---------------- Example Usage ----------------
+test_cases = [2020, 4041, 8081, 2019, 8080]
+
+for n in test_cases:
+    print(f"{n}: {is_new_year_number(n)}")

@@ -32,3 +32,23 @@ class Solution:
       
       # Time: O(n^2)
       # Space: O(n^2)
+if __name__ == "__main__":
+    solution = Solution()
+    
+    board1 = [
+        [-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1],
+        [-1,35,-1,-1,13,-1],
+        [-1,-1,-1,-1,-1,-1],
+        [-1,15,-1,-1,-1,-1]
+    ]
+    print(solution.snakesAndLadders(board1))  
+    # Expected output: 4
+
+    board2 = [
+        [-1,-1],
+        [-1,3]
+    ]
+    print(solution.snakesAndLadders(board2))  
+    # Expected output: 1

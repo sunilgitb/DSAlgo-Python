@@ -22,15 +22,16 @@ class Solution:
                 tmp = stack.pop()
                 while stack:
                     top = stack.pop()
-                    # print(tmp, top, op)
-                    if op == '!' and top == '(': tmp = cal(tmp, tmp, op)
-                    if top == '(': break
+                    if op == '!' and top == '(':
+                        tmp = cal(tmp, tmp, op)
+                    if top == '(':
+                        break
                     tmp = cal(tmp, top, op)
                 stack.append(tmp)
-            elif i == ',': continue
+            elif i == ',':
+                continue
             else:
                 stack.append(i)
-            # print(stack, logics, i)
         
         if logics:
             op = logics.pop()
@@ -40,8 +41,13 @@ class Solution:
                 tmp = cal(tmp, top, op)
             stack.append(tmp)
         
-        return True if stack[0] == 't' else False
-        
-                    
-# Time: O(N)
-# Space: O(N)
+        return stack[0] == 't'
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.parseBoolExpr("!(f)"))          # True
+print(solution.parseBoolExpr("|(f,t)"))        # True
+print(solution.parseBoolExpr("&(t,f)"))        # False
+print(solution.parseBoolExpr("|(&(t,f,t),!(t))"))  # False

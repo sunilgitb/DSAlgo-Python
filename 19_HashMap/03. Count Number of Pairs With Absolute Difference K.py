@@ -1,22 +1,31 @@
 # https://leetcode.com/problems/count-number-of-pairs-with-absolute-difference-k/
 
+from collections import Counter
+
 class Solution:
     def countKDifference(self, nums, k):
-        cnt = collections.Counter()
-        for n in nums:
-            cnt[n] += 1
-            
+        cnt = Counter(nums)
         res = 0
         taken = set()
         for n in cnt:
-            l, r = n-k, n+k
-            if l not in taken: 
-                res += cnt[n] * cnt[l]
+            l, r = n - k, n + k
+            if l not in taken:
+                res += cnt[n] * cnt.get(l, 0)
             if r not in taken:
-                res += cnt[n] * cnt[r]
+                res += cnt[n] * cnt.get(r, 0)
             taken.add(n)
-        
         return res
+
+
+# ================= DRIVER CODE =================
+if __name__ == "__main__":
+    sol = Solution()
+    
+    print(sol.countKDifference([1,2,2,1], 1))          # 4
+    print(sol.countKDifference([1,3], 3))              # 0
+    print(sol.countKDifference([3,2,1,5,4], 2))        # 3
+    print(sol.countKDifference([1,5,1,5], 4))          # 4
+
         
     
 '''    

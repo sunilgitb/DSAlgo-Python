@@ -13,6 +13,8 @@ Sum the areas of the individual rectangles and compare it to the area of the fin
 
 '''
 
+from typing import List
+
 class Solution:
     def isRectangleCover(self, rectangles: List[List[int]]) -> bool:
         X1 = Y1 = float("inf")
@@ -20,11 +22,24 @@ class Solution:
         corners = set()
         area = 0
         for x1, y1, x2, y2 in rectangles:
-            area += (x2-x1) * (y2-y1)
+            area += (x2 - x1) * (y2 - y1)
             X1 = min(X1, x1)
             Y1 = min(Y1, y1)
             X2 = max(X2, x2)
             Y2 = max(Y2, y2)
-            corners ^= {(x1,y1), (x2,y2), (x1,y2), (x2,y1)}
+            corners ^= {(x1, y1), (x2, y2), (x1, y2), (x2, y1)}
 
-        return area == (X2-X1) * (Y2-Y1) and corners == {(X1,Y1), (X2,Y2), (X1,Y2), (X2,Y1)}
+        return area == (X2 - X1) * (Y2 - Y1) and corners == {(X1, Y1), (X2, Y2), (X1, Y2), (X2, Y1)}
+
+# ---------------- Example Usage ----------------
+sol = Solution()
+
+test_cases = [
+    ([[1,1,3,3],[3,1,4,2],[3,2,4,4],[1,3,2,4],[2,3,3,4]], True),
+    ([[1,1,2,3],[1,3,2,4],[3,1,4,2],[3,2,4,4]], False),
+    ([[1,1,3,3],[3,1,4,2],[1,3,2,4],[3,2,4,4]], False)
+]
+
+for rectangles, expected in test_cases:
+    result = sol.isRectangleCover(rectangles)
+    print(f"rectangles={rectangles} -> {result}, expected={expected}")

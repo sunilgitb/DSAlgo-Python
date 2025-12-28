@@ -28,3 +28,12 @@ if we again reach node i.e, loop detected then return safe[node].
 
 
 # Time: O(N)
+if __name__ == "__main__":
+    solution = Solution()
+    
+    graph = [[1,2],[2,3],[5],[0],[5],[],[]]
+    # Explanation: Nodes 5 and 6 are terminal nodes. Safe nodes are those that eventually lead to terminal nodes.
+    print(solution.eventualSafeNodes(graph))  # Output: [2,4,5,6]
+
+    graph = [[1,2,3,4],[1,2],[3,4],[0,4],[]]
+    print(solution.eventualSafeNodes(graph))  # Output: [4]

@@ -15,20 +15,32 @@ and keep the index j of last time we saw 1.
 res[i] = max(1, last - i + 1)
 '''
 
+
+from typing import List
+
 class Solution:
     def smallestSubarrays(self, nums: List[int]) -> List[int]:
         n = len(nums)
-        lastIndex = [0] * 32
+        lastIndex = [0] * 32   # last index where each bit is set
         res = [1] * n
         
         for i in range(n-1, -1, -1):
             for j in range(32):
                 if nums[i] & (1 << j):
                     lastIndex[j] = i
-            # print(lastIndex)
             res[i] = max(1, max(lastIndex) - i + 1)
         
         return res
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.smallestSubarrays([1, 0, 2, 1, 3]))   # [3,3,2,2,1]
+print(solution.smallestSubarrays([4, 3, 2, 1]))      # [1,2,3,4]
+print(solution.smallestSubarrays([0,0,0]))          # [1,1,1]
+print(solution.smallestSubarrays([1,2,4,8]))        # [4,3,2,1]
+
     
     
     

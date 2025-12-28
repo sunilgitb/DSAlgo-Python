@@ -7,15 +7,16 @@ instead of checking all the elements check only for index j for
 which i+j is multiple of arr[i]. So start j from arr[i] - i and 
 skip j by arr[i].
 '''
+# Example test cases
+test_cases = [
+    (4, [3, 1, 2, 3]),
+    (3, [1, 2, 3])
+]
 
-t = int(input())
-for _ in range(t):
-    n = int(input())
-    arr = list(map(int, input().split()))
+for n, arr in test_cases:
     res = 0
     for i in range(1, n+1):
         for j in range(arr[i-1]-i, n+1, arr[i-1]):
             if i < j and arr[i-1] * arr[j-1] == i + j:
                 res += 1
-
     print(res)

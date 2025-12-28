@@ -26,3 +26,26 @@ class Twitter:
     def unfollow(self, followerId: int, followeeId: int) -> None:
         if followeeId in self.following[followerId]:
             self.following[followerId].remove(followeeId)
+if __name__ == "__main__":
+    twitter = Twitter()
+    
+    # User 1 posts a tweet
+    twitter.postTweet(1, 5)
+    
+    # User 1's news feed should return [5]
+    print(twitter.getNewsFeed(1))  # Output: [5]
+    
+    # User 1 follows user 2
+    twitter.follow(1, 2)
+    
+    # User 2 posts a tweet
+    twitter.postTweet(2, 6)
+    
+    # User 1's news feed should return [6, 5]
+    print(twitter.getNewsFeed(1))  # Output: [6, 5]
+    
+    # User 1 unfollows user 2
+    twitter.unfollow(1, 2)
+    
+    # User 1's news feed should return [5]
+    print(twitter.getNewsFeed(1))  # Output: [5]

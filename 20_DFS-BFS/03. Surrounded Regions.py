@@ -37,3 +37,32 @@ class Solution:
 
 # Time: O(m * n)
 # Space: O(1)
+
+if __name__ == "__main__":
+    solution = Solution()
+
+    board1 = [
+        ["X","X","X","X"],
+        ["X","O","O","X"],
+        ["X","X","O","X"],
+        ["X","O","X","X"]
+    ]
+    solution.solve(board1)
+    for row in board1:
+        print(row)
+    # Output:
+    # ['X', 'X', 'X', 'X']
+    # ['X', 'X', 'X', 'X']
+    # ['X', 'X', 'X', 'X']
+    # ['X', 'O', 'X', 'X']
+
+    board2 = [
+        ["O","O"],
+        ["O","O"]
+    ]
+    solution.solve(board2)
+    for row in board2:
+        print(row)
+    # Output:
+    # ['O', 'O']
+    # ['O', 'O']

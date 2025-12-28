@@ -1,5 +1,4 @@
 # https://leetcode.com/problems/longest-substring-without-repeating-characters/
-# https://youtu.be/qtVh-XEpsJo
 
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
@@ -10,11 +9,19 @@ class Solution:
         for r in range(len(s)):
             while s[r] in track:
                 track.remove(s[l])
-                l += 1                
-            res = max(res, r-l+1)
+                l += 1
+                
             track.add(s[r])
+            res = max(res, r - l + 1)
         
         return res
 
-# Time Complexity: O(N)   
-# Space Complexity: O(len(set(s)))  # number of unique charecters
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.lengthOfLongestSubstring("abcabcbb"))  # 3
+print(solution.lengthOfLongestSubstring("bbbbb"))     # 1
+print(solution.lengthOfLongestSubstring("pwwkew"))    # 3
+print(solution.lengthOfLongestSubstring(""))           # 0
+print(solution.lengthOfLongestSubstring("dvdf"))       # 3

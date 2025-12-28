@@ -53,41 +53,77 @@ operating it against 1, thereby denoting if the value is even or odd respectivel
 
 '''
 
+# https://codeforces.com/problemset/problem/1186/C
+# Flag of Many Colors (or XOR-based parity counting)
 
-def solve(a, b):
+def count_matching_parity_windows(a: str, b: str) -> int:
+    """
+    Given two binary strings a and b,
+    count the number of contiguous subarrays in a of length len(b)
+    that have the same parity of 1's as b (i.e., same XOR of all bits).
 
-    len_a = len(a)
-    len_b = len(b)
-
-    bits_xored_subarr_a = 0
-    bits_xored_b = 0
-
-    # b and first sub-array of a
-    for i in range(0, len_b):
-        if a[i] == '1':
-            bits_xored_subarr_a ^= 1
-        if b[i] == '1':
-            bits_xored_b ^= 1
-
+    Time: O(n)
+    Space: O(1)
+    """
+    n = len(a)
+    m = len(b)
+    
+    if m > n:
+        return 0
+    
+    # Compute XOR (parity) of b
+    xor_b = 0
+    for char in b:
+        xor_b ^= int(char)
+    
+    # Compute initial XOR for a[0..m-1]
+    xor_window = 0
+    for i in range(m):
+        xor_window ^= int(a[i])
+    
     count = 0
-
-    # inner sub-arrays of a
-    for i in range(len_b, len_a):
-        if bits_xored_subarr_a == bits_xored_b:
-            count += 1
-        if a[i] == '1':
-            bits_xored_subarr_a ^= 1
-        if a[i - len_b] == '1':
-            bits_xored_subarr_a ^= 1
-
-    # for the last sub-array of a
-    if bits_xored_subarr_a == bits_xored_b:
+    if xor_window == xor_b:
         count += 1
-
+    
+    # Slide the window
+    for i in range(m, n):
+        # Remove a[i-m] and add a[i]
+        xor_window ^= int(a[i - m])
+        xor_window ^= int(a[i])
+        
+        if xor_window == xor_b:
+            count += 1
+    
     return count
 
 
+# Driver code with test cases (no input required)
 if __name__ == "__main__":
-    a = input()
-    b = input()
-    print(solve(a, b))
+    test_cases = [
+        # Sample Input 1
+        ("101010", "110", 3),      # Expected: 3
+        
+        # Sample Input 2
+        ("00110011", "1010", 2),
+        
+        # Small examples
+        ("111", "1", 3),
+        ("000", "1", 0),
+        ("101", "10", 2),
+        ("1", "1", 1),
+        ("", "1", 0),
+        
+        # Long string
+        ("101010101010", "1010", 5),
+    ]
+    
+    print("Testing Count Matching Parity Windows\n" + "="*50)
+    
+    for idx, (a, b, expected) in enumerate(test_cases, 1):
+        result = count_matching_parity_windows(a, b)
+        status = "✓ PASS" if result == expected else "✗ FAIL"
+        print(f"Test {idx:2d}: {status}")
+        print(f"   a = '{a}'")
+        print(f"   b = '{b}'")
+        print(f"   Output: {result} (Expected: {expected})")
+        print("-" * 50)

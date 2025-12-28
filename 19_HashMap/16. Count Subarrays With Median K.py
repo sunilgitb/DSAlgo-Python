@@ -18,3 +18,14 @@ class Solution:
             ans += cnt[c] + cnt[c + 1]
         # print(cnt)
         return ans
+
+if __name__ == "__main__":
+    sol = Solution()
+    
+    nums = [3, 2, 1, 4, 5]
+    k = 4
+    print(sol.countSubarrays(nums, k))  # Output: 3
+
+    nums = [2, 3, 1]
+    k = 3
+    print(sol.countSubarrays(nums, k))  # Output: 1

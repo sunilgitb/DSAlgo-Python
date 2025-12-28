@@ -22,6 +22,18 @@ class Solution:
     
     
 # Time: O(N)
+if __name__ == "__main__":
+    solution = Solution()
+    
+    roads = [[0,1],[0,2],[0,3]]
+    seats = 5
+    print(solution.minimumFuelCost(roads, seats))  # Output: 3
+    # Explanation: Each node has 1 representative. Each car can carry all, so each edge contributes 1 fuel unit.
+
+    roads = [[3,1],[3,2],[1,0],[0,4],[0,5],[4,6]]
+    seats = 2
+    print(solution.minimumFuelCost(roads, seats))  # Output: 7
+    # Explanation: Calculated using ceil of passengers/seats for each subtree.
 
 
 '''

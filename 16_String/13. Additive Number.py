@@ -3,19 +3,36 @@
 class Solution:
     def isAdditiveNumber(self, num):
         n = len(num)
-        for i in range(1, n//2+1):
-            for j in range(1, (n-i)//2+1):
-                first, second, remaining = num[:i], num[i:i+j], num[i+j:]
+        for i in range(1, n // 2 + 1):
+            for j in range(1, (n - i) // 2 + 1):
+                first, second, remaining = num[:i], num[i:i + j], num[i + j:]
+                
+                # leading zero check
                 if ((len(first) > 1 and first[0] == '0') or
                     (len(second) > 1 and second[0] == '0')):
                     continue
+                
                 while remaining:
                     addFirstSecond = str(int(first) + int(second))
-                    if addFirstSecond == remaining: return True
+                    if addFirstSecond == remaining:
+                        return True
                     elif remaining.startswith(addFirstSecond):
-                        first, second, remaining = (second, addFirstSecond,
-                                                    remaining[len(addFirstSecond):])
+                        first, second, remaining = (
+                            second,
+                            addFirstSecond,
+                            remaining[len(addFirstSecond):]
+                        )
                     else:
                         break
         
         return False
+
+
+# -------- Driver Code --------
+solution = Solution()
+
+print(solution.isAdditiveNumber("112358"))    # True
+print(solution.isAdditiveNumber("199100199")) # True
+print(solution.isAdditiveNumber("1023"))      # False
+print(solution.isAdditiveNumber("000"))       # True
+print(solution.isAdditiveNumber("123"))       # True

@@ -2,17 +2,18 @@
 
 class Solution:
     def calculate(self, s: str) -> int:
-        sign = "+"
+        s = s.replace(" ", "")  # remove spaces
         stack = []
+        sign = "+"
         i = 0
+
         while i < len(s):
             if s[i].isdigit():
-                num = ""
+                num = 0
                 while i < len(s) and s[i].isdigit():
-                    num += s[i]
+                    num = num * 10 + int(s[i])
                     i += 1
                 i -= 1
-                num = int(num)
                 if sign == "+":
                     stack.append(num)
                 elif sign == "-":
@@ -20,13 +21,23 @@ class Solution:
                 elif sign == "*":
                     stack.append(stack.pop() * num)
                 elif sign == "/":
-                    newNum = math.trunc(stack.pop() / num)
-                    # or can use newNum = int(stack.pop() / num)
-                    # for negative numbers // will not work; e.g. s = "14-3/2", output = 13
-                    stack.append(newNum)
+                    stack.append(int(stack.pop() / num))  # truncate towards 0
             elif s[i] in "+-*/":
                 sign = s[i]
             i += 1
-        
+
         return sum(stack)
-                
+
+
+# ----------------- Driver Code -----------------
+sol = Solution()
+
+expressions = [
+    "3+2*2",
+    " 3/2 ",
+    " 3+5 / 2 ",
+    "14-3/2"
+]
+
+for expr in expressions:
+    print(f"Expression: {expr} => Result: {sol.calculate(expr)}")

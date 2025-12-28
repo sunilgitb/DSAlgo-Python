@@ -30,3 +30,21 @@ class Solution:
         
 # Time: O(m * n)
 # Space: O(m * n) # Auxiliary Space
+if __name__ == "__main__":
+    solution = Solution()
+
+    grid1 = [
+        [1,1,1,0,0],
+        [0,1,1,1,1],
+        [0,0,0,0,0],
+        [1,0,0,0,0],
+        [1,1,0,1,1]
+    ]
+    grid2 = [
+        [1,1,1,0,0],
+        [0,0,1,1,1],
+        [0,1,0,0,0],
+        [1,0,1,1,0],
+        [0,1,0,1,0]
+    ]
+    print(solution.countSubIslands(grid1, grid2))  # Expected output: 3

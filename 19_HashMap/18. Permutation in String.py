@@ -13,6 +13,16 @@ class Solution:
         
         return False
     
+if __name__ == "__main__":
+    sol = Solution()
     
+    s1 = "ab"
+    s2 = "eidbaooo"
+    print(sol.checkInclusion(s1, s2))  # Output: True
+
+    s1 = "ab"
+    s2 = "eidboaoo"
+    print(sol.checkInclusion(s1, s2))  # Output: False
+
 # Time: O(N); where N = len(s2)
 # Space: O(K)
