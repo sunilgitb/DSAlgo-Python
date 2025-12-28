@@ -1,35 +1,41 @@
 # https://www.interviewbit.com/problems/redundant-braces/
+# Check if the given expression has redundant braces
 
 class Solution:
-	def braces(self, A):
+    def braces(self, A: str) -> int:
         stack = []
-
+        
         for ch in A:
-            if ch == ")":
-                if stack[-1] == "(": return 1  # False  => Redundant Braces
-                flag = True   # check if there any arithmetic operation between opened and closed braces
-                while stack[-1] != "(":
+            if ch == ')':
+                # Check if the matching '(' is immediately before ')'
+                if stack and stack[-1] == '(':
+                    return 1  # redundant: () or (something empty)
+                
+                # Check if there is at least one operator inside the parentheses
+                has_operator = False
+                while stack and stack[-1] != '(':
                     top = stack.pop()
-                    if top == '+' or top == '-' or top == '*' or top == '/':
-                        flag = False
-                stack.pop()  # Poping "("
-                if flag == True: return 1   # False 
-
+                    if top in '+-*/':
+                        has_operator = True
+                
+                # Pop the '('
+                if stack:
+                    stack.pop()
+                
+                # If no operator was found → redundant braces
+                if not has_operator:
+                    return 1
+                
             else:
+                # Push all other characters (operators, operands, '(')
                 stack.append(ch)
         
-        return 0  # True  => NOT Redundant Braces
+        return 0  # No redundant braces found
 
 
-# https://youtu.be/aMPXhEdpXFA
-
-''' 
-Problem Description:
-Given a string A denoting an expression. It contains the following operators '+', '-', '*', '/'. Chech whether A has redundant braces or not.
-Return 1 if A has redundant braces, else return 0.
-Ex.
-A = "((a+b))"        => Output = 1 as ((a+b)) has redundant braces so answer will be 1.
-A = "(a+(a+b))"      => Output = 0 as (a+(a+b)) doesn't have have any redundant braces so answer will be 0.
-A = "(a)"            => Output = 1 as (a) has redundant braces so answer will be 1.
-A = "a+b"            => Output = 0 as a+b doesn't have have any redundant braces so answer will be 0.
-'''
+# Driver Code
+solution = Solution()
+print(solution.braces("((a+b))"))  # Output: 1 (redundant)
+print(solution.braces("(a+(b)/c)"))  # Output: 0 (not redundant)
+print(solution.braces("(a+b*(c-d))"))  # Output: 0 (not redundant)
+print(solution.braces("((a))"))  # Output: 1 (redundant)

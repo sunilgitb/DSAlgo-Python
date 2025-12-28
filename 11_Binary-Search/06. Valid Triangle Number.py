@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/valid-triangle-number/
 # https://youtu.be/PqEiJDdt3S4
 
+from typing import List
 class Solution:
     def triangleNumber(self, nums: List[int]) -> int:
         nums.sort()
@@ -20,3 +21,10 @@ class Solution:
 
 # Time: O(N^2)
 # Space: O(1)
+
+# Example usage:
+if __name__ == "__main__":
+    solution = Solution()
+    print(solution.triangleNumber([2,2,3,4]))  # Output: 3
+    print(solution.triangleNumber([4,2,3,4]))  # Output: 4
+    

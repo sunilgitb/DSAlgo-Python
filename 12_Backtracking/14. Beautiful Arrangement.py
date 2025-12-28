@@ -16,6 +16,8 @@ class Solution:
         backtrack(arr, 1)
         return self.res
     
-
+# Example usage:
+sol = Solution()
+print(sol.countArrangement(2))  # Output: 2
 # Time: 2^n ; exponential time as for each element 2 possibility either take or not take. and if take then call further n-1 calls and 2 choise for each call
 # Space: O(n)

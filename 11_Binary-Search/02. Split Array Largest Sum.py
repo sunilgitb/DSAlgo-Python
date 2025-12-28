@@ -33,4 +33,7 @@ class Solution:
         return ans                   # Most Optimized ans is stored here
             
             
-            
+
+# Driver Code:
+sol = Solution()
+print(sol.splitArray([7,2,5,10,8], 2)) # Output: 18

@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/permutations/
 
+from typing import List
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
@@ -23,3 +24,6 @@ class Solution:
 
 Explanation: https://leetcode.com/problems/permutations/discuss/993970/Python-4-Approaches-%3A-Visuals-%2B-Time-Complexity-Analysis
 '''
+# Example Usage:
+solution = Solution()
+print(solution.permute([1,2,3]))  # Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1

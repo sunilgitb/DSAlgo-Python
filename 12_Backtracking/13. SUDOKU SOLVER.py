@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/sudoku-solver/
 # https://youtu.be/uyetDh-DyDg
 
+from typing import List
 class Solution:
     def solveSudoku(self, board: List[List[str]]) -> None:
         row = {i:set() for i in range(9)}
@@ -9,14 +10,16 @@ class Solution:
         # Making sub-boxes
         for i in range(9):
             for j in range(9):
-                if board[i][j] != '.': continue
+                if board[i][j] != '.': 
+                    continue
                 key = (i//3, j//3)
                 if key not in box: box[key] = {board[i][j]}
                 else: box[key].add(board[i][j])
         # Adding values to row, col, box
         for i in range(9):
             for j in range(9):
-                if board[i][j] == '.': continue
+                if board[i][j] == '.': 
+                    continue
                 row[i].add(board[i][j])
                 col[j].add(board[i][j])
                 box[(i//3, j//3)].add(board[i][j])
@@ -50,7 +53,20 @@ class Solution:
         return board
 
 
-
+# Driver Code:
+board = [["5","3",".",".","7",".",".",".","."],
+         ["6",".",".","1","9","5",".",".","."],
+         [".","9","8",".",".",".",".","6","."],
+         ["8",".",".",".","6",".",".",".","3"],
+         ["4",".",".","8",".","3",".",".","1"],
+         ["7",".",".",".","2",".",".",".","6"],
+         [".","6",".",".",".",".","2","8","."],
+         [".",".",".","4","1","9",".",".","5"],
+         [".",".",".",".","8",".",".","7","9"]]
+sol = Solution()
+result = sol.solveSudoku(board)
+for row in result:
+    print(row)
         
 # ---------------------------Method-2 --------------------------------------------
 
@@ -96,7 +112,7 @@ class Solution:
         
         return True
     
-    
+# Driver Code:
 # Learn Concept: https://youtu.be/uyetDh-DyDg    
     
 '''    

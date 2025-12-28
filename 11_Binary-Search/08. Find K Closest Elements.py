@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/find-k-closest-elements/
 
-
+from typing import List
 class Solution:
 	def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
 
@@ -47,3 +47,8 @@ class Solution:
 		# After searching through all possible elements, return the sliding window
 		# itself, we use start point as left to left + k to return k elements only
 		return arr[left : left + k]
+
+# Example usage:
+sol = Solution()
+print(sol.findClosestElements([1,2,3,4,5], 4, 3))  # Output: [1,2,3,4]
+print(sol.findClosestElements([1,2,3,4,5], 4, -1)) # Output: [1,2,3,4]

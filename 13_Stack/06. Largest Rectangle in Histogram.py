@@ -35,4 +35,7 @@ class Solution:
         
         return res
             
-            
+# Example usage:
+solution = Solution()
+heights = [2,1,5,6,2,3]
+print(solution.largestRectangleArea(heights))  # Output: 10

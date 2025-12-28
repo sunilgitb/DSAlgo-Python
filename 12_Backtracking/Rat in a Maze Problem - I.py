@@ -35,7 +35,15 @@ class Solution:
             
         solve(0, 0, '')
         return sorted(res)
-        
+
+# Example Usage:
+solution = Solution()
+maze = [[1, 0, 0, 0],
+        [1, 1, 0, 1],
+        [1, 1, 0, 0],
+        [0, 1, 1, 1]]
+n = 4
+print(solution.findPath(maze, n))  # Output: ['DDRDRR', 'DRDDRR']
 # Time: O(N*N)
 # Space: O(N*N)
          

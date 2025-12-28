@@ -32,7 +32,11 @@ class Solution:
 
         return helper(q)
         
-
+# Example Usage:
+sol = Solution()
+print(sol.calculate("1 + 1"))  # Output: 2
+print(sol.calculate(" 2-1 + 2 "))  # Output: 3
+print(sol.calculate("(1+(4+5+2)-3)+(6+8)"))  # Output: 23
 # Time: O(N)
 # Space: O(N)
 

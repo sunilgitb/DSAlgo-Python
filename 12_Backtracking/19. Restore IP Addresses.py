@@ -15,3 +15,7 @@ class Solution:
         for i in range(1, len(s)+1):
             if s[:i]=='0' or (s[0]!='0' and 0 < int(s[:i]) < 256):
                 self.dfs(s[i:], idx+1, path+s[:i]+".", res)
+
+# Example usage:
+solution = Solution()
+print(solution.restoreIpAddresses("25525511135"))  # Output: [['255.255.11.135', '255.255.111.35']

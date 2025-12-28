@@ -32,7 +32,10 @@ class Solution:
     
 # Timw: O(N)
 # Space: O(1)
-
+# Driver Code:
+solution = Solution()
+print(solution.findMedianSortedArrays([1,3], [2]))  # Output: 2.0
+print(solution.findMedianSortedArrays([1,2], [3,4]))  # Output: 2.5
 
 
 # -------------------- Method 2 --------- Optimised O(log(N)) Time----------------
@@ -75,6 +78,11 @@ class Solution:
                 low = cut1 + 1
         
         return 0.0  # For both empty arrays
+
+# Driver Code:
+solution = Solution()
+print(solution.findMedianSortedArrays([1,3], [2]))  # Output: 2.0
+print(solution.findMedianSortedArrays([1,2], [3,4]))  # Output: 2.5
     
 '''
 Time Complexity: O(log(n1))  

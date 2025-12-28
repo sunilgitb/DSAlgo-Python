@@ -23,7 +23,12 @@ class Solution:
             self.insertInSortedStack(stack, tmp)
             stack.append(top)
             return
-        
+
+# Example Usage:
+solution = Solution()
+stack = [34, 3, 31, 98, 92, 23]
+sorted_stack = solution.sorted(stack)
+print("Sorted Stack:", sorted_stack)
 # Time Complexity: O(n2)
 # Auxiliary Space: O(N)
         

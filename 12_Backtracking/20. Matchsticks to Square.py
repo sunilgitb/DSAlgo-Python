@@ -44,3 +44,8 @@ class Solution:
             return False  
         
         return dfs(0)
+
+# Example usage:
+solution = Solution()
+print(solution.makesquare([1,1,2,2,2]))  # Output: True
+print(solution.makesquare([3,3,3,3,4]))  # Output: False

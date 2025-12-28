@@ -28,6 +28,12 @@ class Solution:
             return False
         
         return backtrack(0)
+
+# Driver Code:
+solution = Solution()
+nums = [4, 3, 2, 3, 5, 2, 1]
+k = 4
+print(solution.canPartitionKSubsets(nums, k))  # Output: True
     
 # Time: O(n * 2^k)
 # Space: O(n * 2^k)

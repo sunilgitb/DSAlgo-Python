@@ -1,44 +1,72 @@
 # https://leetcode.com/problems/two-city-scheduling/
-# https://youtu.be/d-B_gk_gJtQ
+# Two City Scheduling
+# Problem: There are 2N people and N people should go to city A, N to city B.
+# costs[i] = [cost to send i-th person to city A, cost to city B]
+# Minimize total cost.
 
-# ------------------ Greedy Solution ------------------
+from typing import List
+
+
 class Solution:
-    def twoCitySchedCost(self, costs):
+    def twoCitySchedCost(self, costs: List[List[int]]) -> int:
+        """
+        Optimal Greedy Approach (O(n log n)):
+        - Compute the difference: costB - costA for each person
+        - Sort by this difference (ascending)
+        - First N people (smallest diff) → send to city A (cheaper relative to B)
+        - Last N people (largest diff) → send to city B (much more expensive in A)
+        """
+        # Step 1: Calculate costB - costA for each person
         diffs = []
-        for ac, bc in costs:
-            diffs.append((bc-ac, ac, bc))
+        for a, b in costs:
+            diffs.append((b - a, a, b))  # (diff, costA, costB)
+        
+        # Step 2: Sort by diff ascending
         diffs.sort()
-        res = 0
-        for i in range(len(costs)):
-            if i < len(costs)//2:
-                res += diffs[i][2]    # sending to city B     
+        
+        # Step 3: First N → city A, last N → city B
+        total_cost = 0
+        n = len(costs) // 2
+        
+        for i in range(len(diffs)):
+            if i < n:
+                total_cost += diffs[i][1]  # cost to A
             else:
-                res += diffs[i][1]    # sending to city A
-        return res
-
-# Time: O(n log(n))
-
-# ------------------ Dynamic Programming ------------------
-class Solution:
-    def twoCitySchedCost(self, costs):
-        n = len(costs)//2
-        dp = [[-1]*(n+1) for _ in range(n+1)]
+                total_cost += diffs[i][2]  # cost to B
         
-        def dfs(i, a, b):
-            if a == b == n:
-                return 0
-            if i >= len(costs) or a > n or b > n:
-                return 2**31
-            if dp[a][b] != -1:
-                return dp[a][b]
-            
-            aCost = costs[i][0] + dfs(i+1, a+1, b)
-            bCost = costs[i][1] + dfs(i+1, a, b+1)
-            
-            dp[a][b] = min(aCost, bCost)
-            return dp[a][b]
+        return total_cost
+
+
+# Driver Code with test cases
+def run_tests():
+    test_cases = [
+        # Example 1
+        ([[10,20], [30,200], [400,50], [30,20]], 110),
         
-        return dfs(0, 0, 0)
+        # Example 2
+        ([[259,770], [448,54], [926,667], [184,139], [840,118], [577,469]], 1859),
+        
+        # All cheaper in A
+        ([[1,100], [1,100], [1,100], [1,100]], 4),
+        
+        # All cheaper in B
+        ([[100,1], [100,1], [100,1], [100,1]], 4),
+        
+        # Mixed
+        ([[20,10], [10,20], [30,10], [10,30]], 60),
+    ]
     
+    print("Testing Two City Scheduling (Greedy)\n" + "="*50)
     
-# Time: O(n^2)
+    for idx, (costs, expected) in enumerate(test_cases, 1):
+        sol = Solution()
+        result = sol.twoCitySchedCost(costs)
+        status = "✓ PASS" if result == expected else "✗ FAIL"
+        print(f"Test {idx:2d}: {status}")
+        print(f"   Costs: {costs}")
+        print(f"   Total Cost: {result} (Expected: {expected})")
+        print("-" * 50)
+
+
+if __name__ == "__main__":
+    run_tests()

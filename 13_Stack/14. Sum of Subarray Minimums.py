@@ -1,6 +1,7 @@
 #https://leetcode.com/problems/sum-of-subarray-minimums/
 # https://www.youtube.com/watch?v=Ulb3ixSpE4Y
 
+from typing import List
 class Solution:
     def sumSubarrayMins(self, arr: List[int]) -> int:
         '''
@@ -53,4 +54,10 @@ class Solution:
             res += arr[i] * l * r
         
         return res % (10**9 + 7)
-        
+
+# Time: O(n)
+# Space: O(n)
+# Example Usage:
+sol = Solution()
+print(sol.sumSubarrayMins([3,1,2,4]))  # Output: 17
+print(sol.sumSubarrayMins([11,81,94,43,3]))  # Output: 444

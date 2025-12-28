@@ -33,3 +33,9 @@ class Solution:
         
 # Time: O(log(min(n, m)))
 # Space: O(1)
+# Driver Code:
+solution = Solution()
+nums1 = [2, 3, 6, 7, 9]
+nums2 = [1, 4, 8, 10]
+k = 5
+print(solution.kthElement(nums1, nums2, len(nums1), len(nums2), k))  # Output: 6

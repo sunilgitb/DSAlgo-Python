@@ -1,7 +1,4 @@
-# https://leetcode.com/problems/maximum-xor-with-an-element-from-array/
-
-# First SOLVE: 03. Maximum XOR of Two Numbers in an Array (https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/)
-
+from typing import List
 
 class TrieNode:
     def __init__(self):
@@ -23,42 +20,50 @@ class Solution:
         
     def getMax(self, x):
         cur = self.root
-        maxi = 0
         for i in range(31, -1, -1):
             bit = 1 if x & (1 << i) else 0  
             if bit == 1:
                 if 0 in cur.children:
                     cur = cur.children[0]
-                elif 1 not in cur.children: 
-                    return -1
-                else:
+                elif 1 in cur.children:
                     cur = cur.children[1]
-            else: # bit = 0
+                else:
+                    return -1
+            else:
                 if 1 in cur.children:
                     cur = cur.children[1]
-                elif 0 not in cur.children: 
-                    return -1
-                else:
+                elif 0 in cur.children:
                     cur = cur.children[0]
-        maxi = cur.val ^ x
-        # print(maxi)
-        return maxi
+                else:
+                    return -1
+        return cur.val ^ x
         
-    def maximizeXor(self, nums, queries):
+    def maximizeXor(self, nums: List[int], queries: List[List[int]]) -> List[int]:
         nums.sort()
-        res = [-1] * (len(queries))
+        res = [-1] * len(queries)
         
+        # attach original index
         for i in range(len(queries)):
             queries[i].append(i)
         
-        queries.sort(key = lambda x:x[1])
+        # sort by mi
+        queries.sort(key=lambda x: x[1])
         
-        n = 0; q = 0
-        while q < len(queries):
-            while n < len(nums) and nums[n] <= queries[q][1]:
+        n = 0
+        for x, m, idx in queries:
+            while n < len(nums) and nums[n] <= m:
                 self.addNum(nums[n])
                 n += 1
-            res[queries[q][2]] = self.getMax(queries[q][0])
-            q += 1
+            res[idx] = self.getMax(x)
         
         return res
+
+
+# ---------------- DRIVER CODE ----------------
+
+nums = [0, 1, 2, 3, 4]
+queries = [[3, 1], [1, 3], [5, 6]]
+
+sol = Solution()
+output = sol.maximizeXor(nums, queries)
+print(output)

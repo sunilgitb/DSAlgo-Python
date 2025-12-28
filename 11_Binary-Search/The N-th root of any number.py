@@ -20,3 +20,11 @@ class Solution:
 
 # Time: O(log(num))
 # Space: O(1)
+# Driver Code:
+sol = Solution()
+n = 3
+num = 27
+print(sol.NthRoot(n, num))  # Output: 3
+n = 4
+num = 16
+print(sol.NthRoot(n, num))  # Output: 2

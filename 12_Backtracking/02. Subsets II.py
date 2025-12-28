@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/subsets-ii/
 
 # -------------------------------------------- Method 1 ---------------------------------------------------------
+from typing import List
 class Solution:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
@@ -18,6 +19,10 @@ class Solution:
         
         dfs(0, [])
         return res
+
+# Driver Code:
+solution = Solution()
+print(solution.subsetsWithDup([1,2,2])) # Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
         
 # Time: O(N * 2^N)
 # Space: O(N)
@@ -36,6 +41,10 @@ class Solution:
         
         dfs(0, [])
         return res
+
+# Driver Code:
+solution = Solution()
+print(solution.subsetsWithDup([1,2,2])) # Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
 
 # Time: O(N * 2^N)
 # Space: O(N)

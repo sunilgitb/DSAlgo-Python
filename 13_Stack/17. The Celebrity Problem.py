@@ -25,6 +25,12 @@ class Solution:
         
         return cel
 
-
+# Example Usage:
+M = [[0, 1, 0],
+     [0, 0, 0],
+     [0, 1, 0]]
+n = 3
+sol = Solution()
+print(sol.celebrity(M, n))  # Output: 1
 # Time: O(n)
 # Space: O(n)

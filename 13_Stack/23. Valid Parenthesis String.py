@@ -33,3 +33,9 @@ class Solution:
       
 # Time: O(N)
 # Space: O(N)
+
+# Example usage:
+sol = Solution()
+print(sol.checkValidString("(*)"))  # Output: True
+print(sol.checkValidString("(*))")) # Output: True
+print(sol.checkValidString(")("))   # Output: False

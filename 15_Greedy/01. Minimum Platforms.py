@@ -1,34 +1,81 @@
-# https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1#
-'''
-arr[] = {0900, 0940, 0950, 1100, 1500, 1800}
-dep[] = {0910, 1200, 1120, 1130, 1900, 2000}
-'''
+# https://leetcode.com/problems/implement-stack-using-queues/
+# Implement a stack using only a single queue.
+# All operations should be O(1) amortized time.
 
-class Solution:    
-    #Function to find the minimum number of platforms required at the railway station such that no train waits.
-    def minimumPlatform(self,n,arr,dep):
-        arr.sort()  # {0900, 0940, 0950, 1100, 1500, 1800}
-        dep.sort()  # {0910, 1120, 1130, 1200, 1900, 2000}
-        
-        i = 1
-        j = 0
+from collections import deque
 
-        res = 1
-        platformNeeded = 1
-        
-        while i < len(arr) and j < len(dep):
-            if arr[i] <= dep[j]:
-                platformNeeded += 1
-                i += 1
-            else:
-                platformNeeded -= 1
-                j += 1
-            
-            res = max(res, platformNeeded)
-        
-        return res
-        
+class MyStack:
+    def __init__(self):
+        self.q = deque()  # single queue
 
-# Time: O(N log(N))
-# Space: O(N)
-        
+    def push(self, x: int) -> None:
+        """
+        Push element x onto stack.
+        We append x, then rotate the queue so that x is at the front.
+        Time: O(n)
+        """
+        self.q.append(x)
+        # Rotate: move all previous elements to the back
+        for _ in range(len(self.q) - 1):
+            self.q.append(self.q.popleft())
+
+    def pop(self) -> int:
+        """
+        Removes the element on top of the stack and returns it.
+        Since we keep the top at the front, just popleft().
+        Time: O(1)
+        """
+        return self.q.popleft()
+
+    def top(self) -> int:
+        """
+        Get the top element.
+        Returns the front of the queue.
+        Time: O(1)
+        """
+        return self.q[0]
+
+    def empty(self) -> bool:
+        """
+        Returns true if the stack is empty.
+        Time: O(1)
+        """
+        return len(self.q) == 0
+
+
+# Driver code to test the implementation
+if __name__ == "__main__":
+    print("Testing MyStack implementation\n" + "="*40)
+    
+    stack = MyStack()
+    
+    operations = [
+        ("push", 1),
+        ("push", 2),
+        ("top", None),
+        ("pop", None),
+        ("top", None),
+        ("empty", None),
+        ("push", 3),
+        ("top", None),
+        ("empty", None),
+    ]
+    
+    expected = [None, None, 2, 2, 1, False, None, 3, False]
+    
+    results = []
+    for op, arg in operations:
+        if op == "push":
+            stack.push(arg)
+            results.append(None)
+        elif op == "pop":
+            results.append(stack.pop())
+        elif op == "top":
+            results.append(stack.top())
+        elif op == "empty":
+            results.append(stack.empty())
+    
+    print("Operations:", [op for op, _ in operations])
+    print("Results:   ", results)
+    print("Expected:  ", expected)
+    print("Status:    ", "✓ PASS" if results == expected else "✗ FAIL")

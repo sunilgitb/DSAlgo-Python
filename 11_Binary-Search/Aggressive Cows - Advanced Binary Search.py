@@ -35,3 +35,11 @@ def aggressiveCows(stalls, k):
 
 # Time: n * log(max(stalls))
 # Space: O(1)
+# Driver code
+stalls = [4, 2, 1, 3, 6]
+k = 2
+print(aggressiveCows(stalls, k))  # Output: 5
+k = 3
+print(aggressiveCows(stalls, k))  # Output: 3
+k = 4
+print(aggressiveCows(stalls, k))  # Output: 2

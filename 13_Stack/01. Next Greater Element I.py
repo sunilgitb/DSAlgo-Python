@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/next-greater-element-i/
 
+from typing import List
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         stack = []
@@ -14,4 +15,9 @@ class Solution:
             nums1[i] = nextGreaterDic[ch]
         
         return nums1
+
+# Example usage:
+solution = Solution()
+print(solution.nextGreaterElement([4,1,2], [1,3,4,2]))  # Output: [-1,3,-1]
+print(solution.nextGreaterElement([2,4], [1,2,3,4]))    # Output: [3,-1]
         

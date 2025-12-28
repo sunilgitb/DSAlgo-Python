@@ -1,10 +1,11 @@
 # https://leetcode.com/problems/maximal-rectangle/
 # https://youtu.be/tOylVCugy9k
 
-
+from typing import List
 class Solution:
     def maximalRectangle(self, matrix: List[List[str]]) -> int:
-        if not matrix: return 0
+        if not matrix: 
+            return 0
         arr = [0 for i in range(len(matrix[0]))]
         ans = 0
         for i in range(len(matrix)):
@@ -52,6 +53,12 @@ class Solution:
         return res
             
             
-            
+# Example Usage:
+matrix = [["1","0","1","0","0"],
+          ["1","0","1","1","1"],
+          ["1","1","1","1","1"],
+          ["1","0","0","1","0"]]
+solution = Solution()
+print(solution.maximalRectangle(matrix))  # Output: 6
 # Time: O(R * C)
 # Space: O(C)

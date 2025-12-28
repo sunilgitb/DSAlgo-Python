@@ -16,5 +16,9 @@ class Solution:
         
         return "".join(stack)
 
+# Example Usage:
+solution = Solution()
+print(solution.removeDuplicateLetters("bcabc"))  # Output: "abc"
+
 # Time Complexity = O(N)
 # Space Complexity = O(N)

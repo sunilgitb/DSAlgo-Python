@@ -14,5 +14,12 @@ class StockSpanner:
         self.stack.append((price, span))
         return span
 
+# Example Usage:
+stockSpanner = StockSpanner()
+print(stockSpanner.next(100))  # return 1
+print(stockSpanner.next(80))   # return 1
+print(stockSpanner.next(60))   # return 1
+print(stockSpanner.next(70))   # return 2
+
 # Time: O(N)
 # Space: O(N)

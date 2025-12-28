@@ -71,5 +71,11 @@ class Solution:
         
         
         return ans                # Most Optimized ans is stored here
-        
-        
+
+# Driver Code
+if __name__ == "__main__":
+    A = [12, 34, 67, 90]
+    N = len(A)
+    M = 2
+    obj = Solution()
+    print(obj.findPages(A, N, M))  # Output: 113

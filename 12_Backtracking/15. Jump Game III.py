@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/jump-game-iii/
 
 # --------------------------  DFS Approach  -------------------------------
+
 class Solution:
     def canReach(self, arr, start):
         seen = set()
@@ -17,6 +18,11 @@ class Solution:
 # Time O(N); as traversing evry element only once
 # Space: O(N)
 
+# Driver Code:
+arr = [4,2,3,0,3,1,2]
+start = 5
+obj = Solution()
+print(obj.canReach(arr, start))  # Output: True
 
 # --------------------------  BFS Approach  -------------------------------
 class Solution:

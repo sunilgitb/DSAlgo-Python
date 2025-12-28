@@ -37,4 +37,9 @@ class Solution:
         # print(rightBound)
         # print(prefixSum)
         return res % (10**9 + 7)
-            
+
+# Example usage:
+solution = Solution()
+print(solution.maxSumMinProduct([1,2,3,2]))  # Output:14
+print(solution.maxSumMinProduct([2,3,3,1,2]))  # Output:18
+print(solution.maxSumMinProduct([3,1,5,6,4,2]))  # Output:60

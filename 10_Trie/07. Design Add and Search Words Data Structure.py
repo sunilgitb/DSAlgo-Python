@@ -20,16 +20,36 @@ class WordDictionary:
         cur.isWord = True
 
     def search(self, word: str) -> bool:
-        def dfs(cur, word):
-            if not word:
+        def dfs(cur, idx):
+            if idx == len(word):
                 return cur.isWord
-            elif word[0] in cur.children:
-                return dfs(cur.children[word[0]], word[1:])
-            elif word[0] == '.':
-                tmp = False
-                for c in cur.children:
-                    tmp |= dfs(cur.children[c], word[1:])
-                return tmp
-            return False
-        
-        return dfs(self.root, word)
+
+            c = word[idx]
+            if c == '.':
+                for child in cur.children.values():
+                    if dfs(child, idx + 1):
+                        return True
+                return False
+            else:
+                if c not in cur.children:
+                    return False
+                return dfs(cur.children[c], idx + 1)
+
+        return dfs(self.root, 0)
+
+
+# ---------------- DRIVER CODE ----------------
+
+wd = WordDictionary()
+
+wd.addWord("bad")
+wd.addWord("dad")
+wd.addWord("mad")
+
+print(wd.search("pad"))  # False
+print(wd.search("bad"))  # True
+print(wd.search(".ad"))  # True
+print(wd.search("b.."))  # True
+print(wd.search("ba."))  # True
+print(wd.search("b.d"))  # True
+print(wd.search("b"))    # False

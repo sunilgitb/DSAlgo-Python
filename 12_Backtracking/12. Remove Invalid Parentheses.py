@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/remove-invalid-parentheses/
 
+from typing import List
 class Solution:
     def removeInvalidParentheses(self, s: str) -> List[str]:
         res = set()
@@ -32,4 +33,10 @@ class Solution:
                     stack.append(i)
                     
         return len(stack)
+
+# Example usage:
+sol = Solution()
+print(sol.removeInvalidParentheses("()())()"))  # Output: ["(())()", "()()()"]
+print(sol.removeInvalidParentheses("(a)())()"))  # Output: ["(a())()", "(a)()()"]
+print(sol.removeInvalidParentheses(")("))  # Output: [""]
         

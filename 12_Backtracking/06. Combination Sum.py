@@ -4,6 +4,7 @@ At each index we have 2 options. Either keep the current element or skip the cur
 Make a recursion tree of this selection. We can select an element multiple times so one call 
 with same index another call from next index.
 '''
+from typing import List
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
@@ -25,7 +26,11 @@ class Solution:
 # Space: O(nCk)  ; where n = len(candidates) ; k = number of combinations
 # k depends on the values of candidates as if large value more quickly target can be achived and less length
 
-
+# Driver Code:
+solution = Solution()
+candidates = [2,3,6,7]
+target = 7
+print(solution.combinationSum(candidates, target))  # Expected Output: [[2,2,3],[7]]
 
 
 
@@ -54,7 +59,11 @@ class Solution:
         return res
 # Time Complexity: O(n * nCk) = O(N * N^k)
 # Space Complexity: O(N)
-
+# Driver Code:
+solution = Solution()
+candidates = [2,3,6,7]
+target = 7
+print(solution.combinationSum(candidates, target))  # Expected Output: [[2,2,3],[7]]
 # ------------------------------- Method - Like Subsets Problem ---------------------------------------
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
@@ -76,3 +85,8 @@ class Solution:
 
 # Time Complexity: O(n * nCk) = O(N * N^k)
 # Space Complexity: O(N)
+# Driver Code:
+solution = Solution()
+candidates = [2,3,6,7]
+target = 7
+print(solution.combinationSum(candidates, target))  # Expected Output: [[2,2,3],[7]]

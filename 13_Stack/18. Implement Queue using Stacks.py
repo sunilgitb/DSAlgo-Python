@@ -18,9 +18,10 @@ class MyQueue:
         return len(self.stack) == 0
 
 
-# Your MyQueue object will be instantiated and called as such:
-# obj = MyQueue()
-# obj.push(x)
-# param_2 = obj.pop()
-# param_3 = obj.peek()
-# param_4 = obj.empty()
+# Driver Code:
+obj = MyQueue()
+obj.push(1)
+obj.push(2)
+print(obj.peek())  # returns 1
+print(obj.pop())   # returns 1
+print(obj.empty()) # returns False  

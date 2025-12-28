@@ -59,7 +59,31 @@ class LRUCache:
             self.tail = node
 
 
+def test_lru():
+    operations = ["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+    values = [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+    
+    cache = None
+    results = []
+    
+    for op, val in zip(operations, values):
+        if op == "LRUCache":
+            cache = LRUCache(val[0])
+            results.append(None)
+        elif op == "put":
+            cache.put(val[0], val[1])
+            results.append(None)
+        elif op == "get":
+            results.append(cache.get(val[0]))
+    
+    print("Expected: [null,null,null,1,null,-1,null,-1,3,4]")
+    print(f"Got     : {results}")
 
+# Test both versions
+print("Testing Doubly Linked List version:")
+test_lru()  # Replace LRUCache with the manual one
+
+# For OrderedDict version, just change the class name
 
 
 

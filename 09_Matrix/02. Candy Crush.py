@@ -57,3 +57,29 @@ class Solution:
 
 # Time: O((m * n) * (m * n)) or O((m * n)^2)
 # Space: O(1)
+if __name__ == "__main__":
+    sol = Solution()
+
+    # Example 1 (LeetCode official example)
+    board = [
+        [110, 5, 112, 113, 114],
+        [210, 211, 5, 213, 214],
+        [310, 311, 3, 313, 314],
+        [410, 411, 412, 5, 414],
+        [5,   1,   512, 3,   3],
+        [610, 4,   1,   613, 614],
+        [710, 1,   2,   713, 714],
+        [810, 1,   2,   1,   1],
+        [1,   1,   2,   2,   2],
+        [4,   1,   4,   4,   1014]
+    ]
+
+    print("Original Board:")
+    for row in board:
+        print(row)
+
+    result = sol.candyCrush(board)
+
+    print("\nFinal Board After Candy Crush:")
+    for row in result:
+        print(row)

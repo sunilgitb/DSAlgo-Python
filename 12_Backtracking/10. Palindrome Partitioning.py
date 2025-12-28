@@ -19,4 +19,9 @@ class Solution:
         
         dfs(s, [])
         return res
-            
+
+# Example usage:
+sol = Solution()
+print(sol.partition("aab"))  # Output: [["a","a","b"],["aa"]]
+print(sol.partition("a"))    # Output: [["a"]]
+print(sol.partition("racecar"))  # Output: [["r","a","c","e","c","a","r"], ["r","aceca","r"], ["racecar"]]

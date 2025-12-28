@@ -16,3 +16,6 @@ class Solution:
         
         dfs(0, 0, "")
         return res
+# Example usage:
+sol = Solution()
+print(sol.generateParenthesis(3))  # Output: ["((()))","(()())","(())()","()(())","()()()"]

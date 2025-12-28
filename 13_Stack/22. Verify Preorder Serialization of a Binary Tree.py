@@ -11,20 +11,26 @@ class Solution:
         stack = []  # storing 2 to represent left and right child 
         for i, ch in enumerate(preorder):
             if ch == '#':
-                if not stack: return False
+                if not stack: 
+                    return False
                 stack[-1] -= 1
                 while stack and stack[-1] <= 0:
                     stack.pop()
                     if stack: stack[-1] -= 1
             else:
-                if i != 0 and not stack: return False
+                if i != 0 and not stack: 
+                    return False
                 stack.append(2)
                 
         return True if not stack else False 
     
     
     
-
+# Example Usage:
+solution = Solution()
+print(solution.isValidSerialization("9,3,4,#,#,1,#,#,2,#,6,#,#"))  # Output: True
+print(solution.isValidSerialization("1,#"))  # Output: False
+print(solution.isValidSerialization("9,#,#,1"))  # Output: False
 # Method - 2
     
 class Solution:

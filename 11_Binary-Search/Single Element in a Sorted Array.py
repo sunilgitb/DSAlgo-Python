@@ -7,6 +7,7 @@ Equivalently, nums[i] = nums[i+1] and nums[i+1] != nums[i+2] for all even i.
 When we insert the unique element into this list, the indices of all the pairs following it will be shifted by one, negating the above relationship.
 '''
 
+from typing import List
 class Solution:
     def singleNonDuplicate(self, nums: List[int]) -> int:
         if len(nums) == 1: return nums[0]
@@ -36,3 +37,7 @@ class Solution:
     
 # Time: O(log(n))
 # Space: O(n)
+# Example Usage:
+sol = Solution()
+print(sol.singleNonDuplicate([1,1,2,3,3,4,4,8,8]))  # Output: 2
+print(sol.singleNonDuplicate([3,3,7,7,10,11,11]))  # Output: 10

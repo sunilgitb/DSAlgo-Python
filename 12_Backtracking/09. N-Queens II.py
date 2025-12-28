@@ -37,5 +37,10 @@ class Solution:
         backtrack(0)
         return self.res
 
+# Driver Code:
+solution = Solution()
+n = 4
+print(solution.totalNQueens(n))  # Output: 2
+
 # Time Complexity: O( N^2 )
 # Space Complexity: O( N^2 )

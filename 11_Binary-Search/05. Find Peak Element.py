@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/find-peak-element/
 # https://youtu.be/OINnBJTRrMU
 
+from typing import List
 class Solution:
     def findPeakElement(self, nums: List[int]) -> int:
         n = len(nums)
@@ -35,4 +36,8 @@ class Solution:
                     
 # Time: O(n)
 # Space: O(1)
-        
+
+# Example Usage
+solution = Solution()
+print(solution.findPeakElement([1,2,3,1]))  # Output: 2
+print(solution.findPeakElement([1,2,1,3,5,6,4]))  # Output: 1 or 5

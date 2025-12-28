@@ -13,7 +13,9 @@ class Solution:
         dfs("", tiles)
         return len(res)
     
-    
+# Driver Code:
+sol = Solution()
+print(sol.numTilePossibilities("AAB"))  # Output: 8 
 # Optimal Solution
 class Solution:
     def numTilePossibilities(self, tiles: str) -> int:

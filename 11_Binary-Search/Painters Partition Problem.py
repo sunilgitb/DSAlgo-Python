@@ -29,3 +29,9 @@ class Solution:
 # the sum(arr) can at max 2^32 so max high = 2^32 
 # Time: O(log(2^32) * n) = 32 * n  
 # Space: O(1)
+# Driver Code:
+solution = Solution()
+arr = [10, 20, 30, 40]
+n = len(arr)
+k = 2
+print(solution.minTime(arr, n, k))  # Output: 60

@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
 
+from typing import List
 class Solution:
     def shipWithinDays(self, weights: List[int], days: int) -> int:
         # First Solve => Allocate Minimum Number Of Pages - Binary Search
@@ -28,3 +29,11 @@ class Solution:
                 l = mid + 1
         
         return ans
+# Time Complexity: O(N log(sum of weights))
+# Space Complexity: O(1)
+
+# Example Usage
+sol = Solution()
+print(sol.shipWithinDays([1,2,3,4,5,6,7,8,9,10], 5))  # Output: 15
+print(sol.shipWithinDays([3,2,2,4,1,4], 3))          # Output: 6
+print(sol.shipWithinDays([1,2,3,1,1], 4))          # Output: 3

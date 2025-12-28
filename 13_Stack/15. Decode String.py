@@ -25,6 +25,10 @@ class Solution:
             i += 1
         
         return "".join(stack)
-    
+
+# Driver Code:
+solution = Solution()
+s = "3[a2[c]]"
+print(solution.decodeString(s))  # Output: "accaccacc"
 # Time: O(N)
 # Space: O(N)

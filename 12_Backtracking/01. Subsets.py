@@ -15,6 +15,9 @@ class Solution:
         
         dfs(0, [])
         return res
+# Driver Code:
+solution = Solution()
+print(solution.subsets([1, 2, 3]))
 '''
 Time Complexity: O(N * 2^N)  ; because there will be 2^N different subsets, and we have to create a copy of each one, which is O(N).
 Space Complexity: O(N)  ; if you don't count the output array, because the size of the function call stack will be O(N). Meaning we have to call the recursive function N times in a row, before it returns.
@@ -38,6 +41,9 @@ class Solution:
         
         dfs(0)
         return res
+# Driver Code:
+solution = Solution()
+print(solution.subsets([1, 2, 3]))
 '''
 Time Complexity: O(N * 2^N)  ; because there will be 2^N different subsets, and we have to create a copy of each one, which is O(N).
 Space Complexity: O(N)  ; if you don't count the output array, because the size of the function call stack will be O(N). Meaning we have to call the recursive function N times in a row, before it returns.
@@ -54,3 +60,6 @@ class Solution:
 
 # Time: O(N * 2^N)
 # Space: O(N)
+# Driver Code:
+solution = Solution()
+print(solution.subsets([1, 2, 3]))

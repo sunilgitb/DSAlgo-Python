@@ -1,45 +1,56 @@
-# https://leetcode.com/problems/subsequence-with-the-minimum-score/
-
 class Solution:
     def minimumScore(self, s: str, t: str) -> int:
-        # Take care of the case where t is already a substring of s, return 0 in this case.
+        n, m = len(s), len(t)
+        
+        # If t is already a subsequence of s, we can remove 0 characters
         j = 0
-        for i in range(len(s)):
-            if s[i]==t[j]: j+=1
-            if j==len(t): return 0
+        for char in s:
+            if j < m and char == t[j]:
+                j += 1
+        if j == m:
+            return 0
         
-        # Moving forward, store the first letter's index in t that needs to be removed if s ends at i.
-        firstRemovedIndexFromLeft = [0]*len(s)
-        left = 0
-        for i in range(len(s)):
-            if s[i]==t[left]:
-                left += 1
-            firstRemovedIndexFromLeft[i] = left
-        print(firstRemovedIndexFromLeft)
-        # Worest case, we remove the first and last letter in t.
-        res = len(t)
+        # left[i] = number of characters from t matched using first i+1 characters of s
+        left = [0] * n
+        j = 0
+        for i in range(n):
+            if j < m and s[i] == t[j]:
+                j += 1
+            left[i] = j
         
-        # Moving backward, at each position i in s, there are two cases:
-        # (1) the firstRemovedIndexFromLeft[i] <= first removed index from right,
-        #       This is a valid case in the sense that we can 
-        #       basically, remove everything in between these two indices, including these two indices.
-        #       i.e.,
-        #       s = 'aabbbaa'
-        #       t = 'aazzzaa'
-        #       firstRemovedIndexFromLeft  = [1, 2, 2, 2, 2, 2, 2]
-        #       firstRemovedIndexFromRight = [4, 4, 4, 4 ,4, 5, 6] (We don't actually put the right in arr like this, but just for easy understanding here)
-        #       when i=3, firstRemovedIndexFromLeft[i] = 2 and right = 4, 
-        #       so we try to update res, if the score (right-left+1) is smaller.
-        #
-        # (2) left > right, this is an invalid case to consider both indices.
-        #       In this case, we basically just remove everything from 0 to index right, 
-        #       score is (right - 0 + 1), where 0 is the left index. Update res if score is smaller.
-        right = len(t) -1 
-        for i in reversed(range(len(s))):
-            if right>=firstRemovedIndexFromLeft[i]:
-                res = min(right-firstRemovedIndexFromLeft[i]+1,res)
-            if s[i] == t[right]:
-                right -= 1
-            res = min(res, right+1)
-            
-        return res
+        # right[i] = number of characters from t matched using last i+1 characters of s (from right)
+        right = [0] * n
+        j = m - 1
+        for i in range(n - 1, -1, -1):
+            if j >= 0 and s[i] == t[j]:
+                j -= 1
+            right[i] = m - 1 - j  # count matched from the end
+        
+        # Minimum number of removals = m - maximum number of matches we can keep
+        min_removals = m
+        
+        # Try every possible split point i in s
+        # Left part matches left[i] characters of t
+        # Right part matches right[i+1] characters of t
+        # Total matched = left[i] + right[i+1]
+        # Removals = m - total matched
+        for i in range(n - 1):
+            total_matched = left[i] + right[i + 1]
+            min_removals = min(min_removals, m - total_matched)
+        
+        # Also consider using only left part or only right part
+        min_removals = min(min_removals, m - left[-1])
+        min_removals = min(min_removals, m - right[0])
+        
+        return min_removals
+
+def test():
+    sol = Solution()
+    assert sol.minimumScore("abacaba", "bzaa") == 1
+    assert sol.minimumScore("abc", "abc") == 0
+    assert sol.minimumScore("a", "b") == 1
+    assert sol.minimumScore("abcd", "abcde") == 1
+    assert sol.minimumScore("xyz", "xyz") == 0
+    print("All tests passed!")
+
+test()

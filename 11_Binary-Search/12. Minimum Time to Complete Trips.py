@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/minimum-time-to-complete-trips/
 
+from typing import List
 class Solution:
     def minimumTime(self, time: List[int], totalTrips: int) -> int:
         
@@ -23,3 +24,11 @@ class Solution:
     
     
 # Time: O(N log(N))
+# Space: O(1)
+
+# Driver Code:
+if __name__ == "__main__":
+    sol = Solution()
+    time = [1,2,3]
+    totalTrips = 5
+    print(sol.minimumTime(time, totalTrips))  # Output: 3

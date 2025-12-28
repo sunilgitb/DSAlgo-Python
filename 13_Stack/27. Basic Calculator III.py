@@ -39,6 +39,12 @@ class Solution:
             q.append(c)
         return helper(q)
 
-
+# Driver Code:
+s = Solution()
+print(s.calculate("1 + 1"))                # Output: 2
+print(s.calculate(" 6-4 / 2 "))            # Output: 4
+print(s.calculate("2*(5+5*2)/3+(6/2+8)"))  # Output: 21
+print(s.calculate("(2+6* 3+ 5- (3*14/7+2)*5)+3"))  # Output: -12
+print(s.calculate("0"))                     # Output: 0
 # Time: O(N)
 # Space: O(N)

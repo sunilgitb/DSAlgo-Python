@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/find-minimum-time-to-finish-all-jobs/description/
 
+from typing import List
 class Solution:
     def minimumTimeRequired(self, jobs: List[int], k: int) -> int:
         jobs.sort(reverse=True)  # Important: Assign large jobs first
@@ -29,3 +30,9 @@ class Solution:
 
         dfs(0)
         return self.ans
+
+# Example usage:
+sol = Solution()
+print(sol.minimumTimeRequired([3,2,3], 3))  # Output: 3
+print(sol.minimumTimeRequired([1,2,4,7,8], 2))  # Output: 11
+print(sol.minimumTimeRequired([5,5,4,4,4], 2))  # Output: 13

@@ -4,6 +4,7 @@ Even the array is rotated sorted if we can use binary search in it, as one sided
 sorted and other sider unsorted. if target not present in sorted side then it must be in the unsorted 
 part. change l and r pointer likewise.
 '''
+from typing import List
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         l = 0; r = len(nums)-1
@@ -28,3 +29,8 @@ class Solution:
 
 # Time: O(log(n))
 # Space: O(1)
+# Example usage:
+sol = Solution()
+print(sol.search([4,5,6,7,0,1,2], 0))  # Output: 4
+print(sol.search([4,5,6,7,0,1,2], 3))  # Output: -1
+print(sol.search([1], 0))              # Output: -1

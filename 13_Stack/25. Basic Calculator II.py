@@ -27,5 +27,8 @@ class Solution:
         calculate(sign, num) 
         return sum(stack)
 
+# Example Usage:
+solution = Solution()
+print(solution.calculate("3+2*2"))  # Output: 7
 # Time: O(N)
 # Space: O(N)

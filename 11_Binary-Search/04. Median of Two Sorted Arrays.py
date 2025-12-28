@@ -33,6 +33,11 @@ class Solution:
 # Timw: O(N)
 # Space: O(1)
 
+# Driver Code:
+solution = Solution()
+nums1 = [7,12,14,15]
+nums2 = [1,2,3,4,9,11]
+print(solution.findMedianSortedArrays(nums1, nums2))
 
 
 # -------------------- Method 2 --------- Optimised O(log(N)) Time----------------
@@ -75,6 +80,13 @@ class Solution:
                 low = cut1 + 1
         
         return 0.0  # For both empty arrays
+
+// Driver Code:
+solution = Solution()
+nums1 = [7,12,14,15]
+nums2 = [1,2,3,4,9,11]
+print(solution.findMedianSortedArrays(nums1, nums2))
+
     
 '''
 Time Complexity: O(log(n1))  

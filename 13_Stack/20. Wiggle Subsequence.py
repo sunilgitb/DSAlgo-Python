@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/wiggle-subsequence/
 
 
+from typing import List
 class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:
         flag = 1
@@ -24,6 +25,8 @@ class Solution:
         
         return len(stack)
       
-      
+# Example Usage:
+solution = Solution()
+print(solution.wiggleMaxLength([1,7,4,9,2,5]))  # Output: 6
 # Time: O(n)
 # Space: O(n)

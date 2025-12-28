@@ -21,3 +21,9 @@ class Solution:
         res = str(res)
         
         return res
+
+# Driver Code:
+solution = Solution()
+num = "1432219"
+k = 3
+print(solution.removeKdigits(num, k))  # Output: "1219"

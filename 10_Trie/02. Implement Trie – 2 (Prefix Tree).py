@@ -61,3 +61,22 @@ class Trie:
             cur.prefixOfWordCount -= 1
                 
         cur.endOfWordCount -= 1
+
+if __name__ == "__main__":
+    trie = Trie()
+
+    trie.insert("apple")
+    trie.insert("apple")
+    trie.insert("app")
+
+    print(trie.countWordsEqualTo("apple"))       # 2
+    print(trie.countWordsStartingWith("app"))    # 3
+
+    trie.erase("apple")
+
+    print(trie.countWordsEqualTo("apple"))       # 1
+    print(trie.countWordsStartingWith("app"))    # 2
+
+    trie.erase("apple")
+    print(trie.countWordsEqualTo("apple"))       # 0
+    print(trie.countWordsStartingWith("app"))    # 1

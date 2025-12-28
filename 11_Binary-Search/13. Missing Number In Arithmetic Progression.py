@@ -25,7 +25,11 @@ class Solution:
 # Time: O(log(n))
 # Space: O(1)
 
-
+# Driver code
+if __name__ == "__main__":
+    sol = Solution()
+    arr = [5, 7, 11, 13]
+    print(sol.missing_number(arr))  # Output: 9
 ########################### Solution 2 -> Math ###########################
 class Solution:
     def missing_number(self, arr: List[int]) -> int:
@@ -38,4 +42,8 @@ class Solution:
 
 # Time: O(n) as time complexity of sum() function is O(n) in python
 # Space: O(1)
-
+# Driver code
+if __name__ == "__main__":
+    sol = Solution()
+    arr = [5, 7, 11, 13]
+    print(sol.missing_number(arr))  # Output: 9

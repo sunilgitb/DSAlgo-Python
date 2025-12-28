@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/koko-eating-bananas/
 # https://github.com/SamirPaulb/DSAlgo/blob/main/11_Binary-Search/01.%20Allocate%20Minimum%20Number%20Of%20Pages.py
 
+import math
 class Solution:
     def minEatingSpeed(self, piles, h):
         def isValid(speed):
@@ -23,3 +24,8 @@ class Solution:
     
 # Time: O(N * log(M))      where M = max(piles)
 # Space: O(1)
+# Example Usage
+sol = Solution()
+print(sol.minEatingSpeed([3,6,7,11], 8))  # Output: 4
+print(sol.minEatingSpeed([30,11,23,4,20], 5))  # Output: 30
+print(sol.minEatingSpeed([30,11,23,4,20], 6))  # Output: 23

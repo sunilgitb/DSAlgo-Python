@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/maximum-width-ramp/
 
+from typing import List
 class Solution:
     def maxWidthRamp(self, nums: List[int]) -> int:
         # nums = [9,8,1,0,1,9,4,0,4,1]
@@ -19,7 +20,9 @@ class Solution:
         
         return res  # 7
     
-    
+# Example Usage:
+solution = Solution()
+print(solution.maxWidthRamp([6,0,8,2,1,5]))  # Output: 4
 # Time: O(n)
 # Space: O(n)
 

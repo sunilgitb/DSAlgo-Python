@@ -1,26 +1,20 @@
 # https://leetcode.com/problems/search-suggestions-system/
 
-# Method 1: Sorting
-class Solution:
+# Method 1: Sorting + Prefix Filtering
+class Solution1:
     def suggestedProducts(self, products, searchWord):
         products.sort()
         res = []
         for i, c in enumerate(searchWord):
             products = [p for p in products if len(p) > i and p[i] == c]
             res.append(products[:3])
-        
         return res
 
-# Time: O(N log(N)) + O(N * K) ; where N = len(products), K = len(searchWord)
-
-
-# ----------------------------------------------------------------------------------------
-# Method 2: Trie
+# Method 2: Trie (Efficient insertion + pre-stored suggestions)
 class Node:
     def __init__(self):
-        self.val = ""
         self.children = {}
-        self.suggestions  = []
+        self.suggestions = []
 
 class Trie:
     def __init__(self):
@@ -32,7 +26,7 @@ class Trie:
             if c not in cur.children:
                 cur.children[c] = Node()
             cur = cur.children[c]
-            cur.val = c
+            # Add word to suggestions if we still have space
             if len(cur.suggestions) < 3:
                 cur.suggestions.append(word)
     
@@ -42,32 +36,29 @@ class Trie:
         for c in searchWord:
             if c in cur.children:
                 cur = cur.children[c]
-                res.append(cur.suggestions)
-            else: 
+                res.append(cur.suggestions[:])  # copy list
+            else:
                 break
-        res += [[] for i in range(len(searchWord)-len(res))]
+        # Pad with empty lists if searchWord is longer than matched prefix
+        res += [[] for _ in range(len(searchWord) - len(res))]
         return res
-                
-class Solution:
+
+class Solution2:
     def suggestedProducts(self, products, searchWord):
-        products.sort()
+        products.sort()  # ensures lexicographical order
         trie = Trie()
         for word in products:
             trie.addWord(word)
         return trie.getSuggestions(searchWord)
 
-# Time: O(N log(N)) + O(N * K)
-
-    
-# ----------------------------------------------------------------------------------------
-# Method 3: Trie + DFS
+# Method 3: Trie + DFS (Alternative approach)
 class TrieNode:
     def __init__(self):
         self.children = {}
         self.isWord = False
         self.val = ""
 
-class Solution:
+class Solution3:
     def __init__(self):
         self.root = TrieNode()
         
@@ -85,26 +76,77 @@ class Solution:
         for product in products:
             self.addWord(product)
         
-        def dfs(cur, arr, tmp):
-            if len(arr) == 3 or not cur: return 
-            if cur.isWord: 
+        def dfs(node, arr, tmp):
+            if len(arr) == 3 or not node:
+                return
+            if node.isWord:
                 arr.append(tmp)
-            for child in cur.children.values():
-                dfs(child, arr, tmp+child.val)
+            for child in sorted(node.children.values(), key=lambda x: x.val):
+                dfs(child, arr, tmp + child.val)
         
         cur = self.root
         res = []
+        prefix = ""
         for i, c in enumerate(searchWord):
-            if c not in cur.children: 
+            if c not in cur.children:
                 break
             cur = cur.children[c]
+            prefix += c
             arr = []
             dfs(cur, arr, "")
-            for j in range(len(arr)):
-                arr[j] = searchWord[:i+1] + arr[j]
-            res.append(arr)
-            
-        res += [[] for i in range(len(searchWord) - len(res))]
+            # Prepend current prefix to each suggestion
+            res.append([prefix + s for s in arr])
+        
+        # Pad remaining positions with empty lists
+        res += [[] for _ in range(len(searchWord) - len(res))]
         return res
+
+# Driver Code
+def run_test(products, searchWord):
+    print(f"\nProducts: {products}")
+    print(f"Search word: {searchWord}")
     
-# Time: O(N log(N)) + O(N * K)
+    sol1 = Solution1()
+    sol2 = Solution2()
+    sol3 = Solution3()
+    
+    result1 = sol1.suggestedProducts(products[:], searchWord)  # copy list
+    result2 = sol2.suggestedProducts(products[:], searchWord)
+    result3 = sol3.suggestedProducts(products[:], searchWord)
+    
+    print("Method 1 (Sorting):")
+    for i, c in enumerate(searchWord):
+        print(f"  After '{searchWord[:i+1]}': {result1[i]}")
+    
+    print("\nMethod 2 (Trie with pre-stored suggestions):")
+    for i, c in enumerate(searchWord):
+        print(f"  After '{searchWord[:i+1]}': {result2[i]}")
+    
+    print("\nMethod 3 (Trie + DFS):")
+    for i, c in enumerate(searchWord):
+        print(f"  After '{searchWord[:i+1]}': {result3[i]}")
+    print("-" * 60)
+
+# Test cases
+if __name__ == "__main__":
+    test_cases = [
+        (
+            ["mobile", "mouse", "moneypot", "monitor", "mousepad"],
+            "mouse"
+        ),
+        (
+            ["havana"],
+            "havana"
+        ),
+        (
+            ["bags", "baggage", "banner", "basket", "bats"],
+            "ba"
+        ),
+        (
+            ["abcd", "abcde", "abcdef"],
+            "abcdefg"  # longer than any product
+        ),
+    ]
+    
+    for products, searchWord in test_cases:
+        run_test(products, searchWord)

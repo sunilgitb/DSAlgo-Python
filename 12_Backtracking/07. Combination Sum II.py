@@ -4,6 +4,7 @@ At each index we have 2 options. Either keep the current element or skip the cur
 Make a recursion tree of this selection. We can select an element multiple times so one call 
 with same index another call from next index.
 '''
+from typing import List
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         candidates.sort()
@@ -23,10 +24,15 @@ class Solution:
         solve(0, target, [])
         return res
 
+# Driver Code:
+solution = Solution()
+candidates = [10,1,2,7,6,1,5]
+target = 8
+print(solution.combinationSum2(candidates, target))
+# Output: [[1,1,6],[1,2,5],[1,7],[2,6]]
+
 # Time: O(2^N)
 # Space: O(2^N)
-
-
 
 
 
@@ -52,6 +58,13 @@ class Solution:
         
         dfs(0, [], target)
         return res
+
+# Driver Code::
+solution = Solution()
+candidates = [10,1,2,7,6,1,5]
+target = 8
+print(solution.combinationSum2(candidates, target))
+# Output: [[1,1,6],[1,2,5],[1,7],[2,6]]
 # Time Complexity = 2^N  ; as for each element we have two option either include it or not include it
 # Space Complexity = O(N)
 
@@ -77,5 +90,11 @@ class Solution:
         dfs(0, [])
         return res
 
+# Driver Code::
+solution = Solution()
+candidates = [10,1,2,7,6,1,5]
+target = 8
+print(solution.combinationSum2(candidates, target))
+# Output: {(1, 1, 6), (1, 2, 5), (1, 7), (2, 6)}
 # Time Complexity = N * 2^N  ; as the sum(comb) also takes n time
 # Space Complexity = O(N)

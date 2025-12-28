@@ -12,7 +12,13 @@ class Solution:
                 stack.append([c, 1])
                 
         return "".join(c*cnt for c, cnt in stack)
-    
+
+# Example Usage:
+solution = Solution()
+s = "deeedbbcccbdaa"
+k = 3
+result = solution.removeDuplicates(s, k)
+print(result)  # Output: "aa"
 # Time: O(N)
 # Space: O(N)
 

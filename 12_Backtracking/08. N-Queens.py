@@ -6,7 +6,7 @@ comes in each other direction.
 '''
 # DFS  => taking variables as global variables
 # https://www.youtube.com/watch?v=Ph95IHmRp5M
-
+from typing import List
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         col = set()
@@ -40,5 +40,9 @@ class Solution:
         backtrack(0)
         return res
 
+# Driver Code:
+n = 4
+obj = Solution()
+print(obj.solveNQueens(n)) # Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
 # Time Complexity: O( N^2 )
 # Space Complexity: O( N^2 )

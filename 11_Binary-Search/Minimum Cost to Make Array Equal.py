@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/minimum-cost-to-make-array-equal/
 
+from typing import List
 class Solution:
     def minCost(self, nums: List[int], cost: List[int]) -> int:
         def cal_cost(target):
@@ -24,3 +25,7 @@ class Solution:
 
 # Time: O(N log(N))
 # Space: O(1)
+# Driver Code
+solution = Solution()
+print(solution.minCost([1,3,5,2], [2,3,1,14]))  # Output: 8
+print(solution.minCost([2,2,2,2,2], [4,2,8,1,3]))  # Output: 0

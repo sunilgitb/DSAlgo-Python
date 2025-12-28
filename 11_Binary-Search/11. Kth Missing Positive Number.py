@@ -5,6 +5,7 @@
 # If there were no elements in arr, then Kth element would be k.
 # But for every element of value less than equal to k, will make
 # Kth missing value shift to right 
+from typing import List
 class Solution:
     def findKthPositive(self, arr: List[int], k: int) -> int:
         for i in arr:
@@ -14,6 +15,11 @@ class Solution:
 # Time: O(N)
 # Space: O(1)
 
+# Driver code:
+arr = [2,3,4,7,11]
+k = 5
+sol = Solution()
+print(sol.findKthPositive(arr, k))  # Output: 9
 
 # Binary Search approach => Most Optimised
 class Solution:
@@ -31,3 +37,8 @@ class Solution:
 
 # Time: O(log(N))
 # Space: O(1)
+# Driver code:
+arr = [2,3,4,7,11]
+k = 5
+sol = Solution()
+print(sol.findKthPositive(arr, k))  # Output: 9

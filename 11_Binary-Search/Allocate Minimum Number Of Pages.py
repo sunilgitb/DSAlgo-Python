@@ -75,3 +75,9 @@ class Solution:
         
 # Time: O(log(n))
 # Space: O(1)
+# Driver Code
+sol = Solution()
+A = [12, 34, 67, 90]
+N = len(A)
+M = 2
+print(sol.findPages(A, N, M))  # Output: 113

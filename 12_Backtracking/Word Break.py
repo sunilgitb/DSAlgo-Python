@@ -2,6 +2,7 @@
 # https://youtu.be/Sx9NNgInc3A
 
 # Recursion
+from typing import List
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         self.res = False
@@ -15,6 +16,12 @@ class Solution:
         
         solve(s)
         return self.res
+
+# Driver Code
+solution = Solution()
+s = "leetcode"
+wordDict = ["leet", "code"]
+print(solution.wordBreak(s, wordDict))  # Output: True
 # Time: O(N^2)
 # Space: O(1)
         
