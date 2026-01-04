@@ -35,17 +35,18 @@ def is_consecutive_sequence(s: str) -> bool:
 
 
 # Test cases
-test_cases = [
-    ("1234", True),       # 1,2,3,4
-    ("91012", False),
-    ("99100", True),      # 99,100
-    ("010203", False),    # leading zeros invalid
-    ("910911", True),     # 910,911
-    ("1", True),
-    ("", False),
-    ("123456789101112", True),  # 1 to 12
-]
+if __name__ == "__main__":
+    s = "1234"
+    print(is_consecutive_sequence(s))   # True
 
-for s, expected in test_cases:
-    result = is_consecutive_sequence(s)
-    print(f"String: {s:15} → {result} (Expected: {expected})")
+    s = "99100"
+    print(is_consecutive_sequence(s))   # True
+
+    s = "91012"
+    print(is_consecutive_sequence(s))   # False
+
+    s = "010203"
+    print(is_consecutive_sequence(s))   # False
+
+    s = "123456789101112"
+    print(is_consecutive_sequence(s))   # True

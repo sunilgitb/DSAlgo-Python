@@ -1,19 +1,17 @@
 class Solution:
-
-    def isValid(self, s: str) -> bool:
-        stack = []
+    def countSubstrings(self, s: str) -> int:
+        def  getPalCounts(l, r):
+            count = 0
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                count += 1
+                l -= 1
+                r += 1
+            return count 
         
+        res = 0
+        for i in range(len(s)):
+            res += getPalCounts(i, i)
 
-        for i in s:
-            if not in stack:
-                stack.append(i)
-            elif stack[-1] == "(" and i == ")":
-                stack.pop()
-            elif stack[-1] == "{" and i == "}":
-                stack.pop()
-            elif stack[-1] == "[" and i == "]":
-                stack.pop()
-            else:
-                stack.append(i)
-        return len(stack) == 0
-        
+            res += getPalCounts(i, i + 1) 
+
+        return res 

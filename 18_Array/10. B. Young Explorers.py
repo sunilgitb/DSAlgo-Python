@@ -15,5 +15,6 @@ def solve():
     print(total_size)
 
 
-# Driver code
-solve()
+# ---------------- DRIVER CODE ----------------
+if __name__ == "__main__":
+    solve() # output 3

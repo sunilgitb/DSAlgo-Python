@@ -10,3 +10,4 @@ def countNonEmptySubstr(str):
  
 s = "abcde"
 print (countNonEmptySubstr(s))
+# output: 15

@@ -38,43 +38,38 @@ class Solution:
         
         return count
 
+# Driver Code (simple & clean)
 
-# Driver Code
-if __name__ == "__main__":
-    solution = Solution()
-    
-    # Test cases
-    test_cases = [
-        # Example 1
-        ([1, 1, 1], 5, 6),
-        
-        # Example 2
-        ([1, 2, 3], 9, 6),
-        
-        # All 1s
-        ([1, 1, 1, 1], 3, 10),
-        
-        # Larger numbers
-        ([2, 3, 4], 10, 5),
-        
-        # Single element
-        ([5], 10, 1),
-        ([5], 4, 0),
-        
-        # All subarrays invalid
-        ([10, 20, 30], 5, 0),
-        
-        # Empty array
-        ([], 10, 0),
-    ]
-    
-    print("Testing Count Subarrays With Score Less Than K\n" + "="*60)
-    
-    for idx, (nums, k, expected) in enumerate(test_cases, 1):
-        result = solution.countSubarrays(nums, k)
-        status = "✓ PASS" if result == expected else "✗ FAIL"
-        print(f"Test {idx:2d}: {status}")
-        print(f"   nums: {nums}")
-        print(f"   k:    {k}")
-        print(f"   Output: {result} (Expected: {expected})")
-        print("-" * 60)
+solution = Solution()
+
+nums = [1, 1, 1]
+k = 5
+print(solution.countSubarrays(nums, k))  # 6
+
+nums = [1, 2, 3]
+k = 9
+print(solution.countSubarrays(nums, k))  # 6
+
+nums = [1, 1, 1, 1]
+k = 3
+print(solution.countSubarrays(nums, k))  # 10
+
+nums = [2, 3, 4]
+k = 10
+print(solution.countSubarrays(nums, k))  # 5
+
+nums = [5]
+k = 10
+print(solution.countSubarrays(nums, k))  # 1
+
+nums = [5]
+k = 4
+print(solution.countSubarrays(nums, k))  # 0
+
+nums = [10, 20, 30]
+k = 5
+print(solution.countSubarrays(nums, k))  # 0
+
+nums = []
+k = 10
+print(solution.countSubarrays(nums, k))  # 0

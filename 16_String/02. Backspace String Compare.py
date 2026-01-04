@@ -60,30 +60,12 @@ class Solution:
 
 
 # Driver code with test cases
-def run_tests():
-    test_cases = [
-        ("ab#c", "ad#c", True),          # "ac" == "ac"
-        ("ab##", "c#d#", True),          # "a" == "a"
-        ("a#c", "b", False),             # "c" != "b"
-        ("a", "a", True),
-        ("", "", True),
-        ("abc", "abc", True),
-        ("a##b", "b", True),
-        ("bxo#j##tw", "bxj##tw", False),
-    ]
-    
-    print("Testing Backspace String Compare\n" + "="*50)
-    
-    for idx, (s, t, expected) in enumerate(test_cases, 1):
-        sol = Solution()
-        result = sol.backspaceCompare(s, t)
-        status = "✓ PASS" if result == expected else "✗ FAIL"
-        print(f"Test {idx:2d}: {status}")
-        print(f"   s: {s}")
-        print(f"   t: {t}")
-        print(f"   Result: {result} (Expected: {expected})")
-        print("-" * 50)
+# ---------------- DRIVER CODE ----------------
+solution = Solution()
+
+s = "ab#c"
+t = "ad#c"
+
+print(solution.backspaceCompare(s, t))  # True
 
 
-if __name__ == "__main__":
-    run_tests()

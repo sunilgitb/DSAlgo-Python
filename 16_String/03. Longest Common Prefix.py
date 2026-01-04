@@ -55,49 +55,19 @@ class SolutionCharByChar:
 
 
 # Driver Code with comprehensive test cases
-def run_tests():
-    test_cases = [
-        # Example 1
-        (["flower", "flow", "flight"], "fl"),
-        
-        # Example 2
-        (["dog", "racecar", "car"], ""),
-        
-        # All identical
-        (["abc", "abc", "abc"], "abc"),
-        
-        # Single string
-        (["a"], "a"),
-        
-        # Empty strings
-        (["", "abc"], ""),
-        
-        # Empty array
-        ([], ""),
-        
-        # One empty string
-        (["", ""], ""),
-        
-        # Longer common prefix
-        (["interspecies", "interstellar", "interstate"], "inters"),
-    ]
-    
-    print("Testing Longest Common Prefix\n" + "="*50)
-    
-    sol1 = Solution()
-    sol2 = SolutionCharByChar()
-    
-    for idx, (strs, expected) in enumerate(test_cases, 1):
-        result1 = sol1.longestCommonPrefix(strs[:])
-        result2 = sol2.longestCommonPrefix(strs[:])
-        status = "✓ PASS" if result1 == expected else "✗ FAIL"
-        print(f"Test {idx:2d}: {status}")
-        print(f"   Input:  {strs}")
-        print(f"   Method1: {result1}")
-        print(f"   Method2: {result2}")
-        print(f"   Expected: {expected}")
-        print("-" * 50)
+solution = Solution()
 
+strs = ["flower", "flow", "flight"]
+print(solution.longestCommonPrefix(strs))  # fl
 
-if __name__ == "__main__":
-    run_tests()
+strs = ["dog", "racecar", "car"]
+print(solution.longestCommonPrefix(strs))  # ""
+
+strs = ["interspecies", "interstellar", "interstate"]
+print(solution.longestCommonPrefix(strs))  # inters
+
+strs = ["abc", "abc", "abc"]
+print(solution.longestCommonPrefix(strs))  # abc
+
+strs = ["a"]
+print(solution.longestCommonPrefix(strs))  # a

@@ -37,7 +37,7 @@ class Solution:
         for i in range(len(a) - len(b) + 1):
             if a[i] == b[0] and a[i:i+len(b)] == b:
                 return True
-        return False
+        return False    ``
 
 # Method 2 ---------------------------------------  
 class Solution2:
@@ -116,118 +116,28 @@ class SolutionKMP:
         return -1
 
 
-def run_tests():
-    test_cases = [
-        ("abcd", "cdabcdab", 3),
-        ("a", "aa", 2),
-        ("a", "a", 1),
-        ("abc", "cabcabca", 4),
-        ("abc", "def", -1),
-        ("a", "", 0),
-        ("", "abc", -1),
-        ("", "", 0),
-        ("abab", "ba", 2),
-        ("abab", "ababab", 3),
-        ("aaaaaaaaaaaaaaaaaaaa", "a", 1),
-        ("aaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaa", 1),
-        ("aaaaaaaaaaaaaaaaaaaa", "aaaaaaaaaaaaaaaaaaaaa", 2),
-        ("abcd", "abcdabcd", 2),
-        ("abcd", "abcdabcdabcdabcd", 4),
-        ("abcd", "d", 1),
-        ("abcd", "da", 2),
-    ]
-    
-    print("Testing Repeated String Match\n" + "="*60)
-    
-    sol1 = Solution()
-    sol2 = Solution2()
-    sol_kmp = SolutionKMP()
-    
-    all_pass = True
-    
-    for idx, (a, b, expected) in enumerate(test_cases, 1):
-        result1 = sol1.repeatedStringMatch(a, b)
-        result2 = sol2.repeatedStringMatch(a, b)
-        result_kmp = sol_kmp.repeatedStringMatch(a, b)
-        
-        pass1 = result1 == expected
-        pass2 = result2 == expected
-        pass_kmp = result_kmp == expected
-        
-        if not (pass1 and pass2 and pass_kmp):
-            all_pass = False
-        
-        print(f"Test {idx:2d}: {'✓ PASS' if pass1 and pass2 and pass_kmp else '✗ FAIL'}")
-        print(f"   a = '{a}'")
-        print(f"   b = '{b}'")
-        print(f"   Method 1: {result1:2d}, Method 2: {result2:2d}, KMP: {result_kmp:2d} (Expected: {expected:2d})")
-        if not (pass1 and pass2 and pass_kmp):
-            print(f"   MISMATCH!")
-        print("-" * 60)
-    
-    print(f"\nOverall: {'ALL TESTS PASSED ✓' if all_pass else 'SOME TESTS FAILED ✗'}")
-    
-    # Additional analysis
-    print("\n" + "="*60)
-    print("ALGORITHM ANALYSIS")
-    print("="*60)
-    print("""
-    Method 1 (Naive Approach):
-    - Time Complexity: O(n * m) in worst case (n = len(a), m = len(b))
-    - Space Complexity: O(n + m)
-    - Pros: Simple to understand
-    - Cons: Inefficient for large strings
-    
-    Method 2 (Optimized):
-    - Time Complexity: O(n * m) in worst case
-    - Space Complexity: O(n + m)
-    - Pros: Calculates exact range to check
-    
-    Method 3 (KMP):
-    - Time Complexity: O(n + m)
-    - Space Complexity: O(m) for KMP table
-    - Pros: Linear time, handles worst cases efficiently
-    - Cons: More complex implementation
-    
-    Why we only need to check up to n+2 repetitions:
-    - The worst case is when b starts from the end of one a and ends at the 
-      beginning of another a
-    - Example: a="abc", b="cabcabca" needs 4 repetitions
-    - Mathematically, we need at most ceil(len(b)/len(a)) + 1 repetitions
-    """)
-    
-    # Performance test with large strings
-    print("\n" + "="*60)
-    print("PERFORMANCE TEST SIMULATION")
-    print("="*60)
-    
-    import time
-    
-    # Create test case with large strings
-    large_a = "abcde" * 1000  # 5000 chars
-    large_b = "deabc" + "abcde" * 999  # Pattern that needs matching
-    
-    print(f"Large test case:")
-    print(f"  len(a) = {len(large_a)}")
-    print(f"  len(b) = {len(large_b)}")
-    
-    start = time.time()
-    result1 = sol1.repeatedStringMatch(large_a, large_b)
-    time1 = time.time() - start
-    
-    start = time.time()
-    result2 = sol2.repeatedStringMatch(large_a, large_b)
-    time2 = time.time() - start
-    
-    start = time.time()
-    result_kmp = sol_kmp.repeatedStringMatch(large_a, large_b)
-    time_kmp = time.time() - start
-    
-    print(f"\nResults (all should be 2):")
-    print(f"  Method 1: {result1}, Time: {time1:.6f}s")
-    print(f"  Method 2: {result2}, Time: {time2:.6f}s")
-    print(f"  KMP:      {result_kmp}, Time: {time_kmp:.6f}s")
+solution = Solution()
+solution2 = Solution2()
+solutionKMP = SolutionKMP()
 
+a = "abcd"
+b = "cdabcdab"
+print(solution.repeatedStringMatch(a, b))     # 3
+print(solution2.repeatedStringMatch(a, b))    # 3
+print(solutionKMP.repeatedStringMatch(a, b))  # 3
 
-if __name__ == "__main__":
-    run_tests()
+a = "a"
+b = "aa"
+print(solution.repeatedStringMatch(a, b))     # 2
+
+a = "abc"
+b = "def"
+print(solution.repeatedStringMatch(a, b))     # -1
+
+a = "abab"
+b = "ba"
+print(solution.repeatedStringMatch(a, b))     # 2
+
+a = "abcd"
+b = "da"
+print(solution.repeatedStringMatch(a, b))     # 2

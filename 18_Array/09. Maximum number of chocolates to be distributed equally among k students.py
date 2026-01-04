@@ -9,29 +9,27 @@ Approach:
 
 def maxNumOfChocolates(arr, k):
     prefix_sum = 0
-    remainder_index = {}   # remainder -> first index
+    remainder_sum = {}   # remainder -> first prefix_sum
     max_sum = 0
 
-    for i in range(len(arr)):
-        prefix_sum += arr[i]
+    for num in arr:
+        prefix_sum += num
         rem = prefix_sum % k
 
         # Case 1: whole prefix divisible by k
         if rem == 0:
             max_sum = max(max_sum, prefix_sum)
 
-        # Case 2: first time remainder appears
-        elif rem not in remainder_index:
-            remainder_index[rem] = i
+        # Case 2: first time this remainder appears
+        elif rem not in remainder_sum:
+            remainder_sum[rem] = prefix_sum
 
         # Case 3: remainder seen before
         else:
-            max_sum = max(
-                max_sum,
-                prefix_sum - (sum(arr[:remainder_index[rem] + 1]))
-            )
+            max_sum = max(max_sum, prefix_sum - remainder_sum[rem])
 
     return max_sum // k
+
 
 
 # ---------------- DRIVER CODE ----------------

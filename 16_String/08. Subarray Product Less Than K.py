@@ -36,45 +36,34 @@ class Solution:
         return count
 
 
-# Driver Code with comprehensive test cases
-def run_tests():
-    test_cases = [
-        # Example 1
-        ([10, 5, 2, 6], 100, 8),
-        
-        # Example 2
-        ([1, 2, 3], 0, 0),
-        
-        # All 1s
-        ([1, 1, 1, 1], 2, 10),
-        
-        # Single element
-        ([5], 6, 1),
-        ([5], 4, 0),
-        
-        # Zeros (each [0] is valid if k > 0)
-        ([0, 0, 0], 1, 3),
-        
-        # Mixed
-        ([2, 3, 4, 5], 20, 7),
-        
-        # All elements > k
-        ([10, 20, 30], 5, 0),
-    ]
-    
-    print("Testing Subarray Product Less Than K\n" + "="*50)
-    
-    sol = Solution()
-    
-    for idx, (nums, k, expected) in enumerate(test_cases, 1):
-        result = sol.numSubarrayProductLessThanK(nums[:], k)
-        status = "✓ PASS" if result == expected else "✗ FAIL"
-        print(f"Test {idx:2d}: {status}")
-        print(f"   nums: {nums}")
-        print(f"   k:    {k}")
-        print(f"   Output: {result} (Expected: {expected})")
-        print("-" * 50)
+# Driver Code with # Driver Code (simple & clean like longestCommonPrefix example)
 
+solution = Solution()
 
-if __name__ == "__main__":
-    run_tests()
+nums = [10, 5, 2, 6]
+k = 100
+print(solution.numSubarrayProductLessThanK(nums, k))  # 8
+
+nums = [1, 2, 3]
+k = 0
+print(solution.numSubarrayProductLessThanK(nums, k))  # 0
+
+nums = [1, 1, 1, 1]
+k = 2
+print(solution.numSubarrayProductLessThanK(nums, k))  # 10
+
+nums = [5]
+k = 6
+print(solution.numSubarrayProductLessThanK(nums, k))  # 1
+
+nums = [5]
+k = 4
+print(solution.numSubarrayProductLessThanK(nums, k))  # 0
+
+nums = [2, 3, 4, 5]
+k = 20
+print(solution.numSubarrayProductLessThanK(nums, k))  # 7
+
+nums = [10, 20, 30]
+k = 5
+print(solution.numSubarrayProductLessThanK(nums, k))  # 0
